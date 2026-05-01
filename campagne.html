@@ -1,1 +1,318 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Into The Shift — campagne</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/asap@5/index.css"><link rel="stylesheet" href="style.css"></head><body data-page="campagne"><script src="header.js"></script><main class="page" id="app"></main><script src="intotheshift-data.js"></script><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Préparer la campagne — Into The Shift</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/asap@5/index.css">
+<link rel="stylesheet" href="style.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18375d}
+.topbar{background:#18375d;display:flex;align-items:center;padding:0 24px;height:54px;gap:12px;position:sticky;top:0;z-index:50}
+.logo{display:flex;align-items:stretch}.logo-self{font-size:20px;font-weight:700;color:#fff;letter-spacing:-.5px;align-self:center}
+.logo-tech{background:#eb6366;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 5px;margin-left:3px;border-radius:2px;min-height:30px}
+.logo-tech span{font-size:8px;font-weight:700;color:#fff;line-height:1.05;letter-spacing:.5px}.tb-sp{flex:1}
+.acct{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:5px 13px 5px 5px}
+.av{width:26px;height:26px;border-radius:50%;background:#eb6366;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}.acct-n{font-size:13px;color:rgba(255,255,255,.9)}
+.subnav{background:#fff;border-bottom:1px solid #e2e8f0;display:flex;padding:8px 18px;gap:4px;overflow-x:auto}.subnav::-webkit-scrollbar{display:none}
+.sn{padding:7px 14px;border-radius:8px;font-size:12px;color:#64748b;cursor:pointer;border:none;background:transparent;white-space:nowrap;font-weight:500;font-family:'Asap',sans-serif;transition:all .12s}
+.sn.on{background:#18375d;color:#fff;font-weight:600}.sn:not(.on):hover{background:#eef1f6;color:#18375d}
+.breadcrumb{display:flex;align-items:center;gap:6px;padding:11px 24px;border-bottom:1px solid #f0f4f8;background:#fafbfc;flex-wrap:wrap}
+.bc-link{font-size:12px;color:#007883;cursor:pointer;font-weight:500}.bc-link:hover{text-decoration:underline}.bc-sep{font-size:12px;color:#c5ccd5}.bc-cur{font-size:12px;color:#64748b}
+.stepper-wrap{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 24px;overflow-x:auto}.stepper{display:flex;align-items:center;gap:0;min-width:600px}
+.step{display:flex;align-items:center;gap:8px;flex-shrink:0}.step-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.step-circle.done{background:#007883;color:#fff}.step-circle.active{background:#18375d;color:#fff}.step-circle.todo{background:#edf1f7;color:#94a3b8}
+.step-label{font-size:12px;font-weight:600;white-space:nowrap}.step-label.done{color:#007883}.step-label.active{color:#18375d}.step-label.todo{color:#c5ccd5}
+.step-connector{flex:1;height:2px;margin:0 12px;border-radius:1px;min-width:20px}.step-connector.done{background:#007883}.step-connector.todo{background:#e2e8f0}
+.page-wrap{max-width:1100px;margin:0 auto;padding:24px 24px 60px}.page-title{font-size:20px;font-weight:700;color:#18375d;margin-bottom:6px}
+.page-sub{font-size:13px;color:#64748b;line-height:1.5;max-width:720px;margin-bottom:22px}
+.launch-grid{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}@media(max-width:900px){.launch-grid{grid-template-columns:1fr}}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}@media(max-width:650px){.kpi-grid{grid-template-columns:1fr}}
+.kpi{background:#fff;border:1px solid #d8e0ea;border-radius:12px;padding:14px}.kpi-lbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.kpi-val{font-size:18px;font-weight:800;color:#18375d}.kpi-sub{font-size:11px;color:#64748b;margin-top:3px;line-height:1.35}
+.progress-wrap{height:8px;background:#edf1f7;border-radius:20px;overflow:hidden;margin:8px 0}.progress-fill{height:100%;width:40%;background:#007883;border-radius:20px}
+.block{background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:22px 24px;margin-bottom:16px}
+.block-title{font-size:15px;font-weight:700;color:#18375d;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.block-sub{font-size:12px;color:#94a3b8;line-height:1.5;margin-bottom:18px}
+.launch-url-box{background:#f0f8f7;border:1px solid #b8dfe0;border-radius:12px;padding:14px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.url-label{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}.url-big{font-size:13px;color:#007883;font-weight:700;word-break:break-all}
+.btn-copy,.btn-test,.btn-secondary,.btn-ai{border:none;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Asap',sans-serif;display:inline-flex;align-items:center;gap:7px;transition:all .12s;text-decoration:none}
+.btn-copy{background:#007883;color:#fff}.btn-copy:hover{background:#00656e}.btn-test,.btn-secondary{background:#fff;color:#18375d;border:1px solid #d8e0ea}.btn-test:hover,.btn-secondary:hover{background:#f7f9fc}
+.btn-ai{background:linear-gradient(90deg,#18375d,#007883);color:#fff}.btn-ai:hover{opacity:.88}
+.qr-box{width:132px;height:132px;border:1px solid #d8e0ea;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px}.qr-box canvas{width:108px!important;height:108px!important}
+.comm-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.comm-tab{padding:7px 11px;border-radius:20px;border:1px solid #d8e0ea;background:#fff;color:#64748b;font-size:11px;font-weight:700;cursor:pointer;font-family:'Asap',sans-serif}
+.comm-tab.on{background:#18375d;color:#fff;border-color:#18375d}.template-card{background:#fafbfc;border:1px solid #d8e0ea;border-radius:12px;padding:14px;margin-bottom:10px}
+.template-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.template-title{font-size:13px;font-weight:800;color:#18375d}.template-meta{font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:700;letter-spacing:.05em}
+.template-body{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:13px;font-size:12px;color:#475569;line-height:1.55;white-space:pre-wrap}
+.timeline{display:flex;flex-direction:column;gap:10px}.time-row{display:grid;grid-template-columns:54px 1fr;gap:10px;align-items:start}.time-day{font-size:11px;font-weight:800;color:#007883;background:#f0f8f7;border:1px solid #b8dfe0;border-radius:20px;padding:4px 7px;text-align:center}
+.time-txt{font-size:12px;color:#18375d;font-weight:700}.time-sub{font-size:11px;color:#64748b;margin-top:2px;line-height:1.35}
+.checklist{display:flex;flex-direction:column;gap:9px}.check-row{display:flex;gap:9px;align-items:flex-start;padding:10px 12px;border:1px solid #e2e8f0;border-radius:10px;background:#fff}.check-row input{margin-top:2px;accent-color:#007883}
+.check-title{font-size:12px;font-weight:700;color:#18375d;display:block}.check-sub{font-size:11px;color:#64748b;line-height:1.4;margin-top:2px;display:block}
+.bottom-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap}.btn-back{padding:10px 20px;border:1px solid #d8e0ea;border-radius:8px;background:#fff;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif}
+.btn-continue{padding:10px 22px;border:none;border-radius:8px;background:#eb6366;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif;display:flex;align-items:center;gap:7px}.btn-continue:disabled{background:#f5c0c1;cursor:not-allowed}
+.sidebar{position:sticky;top:78px}.sidebar-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;overflow:hidden;margin-bottom:14px}.sidebar-head{background:#18375d;padding:13px 16px}
+.sidebar-head-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}.sidebar-head-val{font-size:14px;font-weight:600;color:#fff}
+.sidebar-body{padding:14px 16px}.sidebar-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f0f4f8}.sidebar-row:last-child{border-bottom:none}
+.sidebar-row-lbl{font-size:12px;color:#64748b}.sidebar-row-val{font-size:12px;font-weight:700;color:#18375d}.status-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#edf1f7;color:#64748b}
+.sidebar-url{padding:10px 14px;background:#f0f8f7;border-top:1px solid #e2e8f0}.sidebar-url-lbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}.sidebar-url-val{font-size:11px;color:#007883;font-weight:600;word-break:break-all}
+.side-mini,.pack-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;margin-bottom:14px;overflow:hidden}.side-mini-head{padding:12px 14px;background:#18375d;color:#fff;font-size:13px;font-weight:800}.side-mini-body{padding:13px 14px}
+.pack-head{background:#fceaea;padding:10px 14px;border-bottom:1px solid #ffd6d4}.pack-head-lbl{font-size:10px;font-weight:700;color:#c0392b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}.pack-head-val{font-size:13px;font-weight:700;color:#c0392b}
+.pack-body{padding:12px 14px}.pack-bar-w{height:5px;background:#edf1f7;border-radius:3px;overflow:hidden;margin-bottom:6px}.pack-bar-f{height:100%;border-radius:3px;background:#eb6366;width:20%}.pack-note{font-size:11px;color:#94a3b8;line-height:1.4}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:20px;font-size:10px;font-weight:800;background:#fff8ec;color:#b7840a}.pill-ok{background:#f0fbf2;color:#27823a}
+</style>
+</head>
+<body>
+<div id="header"></div>
+<script src="header.js"></script>
+
+<div class="subnav">
+  <button class="sn" onclick="window.location.href='index.html'">Accueil</button>
+  <button class="sn on" onclick="window.location.href='index-bibliotheque.html'">Créer un autodiagnostic</button>
+  <button class="sn" onclick="window.location.href='index-bibliotheque.html'">Bibliothèque</button>
+  <button class="sn" onclick="window.location.href='index-bibliotheque.html'">Bases proposées</button>
+  <button class="sn" onclick="window.location.href='validation.html'">Transmission</button>
+  <button class="sn" onclick="window.location.href='parametrage.html'">Paramètres</button>
+</div>
+
+<div class="breadcrumb">
+  <span class="bc-link" onclick="window.location.href='index-bibliotheque.html'">Créer un autodiagnostic</span><span class="bc-sep">›</span>
+  <span class="bc-link" onclick="window.location.href='selftech_creer_autodiagnostic.html'">Créer un autodiagnostic</span><span class="bc-sep">›</span>
+  <span class="bc-cur">Préparer la campagne</span>
+</div>
+
+<div class="stepper-wrap">
+  <div class="stepper">
+    <div class="step"><div class="step-circle done">✓</div><span class="step-label done">Choisir</span></div><div class="step-connector done"></div>
+    <div class="step"><div class="step-circle done">✓</div><span class="step-label done">Créer</span></div><div class="step-connector done"></div>
+    <div class="step"><div class="step-circle done">✓</div><span class="step-label done">Paramétrer</span></div><div class="step-connector done"></div>
+    <div class="step"><div class="step-circle active">4</div><span class="step-label active">Campagne</span></div><div class="step-connector todo"></div>
+    <div class="step"><div class="step-circle todo">5</div><span class="step-label todo">Transmettre</span></div>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <h1 class="page-title">Préparer la campagne</h1>
+  <p class="page-sub">Préparez les messages, les relances et les supports qui serviront au lancement. Le lien définitif sera activé après transmission et intégration par Into The Shift.</p>
+
+  <div class="launch-grid">
+    <main>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="kpi-lbl">Lancement prévu</div><div class="kpi-val" id="kpi-launch">30/04/2026</div><div class="kpi-sub">Date indiquée au paramétrage</div></div>
+        <div class="kpi"><div class="kpi-lbl">Clôture choisie</div><div class="kpi-val" id="kpi-close">29/05/2026</div><div class="kpi-sub">Date choisie par le client</div></div>
+        <div class="kpi"><div class="kpi-lbl">Participation recommandée</div><div class="kpi-val">40%</div><div class="progress-wrap"><div class="progress-fill"></div></div><div class="kpi-sub">Un bon repère pour dégager des tendances exploitables, sans prétendre à une représentativité parfaite.</div></div>
+      </div>
+
+      <section class="block">
+        <div class="block-title">Lien prévisionnel de votre autodiag</div>
+        <div class="block-sub">Ce lien sert à préparer la communication. Il sera activé après validation et intégration par Into The Shift.</div>
+        <div class="launch-url-box">
+          <div><div class="url-label">URL prévisionnelle</div><div class="url-big" id="launch-url">https://selfdiag-mayt.meandyoutoo.app/mon-entreprise/securite-et-culture-de-surete</div></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-copy" onclick="copyUrl()">Copier l’URL</button><button class="btn-test" onclick="window.location.href='preview-passation.html'">Voir l’aperçu</button></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center;margin-top:16px;flex-wrap:wrap">
+          <div class="qr-box" id="qr-code" aria-label="QR code de passation"></div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#18375d;margin-bottom:4px">QR code prévisionnel</div>
+            <div style="font-size:12px;color:#64748b;line-height:1.5;max-width:470px">Ce QR code pourra être repris dans vos supports après activation du lien définitif.</div>
+            <button class="btn-secondary" style="margin-top:10px" onclick="downloadQrCode()">Télécharger le QR code</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="block-title">Messages de communication</div>
+        <div class="block-sub">Chaque message peut être copié séparément par le client.</div>
+        <div class="comm-tabs">
+          <button class="comm-tab on" onclick="showTemplate('launch', this)">Email de lancement</button>
+          <button class="comm-tab" onclick="showTemplate('reminder', this)">Relance</button>
+          <button class="comm-tab" onclick="showTemplate('last', this)">Dernière relance</button>
+          <button class="comm-tab" onclick="showTemplate('teams', this)">Teams / Slack</button>
+          <button class="comm-tab" onclick="showTemplate('intranet', this)">Post intranet</button>
+          <button class="comm-tab" onclick="showTemplate('restore', this)">Restitution</button>
+        </div>
+        <div class="template-card">
+          <div class="template-head">
+            <div><div class="template-title" id="tpl-title">Email de lancement</div><div class="template-meta" id="tpl-meta">À envoyer le jour du lancement</div></div>
+            <button class="btn-copy" onclick="copyTemplate()">Copier ce message</button>
+          </div>
+          <div class="template-body" id="tpl-body"></div>
+        </div>
+        <button class="btn-ai" onclick="regenerateTone()">✨ Adapter avec l’IA</button>
+      </section>
+
+      <section class="block">
+        <div class="block-title">Plan de relance conseillé</div>
+        <div class="block-sub">Le rythme s’adapte à la durée choisie pour la campagne.</div>
+        <div class="timeline">
+          <div class="time-row"><div class="time-day">J</div><div><div class="time-txt">Lancement</div><div class="time-sub">Email DRH + message Teams / Slack + post intranet.</div></div></div>
+          <div class="time-row"><div class="time-day" id="first-reminder-day">J+15</div><div><div class="time-txt">Première relance</div><div class="time-sub" id="first-reminder-text">Première relance après environ 15 jours de campagne.</div></div></div>
+          <div class="time-row"><div class="time-day" id="last-reminder-day">J-10</div><div><div class="time-txt">Dernière relance</div><div class="time-sub" id="last-reminder-text">Dernière relance 10 jours avant la clôture.</div></div></div>
+          <div class="time-row"><div class="time-day">Après</div><div><div class="time-txt">Restitution</div><div class="time-sub">Remercier les participants et annoncer les prochaines étapes.</div></div></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="block-title">Checklist avant publication</div>
+        <div class="block-sub">Vérifiez les points essentiels avant de rendre le lien actif.</div>
+        <div class="checklist">
+          <label class="check-row"><input type="checkbox" checked onchange="updateChecklist()"><span><span class="check-title">Introduction validée</span><span class="check-sub">Le caractère 100 % anonyme est clairement expliqué.</span></span></label>
+          <label class="check-row"><input type="checkbox" checked onchange="updateChecklist()"><span><span class="check-title">Données socio-démo vérifiées</span><span class="check-sub">Les croisements ne créent pas de groupes trop identifiables.</span></span></label>
+          <label class="check-row"><input type="checkbox" onchange="updateChecklist()"><span><span class="check-title">Lien testé</span><span class="check-sub">Le lien de passation fonctionne sur ordinateur et mobile.</span></span></label>
+          <label class="check-row"><input type="checkbox" onchange="updateChecklist()"><span><span class="check-title">Messages prêts</span><span class="check-sub">Les emails et messages internes ont été relus.</span></span></label>
+          <label class="check-row"><input type="checkbox" onchange="updateChecklist()"><span><span class="check-title">Relances planifiées</span><span class="check-sub">Une ou plusieurs relances sont prévues pendant la période de passation.</span></span></label>
+        </div>
+      </section>
+
+      <div class="bottom-actions">
+        <button class="btn-back" onclick="window.location.href='parametrage.html'">← Retour au paramétrage</button>
+        <button class="btn-continue" id="btn-launch" onclick="publishAutodiag()" disabled>Continuer vers la transmission</button>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-head"><div class="sidebar-head-lbl">Autodiagnostic</div><div class="sidebar-head-val" id="sb-title">Sécurité & culture de sûreté</div></div>
+        <div class="sidebar-body">
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Statut</span><span class="status-badge">Prêt à transmettre</span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Questions</span><span class="sidebar-row-val" id="sb-q">15</span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Profils</span><span class="sidebar-row-val" id="sb-profils">9</span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Lancement</span><span class="sidebar-row-val" id="sb-launch">30/04/2026</span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Clôture choisie</span><span class="sidebar-row-val" id="sb-close">29/05/2026</span></div>
+        </div>
+        <div class="sidebar-url"><div class="sidebar-url-lbl">URL de passation</div><div class="sidebar-url-val" id="sb-url">https://selfdiag-mayt.meandyoutoo.app/mon-entreprise/securite-et-culture-de-surete</div></div>
+      </div>
+
+      <div class="side-mini">
+        <div class="side-mini-head">Préparation</div>
+        <div class="side-mini-body">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px"><span style="font-size:12px;color:#64748b">Checklist</span><span class="pill" id="check-pill">2/5</span></div>
+          <div class="progress-wrap"><div class="progress-fill" id="check-progress" style="width:40%"></div></div>
+          <div style="font-size:11px;color:#94a3b8;line-height:1.4">Le bouton s’active quand tous les points de préparation sont cochés.</div>
+        </div>
+      </div>
+
+      <div class="pack-card">
+        <div class="pack-head"><div class="pack-head-lbl">Pack passations</div><div class="pack-head-val">Pack à confirmer</div></div>
+        <div class="pack-body"><div class="pack-bar-w"><div class="pack-bar-f"></div></div><div class="pack-note">Ces passations sont mutualisées pour tous les autodiagnostics de votre entreprise.</div></div>
+      </div>
+
+      <div class="side-mini">
+        <div class="side-mini-head">Besoin d’aide ?</div>
+        <div class="side-mini-body">
+          <div style="font-size:12px;color:#475569;line-height:1.5;margin-bottom:10px">Contactez-nous pour obtenir des visuels, adapter les messages ou préparer la restitution.</div>
+          <button class="btn-secondary" onclick="alert('Demande envoyée')">Contacter Into The Shift</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+var LS_KEY = 'selftech_current_ad';
+
+var templates = {
+  launch:{title:"Email de lancement",meta:"À envoyer le jour du lancement",body:"Bonjour à toutes et tous,\n\nNous lançons aujourd’hui un autodiagnostic consacré à la sécurité et à la culture de sûreté.\n\nIl vous propose des situations concrètes du quotidien professionnel pour mieux identifier vos réflexes, vos points d’appui et les sujets à renforcer collectivement.\n\nLa démarche est entièrement anonyme : aucun login, aucun mot de passe, aucun cookie, aucun suivi d’adresse IP. Vos réponses ne pourront pas être reliées à votre identité.\n\nTemps estimé : 5 à 7 minutes.\n\nLien de passation : {{URL}}\n\nMerci pour votre participation."},
+  reminder:{title:"Email de relance",meta:"À envoyer à mi-campagne environ",body:"Bonjour,\n\nPetit rappel : l’autodiagnostic est toujours ouvert.\n\nVotre participation est importante pour mieux comprendre les pratiques du quotidien et cibler les actions les plus utiles.\n\nLa démarche est anonyme et prend seulement 5 à 7 minutes.\n\nLien de passation : {{URL}}\n\nMerci à celles et ceux qui ont déjà répondu."},
+  last:{title:"Email dernière relance",meta:"À envoyer avant la clôture",body:"Bonjour,\n\nDernière relance pour participer à l’autodiagnostic avant la clôture de la campagne.\n\nVotre retour compte pour obtenir une vision plus juste des réflexes et besoins du terrain.\n\nLa démarche reste entièrement anonyme.\n\nLien de passation : {{URL}}\n\nMerci pour votre contribution."},
+  teams:{title:"Message Teams / Slack",meta:"Format court pour canal interne",body:"📣 L’autodiagnostic sécurité & culture de sûreté est ouvert.\n\n5 à 7 minutes, 100 % anonyme, sans login ni suivi individuel.\n\n👉 {{URL}}\n\nMerci pour votre participation !"},
+  intranet:{title:"Post intranet",meta:"À publier sur l’intranet ou une newsletter interne",body:"Nous lançons un autodiagnostic pour mieux comprendre les réflexes sécurité du quotidien.\n\nL’objectif n’est pas d’évaluer les personnes, mais d’identifier les leviers utiles pour progresser collectivement.\n\nLa participation est anonyme et prend 5 à 7 minutes.\n\nAccéder à l’autodiagnostic : {{URL}}"},
+  restore:{title:"Message de restitution",meta:"À envoyer après la clôture",body:"Bonjour à toutes et tous,\n\nMerci pour votre participation à l’autodiagnostic.\n\nVos réponses permettent d’identifier les pratiques déjà solides et les sujets sur lesquels nous pouvons progresser collectivement.\n\nLes résultats seront analysés de manière agrégée et donneront lieu à des actions adaptées.\n\nMerci encore pour votre contribution."}
+};
+
+function getUrl(){return document.getElementById('launch-url').textContent;}
+
+function showTemplate(key,btn){
+  document.querySelectorAll('.comm-tab').forEach(function(b){b.classList.remove('on')});
+  if(btn) btn.classList.add('on');
+  var t=templates[key]||templates.launch;
+  document.getElementById('tpl-title').textContent=t.title;
+  document.getElementById('tpl-meta').textContent=t.meta;
+  document.getElementById('tpl-body').textContent=t.body.replaceAll('{{URL}}',getUrl());
+}
+
+function copyUrl(){if(navigator.clipboard)navigator.clipboard.writeText(getUrl());alert('Lien copié');}
+function copyTemplate(){var text=document.getElementById('tpl-body').textContent;if(navigator.clipboard)navigator.clipboard.writeText(text);alert('Message copié');}
+function regenerateTone(){alert("Simulation IA : ici, on pourra adapter le ton selon le contexte, le public et le niveau d'urgence.");}
+
+function drawQrCode(url){
+  var container=document.getElementById('qr-code'); if(!container)return; container.innerHTML='';
+  var size=29,px=6,canvas=document.createElement('canvas'); canvas.width=size*px; canvas.height=size*px;
+  var ctx=canvas.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+  function drawFinder(x,y){ctx.fillStyle='#18375d';ctx.fillRect(x*px,y*px,7*px,7*px);ctx.fillStyle='#fff';ctx.fillRect((x+1)*px,(y+1)*px,5*px,5*px);ctx.fillStyle='#18375d';ctx.fillRect((x+2)*px,(y+2)*px,3*px,3*px);}
+  drawFinder(0,0); drawFinder(size-7,0); drawFinder(0,size-7);
+  var h=2166136261; for(var i=0;i<url.length;i++){h^=url.charCodeAt(i);h+=(h<<1)+(h<<4)+(h<<7)+(h<<8)+(h<<24);}
+  for(var y=0;y<size;y++){for(var x=0;x<size;x++){
+    var inFinder=(x<8&&y<8)||(x>=size-8&&y<8)||(x<8&&y>=size-8); if(inFinder)continue;
+    var v=(h+x*374761393+y*668265263+(x*y)*2246822519)>>>0;
+    var on=((v^(v>>13))&7)<3; if((x===6||y===6)&&!inFinder)on=(x+y)%2===0;
+    if(on){ctx.fillStyle='#18375d';ctx.fillRect(x*px,y*px,px,px);}
+  }}
+  container.appendChild(canvas);
+}
+
+function downloadQrCode(){
+  var canvas=document.querySelector('#qr-code canvas'); if(!canvas){drawQrCode(getUrl());canvas=document.querySelector('#qr-code canvas');}
+  if(!canvas)return; var a=document.createElement('a'); a.download='qr-code-autodiagnostic-selftech.png'; a.href=canvas.toDataURL('image/png'); a.click();
+}
+
+function updateChecklist(){
+  var boxes=Array.from(document.querySelectorAll('.check-row input'));
+  var checked=boxes.filter(function(b){return b.checked}).length,total=boxes.length,pct=Math.round((checked/total)*100);
+  document.getElementById('check-pill').textContent=checked+'/'+total;
+  document.getElementById('check-progress').style.width=pct+'%';
+  document.getElementById('check-pill').className='pill '+(checked===total?'pill-ok':'');
+  document.getElementById('btn-launch').disabled=checked!==total;
+}
+
+function formatDateISOToFR(s){if(!s)return'—';var p=String(s).split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:s;}
+function parseISODate(s){var p=String(s||'').split('-');return p.length===3?new Date(parseInt(p[0],10),parseInt(p[1],10)-1,parseInt(p[2],10)):null;}
+function diffDays(a,b){return(!a||!b)?null:Math.round((b.getTime()-a.getTime())/(1000*60*60*24));}
+
+function updateReminderPlan(launchISO,closeISO){
+  var duration=diffDays(parseISODate(launchISO),parseISODate(closeISO));
+  var firstDay='J+15',lastDay='J-10',firstText='Première relance après environ 15 jours de campagne.',lastText='Dernière relance 10 jours avant la clôture.';
+  if(duration!==null&&duration>0){
+    if(duration<15){firstDay='J+'+Math.max(3,Math.round(duration/2));lastDay='J-2';firstText='Relance rapide à prévoir, car la campagne est courte.';lastText='Dernière relance 2 jours avant la clôture.';}
+    else if(duration<30){firstDay='J+'+Math.max(7,Math.round(duration/2));lastDay='J-5';firstText='Première relance à mi-campagne, car la période est plus courte.';lastText='Dernière relance 5 jours avant la clôture.';}
+  }
+  document.getElementById('first-reminder-day').textContent=firstDay;
+  document.getElementById('last-reminder-day').textContent=lastDay;
+  document.getElementById('first-reminder-text').textContent=firstText;
+  document.getElementById('last-reminder-text').textContent=lastText;
+}
+
+function initFromStorage(){
+  try{
+    var raw=localStorage.getItem(LS_KEY),stored=raw?JSON.parse(raw):{},meta=stored.meta||{};
+    var themeTitle=(stored.theme&&stored.theme.title)||meta.nom||'Sécurité & culture de sûreté';
+    var slug=meta.slug||'securite-et-culture-de-surete';
+    var companySlug=(meta.entreprise_slug||meta.entrepriseSlug||meta.organisation_slug||'mon-entreprise');
+    var url='https://selfdiag-mayt.meandyoutoo.app/'+companySlug+'/'+slug;
+    document.getElementById('sb-title').textContent=themeTitle.replace(/^Autodiagnostic\s+/i,'');
+    document.getElementById('launch-url').textContent=url; document.getElementById('sb-url').textContent=url;
+    var launch=meta.date_lancement||meta.dateLancement||'2026-04-30',close=meta.date_cloture||meta.dateCloture||'2026-05-29';
+    document.getElementById('kpi-launch').textContent=formatDateISOToFR(launch); document.getElementById('kpi-close').textContent=formatDateISOToFR(close);
+    document.getElementById('sb-launch').textContent=formatDateISOToFR(launch); document.getElementById('sb-close').textContent=formatDateISOToFR(close);
+    updateReminderPlan(launch,close);
+    if(stored.theme&&stored.theme.chapters){
+      var chs=stored.theme.chapters;
+      document.getElementById('sb-q').textContent=chs.reduce(function(a,c){return a+((c.questions||[]).length)},0);
+      document.getElementById('sb-profils').textContent=chs.reduce(function(a,c){return a+((c.profils||[]).length)},0);
+    }
+  }catch(e){console.warn('Impossible de charger les données de lancement',e);}
+  showTemplate('launch',document.querySelector('.comm-tab'));
+  drawQrCode(getUrl());
+  updateChecklist();
+}
+
+function publishAutodiag(){
+  try{var raw=localStorage.getItem(LS_KEY),stored=raw?JSON.parse(raw):{};stored.launch_ready=true;stored.status='published';localStorage.setItem(LS_KEY,JSON.stringify(stored));}catch(e){}
+  alert('Campagne prête à transmettre');
+  window.location.href='validation.html';
+}
+
+initFromStorage();
+</script>
+</body>
+</html>
