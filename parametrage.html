@@ -131,11 +131,10 @@ textarea.inp{resize:vertical;min-height:90px;line-height:1.6}
 
 <div class="subnav">
   <button class="sn" onclick="window.location.href='index-bibliotheque.html'">Bibliothèque</button>
-  <button class="sn on" onclick="window.location.href='index-bibliotheque.html'">Mes autodiagnostics</button>
-  <button class="sn" onclick="window.location.href='index-bibliotheque.html'">Ma bibliothèque</button>
-  <button class="sn" onclick="window.location.href='index-bibliotheque.html'">Bibliothèque partagée</button>
-  <button class="sn" onclick="window.location.href='validation.html'">Résultats</button>
-  <button class="sn" onclick="window.location.href='parametrage.html'">Paramètres</button>
+  <button class="sn" onclick="window.location.href='questions.html'">Création</button>
+  <button class="sn on" onclick="window.location.href='parametrage.html'">Paramétrage</button>
+  <button class="sn" onclick="window.location.href='campagne.html'">Campagne</button>
+  <button class="sn" onclick="window.location.href='validation.html'">Transmission</button>
 </div>
 
 <div class="breadcrumb">
@@ -179,11 +178,11 @@ textarea.inp{resize:vertical;min-height:90px;line-height:1.6}
         <div class="inp-row">
           <div class="field">
             <label>Nom de l'autodiagnostic<span class="req">*</span></label>
-            <input class="inp" id="nom" type="text" value="Autodiagnostic sécurité &amp; sûreté au travail" oninput="save();updateSidebar()">
+            <input class="inp" id="nom" type="text" value="Autodiagnostic sécurité &amp; sûreté au travail" oninput="syncSlugFromContent();save();updateSidebar()">
           </div>
           <div class="field">
             <label>Titre visible par les répondants<span class="req">*</span></label>
-            <input class="inp" id="titre" type="text" placeholder="Rédigez un titre engageant pour le collaborateur" oninput="save()">
+            <input class="inp" id="titre" type="text" placeholder="Rédigez un titre engageant pour le collaborateur" oninput="syncSlugFromContent();save()">
           </div>
         </div>
         <div class="field">
@@ -284,7 +283,10 @@ textarea.inp{resize:vertical;min-height:90px;line-height:1.6}
           Ajouter une ressource
         </button>
         <div class="block-divider"></div>
-        <div style="font-size:12px;font-weight:700;color:#18375d;margin-bottom:10px;font-family:'Asap',sans-serif">Aperçu</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px">
+          <div style="font-size:12px;font-weight:700;color:#18375d;font-family:'Asap',sans-serif">Aperçu</div>
+          <button type="button" class="btn-add" onclick="openPassationPreview()">Voir l’aperçu de la passation</button>
+        </div>
         <div class="preview-box" id="preview-box"></div>
       </div>
 
@@ -383,17 +385,12 @@ function init() {
     document.getElementById('date-lancement').value = stored.launchDate || (stored.meta && stored.meta.date_lancement) || '';
     document.getElementById('date-cloture').value = stored.closeDate || (stored.meta && stored.meta.date_cloture) || '';
     document.getElementById('slug').value = (stored.meta && stored.meta.slug) || slugify(themeTitle);
+    if (stored.packPassations && document.getElementById('pack-passations')) document.getElementById('pack-passations').value = stored.packPassations;
     if (stored.intro) document.getElementById('intro').value = stored.intro;
-    if (stored.packPassations && document.getElementById("pack-passations")) document.getElementById("pack-passations").value = stored.packPassations;
     if (stored.demographics && stored.demographics.length) sociodemo = stored.demographics;
     if (stored.sociodemo && stored.sociodemo.length) sociodemo = stored.sociodemo;
     if (stored.resources && stored.resources.length) {
-      resources = stored.resources.map(function(r){
-        return {
-          titre: r.titre || '',
-          url: String(r.url || '').replace('https://www.sonora-rh.fr', 'https://www.monentreprise.fr')
-        };
-      });
+      resources = stored.resources.map(function(r){ return { titre: r.titre || '', url: String(r.url || '').replace('https://www.sonora-rh.fr', 'https://www.monentreprise.fr') }; });
     }
     document.getElementById('sb-theme').textContent = themeTitle;
     if (stored.chapters) {
@@ -405,7 +402,6 @@ function init() {
   } catch(e) { console.warn('Impossible de charger le paramétrage', e); }
   renderSociodemo();
   renderResources();
-  updatePack();
   updateSlug();
   checkAnonymity();
   checkContinue();
@@ -425,7 +421,7 @@ function save() {
     };
     existing.title = document.getElementById('titre').value || existing.title || document.getElementById('nom').value.replace(/^Autodiagnostic\s+/i,'');
     existing.clientName = existing.clientName || 'Mon entreprise';
-    existing.packPassations = document.getElementById("pack-passations").value;
+    existing.packPassations = document.getElementById('pack-passations') ? document.getElementById('pack-passations').value : (existing.packPassations || '200');
     existing.launchDate = document.getElementById('date-lancement').value;
     existing.closeDate = document.getElementById('date-cloture').value;
     existing.intro = document.getElementById('intro').value;
@@ -615,12 +611,32 @@ function updatePreview() {
   var resHTML = resources.map(function(r){ return '<div class="preview-res-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="#007883" stroke-width="2" stroke-linecap="round"/><polyline points="15 3 21 3 21 9" stroke="#007883" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="#007883" stroke-width="2" stroke-linecap="round"/></svg>'+esc(r.titre)+'</div>'; }).join('');
   previewEl.innerHTML = '<div class="preview-label">Aperçu — ressources affichées dans l\'autodiagnostic</div>'+(resources.length ? '<div class="preview-res">Ressources complémentaires</div>'+resHTML : '<p class="preview-msg">Aucune ressource ajoutée pour le moment.</p>');
 }
+function getThemeTitleForSlug() {
+  var titre = document.getElementById('titre') ? document.getElementById('titre').value.trim() : '';
+  var nom = document.getElementById('nom') ? document.getElementById('nom').value.trim().replace(/^Autodiagnostic\s+/i,'') : '';
+  var sb = document.getElementById('sb-theme') ? document.getElementById('sb-theme').textContent.trim() : '';
+  return titre || nom || sb || 'mon-autodiagnostic';
+}
+function syncSlugFromContent() {
+  var slugEl = document.getElementById('slug');
+  if (!slugEl) return;
+  var current = slugEl.value.trim();
+  var base = slugify(getThemeTitleForSlug()) || 'mon-autodiagnostic';
+  if (!current || current === 'securite-surete-travail' || current === 'nouveau-theme' || current === 'autodiagnostic-personnalise') {
+    slugEl.value = base;
+    updateSlug();
+  }
+}
 function updatePack() {
   var el = document.getElementById('pack-passations');
   if (!el) return;
   var label = el.value === 'illimite' ? 'Illimité' : Number(el.value).toLocaleString('fr-FR') + ' passations';
   var packVal = document.getElementById('pack-val');
   if (packVal) packVal.textContent = label;
+}
+function openPassationPreview() {
+  save();
+  window.open('apercu-passation.html', '_blank');
 }
 function checkContinue() {
   var ok = document.getElementById('intro').value.trim().length > 0
