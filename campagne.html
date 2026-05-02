@@ -38,6 +38,18 @@ body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18
 .bottom-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap}.btn-back{padding:10px 20px;border:1px solid #d8e0ea;border-radius:8px;background:#fff;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif}.btn-continue{padding:10px 22px;border:none;border-radius:8px;background:#eb6366;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif;display:flex;align-items:center;gap:7px}.btn-continue:disabled{background:#f5c0c1;cursor:not-allowed}
 .sidebar{position:sticky;top:78px}.sidebar-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;overflow:hidden;margin-bottom:14px}.sidebar-head{background:#18375d;padding:13px 16px}.sidebar-head-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}.sidebar-head-val{font-size:14px;font-weight:600;color:#fff}.sidebar-body{padding:14px 16px}.sidebar-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f0f4f8}.sidebar-row:last-child{border-bottom:none}.sidebar-row-lbl{font-size:12px;color:#64748b}.sidebar-row-val{font-size:12px;font-weight:700;color:#18375d}.status-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#edf1f7;color:#64748b}.sidebar-url{padding:10px 14px;background:#f0f8f7;border-top:1px solid #e2e8f0}.sidebar-url-lbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}.sidebar-url-val{font-size:11px;color:#007883;font-weight:600;word-break:break-all}
 .side-mini,.pack-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;margin-bottom:14px;overflow:hidden}.side-mini-head{padding:12px 14px;background:#18375d;color:#fff;font-size:13px;font-weight:800}.side-mini-body{padding:13px 14px}.pack-head{background:#fceaea;padding:10px 14px;border-bottom:1px solid #ffd6d4}.pack-head-lbl{font-size:10px;font-weight:700;color:#c0392b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}.pack-head-val{font-size:13px;font-weight:700;color:#c0392b}.pack-body{padding:12px 14px}.pack-bar-w{height:5px;background:#edf1f7;border-radius:3px;overflow:hidden;margin-bottom:6px}.pack-bar-f{height:100%;border-radius:3px;background:#eb6366;width:20%}.pack-note{font-size:11px;color:#94a3b8;line-height:1.4}.pack-contact{display:inline-flex;margin-top:10px;font-size:12px;font-weight:800;color:#007883;text-decoration:none}.pack-contact:hover{text-decoration:underline}.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:20px;font-size:10px;font-weight:800;background:#fff8ec;color:#b7840a}.pill-ok{background:#f0fbf2;color:#27823a}
+
+.preview-modal{position:fixed;inset:0;background:rgba(15,30,55,.52);z-index:200;display:none;align-items:center;justify-content:center;padding:28px}
+.preview-modal.on{display:flex}
+.preview-shell{width:min(920px,66vw);height:min(860px,88vh);background:#eef0f4;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.28);overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.35)}
+.preview-head{height:54px;background:#fff;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0}
+.preview-head-title{font-size:13px;font-weight:800;color:#18375d}
+.preview-close{width:32px;height:32px;border-radius:8px;border:1px solid #d8e0ea;background:#fff;color:#64748b;cursor:pointer;font-size:16px;font-weight:800}
+.preview-close:hover{background:#f7f9fc;color:#18375d}
+.preview-frame{overflow:auto;flex:1;padding:18px 0 34px}
+.pass-hbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:11px 24px;text-align:center;position:sticky;top:0;z-index:10}.pass-hbar-title{font-size:13px;font-weight:600;color:#64748b}.pass-page{max-width:600px;margin:0 auto;padding:20px 16px 56px}.pass-card{background:#fff;border-radius:14px;padding:22px 20px;box-shadow:0 1px 8px rgba(0,0,0,.06);margin-bottom:12px}.pass-hero-wrap{border-radius:14px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.06);margin-bottom:12px}.pass-hero-img{height:180px;background:linear-gradient(135deg,#18375d 0%,#0d4c72 50%,#007883 100%);display:flex;align-items:center;justify-content:center}.pass-hero-body{background:#fff;padding:22px 20px;text-align:center}.pass-hero-sup{font-size:12px;color:#94a3b8;margin-bottom:8px;font-weight:500}.pass-hero-title{font-size:22px;font-weight:700;color:#18375d;margin-bottom:20px;line-height:1.3}.pass-hero-stats{display:flex;align-items:center;justify-content:center}.pass-hero-stat{flex:1;text-align:center}.pass-hero-stat-val{font-size:22px;font-weight:700;color:#007883;line-height:1}.pass-hero-stat-lbl{font-size:12px;color:#64748b;margin-top:3px}.pass-hero-divider{width:1px;height:44px;background:#e2e8f0}.pass-btn{width:100%;padding:14px;border:none;border-radius:10px;font-size:15px;font-weight:600;font-family:'Asap',sans-serif;margin-top:4px}.pass-btn-primary{background:#18375d;color:#fff}.pass-socio-label{font-size:14px;font-weight:700;color:#18375d;margin-bottom:10px}.pass-socio-option,.pass-ans{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:9px;margin-bottom:6px;background:#fff}.pass-radio{width:18px;height:18px;border-radius:50%;border:2px solid #c5ccd5;flex-shrink:0}.pass-q-text{font-size:15px;font-weight:800;color:#18375d;line-height:1.5;margin-bottom:18px}.pass-answer-num{width:30px;height:30px;border-radius:8px;background:#edf1f7;color:#18375d;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}.pass-note{font-size:11px;color:#94a3b8;text-align:center;margin-top:10px}.pass-doc-btn{width:100%;padding:11px 14px;border:1px solid #d8e0ea;border-radius:8px;background:#fafbfc;color:#18375d;font-size:13px;text-align:left;display:flex;align-items:center;gap:10px;margin-bottom:7px}
+@media(max-width:900px){.preview-shell{width:94vw;height:90vh}.preview-modal{padding:14px}}
+
 </style>
 </head>
 <body>
@@ -89,7 +101,7 @@ body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18
           <input class="date-edit" id="date-close" type="date" onchange="updateDatesFromInputs()">
           <div class="kpi-sub">Date choisie par le client</div>
         </div>
-        <div class="kpi"><div class="kpi-lbl">Pack choisi</div><div class="kpi-val" id="kpi-pack" style="font-size:15px">—</div><select class="pack-select" id="pack-select" onchange="updatePackChoice()"><option value="200">200 passations</option><option value="500">500 passations</option><option value="1200">1 200 passations</option><option value="2000">2 000 passations</option><option value="3000">3 000 passations</option><option value="5000">5 000 passations</option><option value="7000">7 000 passations</option><option value="illimite">Illimité</option></select><div class="progress-wrap"><div class="progress-fill" id="kpi-pack-fill"></div></div><div class="kpi-sub" id="kpi-pack-sub">Passations mutualisées pour votre entreprise.</div></div>
+        <div class="kpi"><div class="kpi-lbl">Participation recommandée</div><div class="kpi-val">40%</div><div class="progress-wrap"><div class="progress-fill" style="width:40%"></div></div><div class="kpi-sub">Un bon repère pour dégager des tendances exploitables, sans prétendre à une représentativité parfaite.</div></div>
       </div>
 
       <section class="block">
@@ -97,7 +109,7 @@ body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18
         <div class="block-sub">Aperçu du futur lien collaborateur. Le lien final sera livré après transmission et validation de la campagne.</div>
         <div class="launch-url-box">
           <div><div class="url-label">URL collaborateur</div><div class="url-big" id="launch-url">—</div></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-copy" onclick="copyUrl()">Copier l’aperçu</button><button class="btn-test" onclick="alert('Le lien final sera testable après livraison.')">Test après livraison</button></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-copy" onclick="copyUrl()">Copier le lien</button><button class="btn-test" onclick="openPassationPreview()">Aperçu</button></div>
         </div>
         <div style="display:flex;gap:16px;align-items:center;margin-top:16px;flex-wrap:wrap">
           <div class="qr-box" id="qr-code" aria-label="QR code de passation"></div>
@@ -190,6 +202,7 @@ body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18
         <div class="pack-body">
           <div class="pack-bar-w"><div class="pack-bar-f" id="pack-fill"></div></div>
           <div class="pack-note">Ces passations sont mutualisées pour tous les autodiagnostics de votre entreprise.</div>
+          <select class="pack-select" id="pack-select" onchange="updatePackChoice()" style="margin-top:10px"><option value="200">200 passations</option><option value="500">500 passations</option><option value="1200">1 200 passations</option><option value="2000">2 000 passations</option><option value="3000">3 000 passations</option><option value="5000">5 000 passations</option><option value="7000">7 000 passations</option><option value="illimite">Illimité</option></select>
           <a class="pack-contact" href="mailto:contact@intotheshift.io?subject=Tarifs%20pack%20de%20passations">Pour obtenir les tarifs →</a>
         </div>
       </div>
@@ -202,6 +215,16 @@ body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18
         </div>
       </div>
     </aside>
+  </div>
+</div>
+
+<div class="preview-modal" id="passation-preview-modal" onclick="closePassationPreview(event)">
+  <div class="preview-shell" onclick="event.stopPropagation()">
+    <div class="preview-head">
+      <div class="preview-head-title">Aperçu collaborateur — autodiagnostic</div>
+      <button class="preview-close" onclick="closePassationPreview()">×</button>
+    </div>
+    <div class="preview-frame" id="passation-preview-content"></div>
   </div>
 </div>
 
@@ -403,12 +426,79 @@ function renderPack(value){
   value = normalizePackValue(value);
   const label = 'Pack ' + packLabel(value);
   document.getElementById('pack-select').value = value;
-  document.getElementById('kpi-pack').textContent = label;
-  document.getElementById('kpi-pack-sub').textContent = value === 'illimite' ? 'Passations illimitées mutualisées pour votre entreprise.' : 'Passations mutualisées pour votre entreprise.';
-  document.getElementById('kpi-pack-fill').style.width = value === 'illimite' ? '100%' : '100%';
   document.getElementById('sb-pack').textContent = label;
   document.getElementById('pack-val').textContent = label;
   document.getElementById('pack-fill').style.width = value === 'illimite' ? '100%' : '100%';
+}
+
+function normalizeAnswers(q){
+  const raw = q.answers || q.opts || [];
+  return raw.map((a,i)=> typeof a === 'string' ? {text:a,score:(q.scores||[])[i]} : {text:a.text || a.l || a.label || ('Réponse '+(i+1)), score:a.score ?? a.s});
+}
+function getIntroText(){
+  const p=getParam();
+  return p.intro || state.intro || `Bienvenue dans cet autodiagnostic consacré à ${getCleanThemeName()}. Il vous propose des situations concrètes du quotidien professionnel pour vous aider à identifier vos réflexes, vos points d’appui et vos axes de progression. Cet autodiagnostic est entièrement anonyme : aucun login, aucun mot de passe, aucun cookie, aucun suivi d’adresse IP. Temps estimé : 5 à 7 minutes.`;
+}
+function getSociodemo(){
+  const p=getParam();
+  return p.sociodemo || state.sociodemo || [{q:'À quelle catégorie appartenez-vous ?', opts:['Collaborateur·rice','Manager','Direction']}];
+}
+function getResources(){
+  const p=getParam();
+  return p.resources || state.resources || [];
+}
+function getFirstQuestion(){
+  const ch=(state.chapters||[])[0] || {};
+  return (ch.questions||[])[0] || {text:'Exemple de situation issue de votre autodiagnostic.', answers:[{text:'Réponse A'},{text:'Réponse B'},{text:'Réponse C'}]};
+}
+function openPassationPreview(){
+  const chapters=state.chapters||[];
+  const firstQ=getFirstQuestion();
+  const answers=normalizeAnswers(firstQ);
+  const socio=getSociodemo();
+  const resources=getResources();
+  const intro=getIntroText();
+  const title=(getParam().titre || getCleanThemeName());
+  const duration=Math.max(5,Math.round(((state.chapters||[]).reduce((a,ch)=>a+((ch.questions||[]).length),0)||12)*0.6));
+  document.getElementById('passation-preview-content').innerHTML = `
+    <div class="pass-hbar"><div class="pass-hbar-title">${esc(title)}</div></div>
+    <div class="pass-page">
+      <div class="pass-hero-wrap">
+        <div class="pass-hero-img">
+          <svg width="72" height="72" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M40 8L56 16V36C56 50 40 62 40 62C40 62 24 50 24 36V16L40 8Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+            <path d="M33 36L38 41L48 30" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="pass-hero-body">
+          <div class="pass-hero-sup">Autodiagnostic Into The Shift</div>
+          <div class="pass-hero-title">${esc(title)}</div>
+          <div class="pass-hero-stats">
+            <div class="pass-hero-stat"><div class="pass-hero-stat-val">${chapters.length || 1} parties</div><div class="pass-hero-stat-lbl">Ce test comporte</div></div>
+            <div class="pass-hero-divider"></div>
+            <div class="pass-hero-stat"><div class="pass-hero-stat-val">environ ${duration} min.</div><div class="pass-hero-stat-lbl">Ce test durera</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pass-card"><p style="font-size:14px;color:#475569;line-height:1.65">${esc(intro)}</p></div>
+      <div class="pass-card"><button class="pass-btn pass-btn-primary">Commencer le test</button><p class="pass-note">Pour une meilleure expérience, ouvrez cette page sur Chrome, Safari ou Firefox.</p></div>
+      <div class="pass-card">
+        <h2 style="font-size:18px;font-weight:700;color:#18375d;margin-bottom:6px">Avant de commencer</h2>
+        <p style="font-size:13px;color:#94a3b8;margin-bottom:18px">Aperçu des données socio-démo paramétrées.</p>
+        ${(socio||[]).slice(0,2).map(s=>`<div style="margin-bottom:18px"><div class="pass-socio-label">${esc(s.q || s.question || 'Question socio-démo')} <span style="color:#eb6366">*</span></div>${(s.opts||s.options||[]).slice(0,5).map(o=>`<div class="pass-socio-option"><div class="pass-radio"></div><span>${esc(o)}</span></div>`).join('')}</div>`).join('')}
+      </div>
+      <div class="pass-card">
+        <div class="pass-q-text">${esc(firstQ.text || firstQ.question)} <span style="color:#eb6366">*</span></div>
+        ${answers.slice(0,5).map((a,i)=>`<div class="pass-ans"><div class="pass-answer-num">${i+1}</div><span style="font-size:14px;color:#18375d;line-height:1.5">${esc(a.text)}</span></div>`).join('')}
+        <button class="pass-btn pass-btn-primary" style="margin-top:12px">Continuer</button>
+      </div>
+      ${resources.length ? `<div class="pass-card"><div style="font-size:13px;font-weight:700;color:#18375d;margin-bottom:12px">Pour approfondir</div>${resources.map(r=>`<div class="pass-doc-btn"><span>↗</span>${esc(r.titre || r.title || 'Ressource')}</div>`).join('')}</div>` : ''}
+    </div>`;
+  document.getElementById('passation-preview-modal').classList.add('on');
+}
+function closePassationPreview(e){
+  if(e && e.target && e.target.id !== 'passation-preview-modal') return;
+  document.getElementById('passation-preview-modal').classList.remove('on');
 }
 
 function initFromState(){
