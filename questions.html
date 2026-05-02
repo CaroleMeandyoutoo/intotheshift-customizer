@@ -20,7 +20,10 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
 .logo-tech{background:#eb6366;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 5px;margin-left:3px;border-radius:2px;min-height:30px}
 .logo-tech span{font-size:8px;font-weight:700;color:#fff;line-height:1.05;letter-spacing:0.5px}
 .tb-sp{flex:1}
-.acct{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:30px;padding:5px 13px 5px 5px}
+
+/* Compte client masqué */
+.acct{display:none!important}
+
 .av{width:26px;height:26px;border-radius:50%;background:#eb6366;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
 .acct-n{font-size:13px;color:rgba(255,255,255,0.9)}
 
@@ -120,18 +123,8 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
 .q-card.open .q-num{background:#18375d;color:#fff}
 .q-main{flex:1;min-width:0}
 .q-text{font-size:13px;font-weight:600;color:#18375d;font-family:'Asap',sans-serif;line-height:1.4;margin-bottom:7px}
-  .editable-q{
-  outline:none;
-  border-radius:6px;
-  padding:2px 4px;
-  margin-left:-4px;
-  min-height:18px;
-  cursor:text;
-}
-.editable-q:focus{
-  background:#edf1f7;
-  box-shadow:0 0 0 1px #d8e0ea inset;
-}
+.editable-q{outline:none;border-radius:6px;padding:2px 4px;margin-left:-4px;min-height:18px;cursor:text}
+.editable-q:focus{background:#edf1f7;box-shadow:0 0 0 1px #d8e0ea inset}
 .q-tags-row{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
 
 /* Tags de provenance */
@@ -273,7 +266,7 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
 .btn-add-from-base{width:26px;height:26px;border-radius:50%;background:#18375d;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0;margin-top:2px;transition:background 0.12s}
 .btn-add-from-base:hover{background:#007883}
 
-/* Modale régénération */
+/* Modales */
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,30,55,0.45);z-index:60;display:none;align-items:center;justify-content:center}
 .modal-overlay.on{display:flex}
 .modal{background:#fff;border-radius:14px;padding:26px;max-width:380px;width:90%;border:1px solid #d8e0ea;box-shadow:0 12px 32px rgba(24,55,93,0.15)}
@@ -290,52 +283,45 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
+
 <body>
 <div class="shell">
 
-  <!-- TOPBAR -->
 <div id="header"></div>
 <script src="header.js"></script>
 <script src="catalogue.js"></script>
 <script src="app.js"></script>
 
-  <!-- SUBNAV -->
-  <div class="subnav">
-    <button class="sn" onclick="window.location.href='index.html'">Bibliothèque</button>
-    <button class="sn on">Création</button>
-    <button class="sn" onclick="window.location.href='parametrage.html'">Paramétrage</button>
-    <button class="sn" onclick="window.location.href='campagne.html'">Campagne</button>
-    <button class="sn" onclick="window.location.href='validation.html'">Transmission</button>
-  </div>
+<div class="subnav">
+  <button class="sn" onclick="window.location.href='index.html'">Bibliothèque</button>
+  <button class="sn on">Création</button>
+  <button class="sn" onclick="window.location.href='parametrage.html'">Paramétrage</button>
+  <button class="sn" onclick="window.location.href='campagne.html'">Campagne</button>
+  <button class="sn" onclick="window.location.href='validation.html'">Transmission</button>
+</div>
 
-  <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <span class="bc-link" onclick="window.location.href='index.html'">Bibliothèque</span>
-    <span class="bc-sep">›</span>
-    <span class="bc-cur" id="bc-cur">Questions</span>
-  </div>
+<div class="breadcrumb">
+  <span class="bc-link" onclick="window.location.href='index.html'">Bibliothèque</span>
+  <span class="bc-sep">›</span>
+  <span class="bc-cur" id="bc-cur">Questions</span>
+</div>
 
-  <!-- LAYOUT -->
-  <div class="editor-layout">
-
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-      <div class="sb-title">Chapitres</div>
-      <div id="chap-nav"></div>
-      <div class="sb-bot">
-        <div class="sb-total" id="sb-total"></div>
-        <div class="btn-save-hint" id="btn-save-hint">4 questions min. par chapitre</div>
-        <button class="btn-save" id="btn-save" onclick="trySave()">Enregistrer le thème</button>
-      </div>
+<div class="editor-layout">
+  <div class="sidebar">
+    <div class="sb-title">Chapitres</div>
+    <div id="chap-nav"></div>
+    <div class="sb-bot">
+      <div class="sb-total" id="sb-total"></div>
+      <div class="btn-save-hint" id="btn-save-hint">4 questions min. par chapitre</div>
+      <button class="btn-save" id="btn-save" onclick="trySave()">Enregistrer le thème</button>
     </div>
-
-    <!-- MAIN -->
-    <div class="main-editor" id="main-editor"></div>
   </div>
+
+  <div class="main-editor" id="main-editor"></div>
+</div>
 
 </div>
 
-<!-- PANEL BIBLIOTHÈQUES -->
 <div class="overlay" id="overlay" onclick="closePanel()"></div>
 <div class="panel-right" id="panel-right">
   <div class="panel-head">
@@ -356,12 +342,11 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
   <div class="panel-list" id="panel-list"></div>
 </div>
 
-<!-- MODALE ENREGISTREMENT BLOQUÉ -->
 <div class="modal-overlay" id="modal-save-blocked">
   <div class="modal">
     <div style="font-size:22px;margin-bottom:12px">🔒</div>
     <h3>Impossible d'enregistrer le thème</h3>
-    <p>Certains chapitres sont incomplets. Chaque chapitre doit contenir au moins <strong>4 questions</strong> avec réponses et scores, et <strong>3 profils</strong> avec titre, résumé et description. Les chapitres suivants nécessitent des corrections :</p>
+    <p>Certains chapitres sont incomplets. Chaque chapitre doit contenir au moins <strong>4 questions</strong> avec réponses et scores, et <strong>3 profils</strong> avec titre, résumé et description.</p>
     <div id="modal-save-list" style="display:flex;flex-direction:column;gap:6px;margin:12px 0 20px"></div>
     <div class="modal-acts">
       <button class="btn-confirm" style="background:#18375d" onclick="closeSaveModal()">Compléter les questions</button>
@@ -369,8 +354,6 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
   </div>
 </div>
 
-
-<!-- MODALE PROFILS BLOQUÉS -->
 <div class="modal-overlay" id="modal-profiles-locked">
   <div class="modal">
     <div style="font-size:22px;margin-bottom:12px">🔒</div>
@@ -382,7 +365,6 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
   </div>
 </div>
 
-<!-- MODALE REGEN -->
 <div class="modal-overlay" id="modal-regen">
   <div class="modal">
     <div style="font-size:22px;margin-bottom:12px">⚠️</div>
@@ -396,14 +378,13 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
 </div>
 
 <script>
-// ── BRANCHEMENT NOUVELLE ARCHITECTURE ───────────────────────────────────────
 let state = (typeof itsLoad === 'function') ? itsLoad() : JSON.parse(localStorage.getItem('its_state') || '{}');
 if (!state || !state.chapters || !state.chapters.length) {
   window.location.href = 'index.html';
 }
 
 const PROV = {
-  AI:     {key:'ai',     label:'Base assistée par IA', ico:'🤖', cls:''},
+  AI:     {key:'ai', label:'Base assistée par IA', ico:'🤖', cls:''},
   EXPERT: {key:'expert', label:'Conçu par expert·e Me&YouToo', ico:'⭐', cls:'expert'},
   CLIENT: {key:'client', label:'Contribution client anonymisée', ico:'🤝', cls:'client'},
 };
@@ -417,17 +398,20 @@ const profils_config = [
 function esc(v){
   return String(v ?? '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 }
+
 function stripHtml(v){
   const d = document.createElement('div');
   d.innerHTML = v || '';
   return d.textContent || d.innerText || '';
 }
+
 function normalizeProv(tags){
   const joined = (tags || []).join(' ').toLowerCase();
   if (joined.includes('expert')) return 'EXPERT';
   if (joined.includes('client') || joined.includes('manuel')) return 'CLIENT';
   return 'AI';
 }
+
 function normalizeTags(tags){
   return (tags || [])
     .filter(Boolean)
@@ -435,6 +419,7 @@ function normalizeTags(tags){
     .slice(0,6)
     .map(t => ({t:String(t), ai:String(t).toLowerCase().includes('ia')}));
 }
+
 function normalizeAnswers(q){
   const answers = q.answers || [];
   return answers.map((a, i) => ({
@@ -442,6 +427,7 @@ function normalizeAnswers(q){
     s: Number(a.s ?? a.score ?? i)
   }));
 }
+
 function normalizeChaptersFromState(){
   return state.chapters.map((c, i) => {
     const profiles = c.profiles || c.profils || [];
@@ -467,14 +453,11 @@ function normalizeChaptersFromState(){
           motscles: p.motscles || p.keywords || [],
         };
       }),
-      seuils: (c.seuils || profiles.map(p => ({min:p.min, max:p.max}))).length ?
-        (c.seuils || profiles.map(p => ({min:p.min, max:p.max}))).slice(0,3).map((s, si) => ({
-          min: Number(s.min ?? [0,0.7,1.7][si]),
-          max: Number(s.max ?? [0.7,1.7,2.1][si])
-        })) : [{min:0,max:0.7},{min:0.7,max:1.7},{min:1.7,max:2.1}]
+      seuils: [{min:0,max:0.66},{min:0.66,max:1.32},{min:1.32,max:2}]
     };
   });
 }
+
 function syncToState(){
   state.chapters = chapters.map(c => ({
     title: c.name,
@@ -498,6 +481,7 @@ function syncToState(){
   if (typeof itsSave === 'function') itsSave(state);
   else localStorage.setItem('its_state', JSON.stringify(state));
 }
+
 function saveState(){ syncToState(); }
 
 let chapters = normalizeChaptersFromState();
@@ -512,6 +496,7 @@ const myLibQuestions = (typeof ITS_CATALOGUE !== 'undefined' && ITS_CATALOGUE.qu
   {id:'m1',prov:'AI',text:"Je participe activement aux exercices organisés.",tags:["Exercice","Participation"],added:false},
   {id:'m2',prov:'AI',text:"Je consulte régulièrement les informations utiles au sujet.",tags:["Veille","Compréhension"],added:false},
 ]);
+
 const sharedLibQuestions = [
   {id:'s1',prov:'EXPERT',text:"Avant de démarrer une tâche, j'identifie systématiquement les points de vigilance.",tags:["Méthode","Prévention"],added:false},
   {id:'s2',prov:'CLIENT',text:"Je remonte les situations à risque sans attendre.",tags:["Signalement","Proactivité"],added:false},
@@ -521,24 +506,27 @@ const icoRegen = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><p
 const icoTrash = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><polyline points="3 6 5 6 21 6" stroke="#eb6366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14H6L5 6" stroke="#eb6366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11v6M14 11v6" stroke="#eb6366" stroke-width="2" stroke-linecap="round"/><path d="M9 6V4h6v2" stroke="#eb6366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const icoStar = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>`;
 
-
 function questionHasValidScoring(q){
   return q && Array.isArray(q.answers) && q.answers.length >= 3 && q.answers.every(a => {
     const n = Number(a.s);
     return !isNaN(n) && n >= 0 && n <= 2;
   });
 }
+
 function chapterQuestionsReady(c){
   return c && Array.isArray(c.questions) && c.questions.length >= 4 && c.questions.every(questionHasValidScoring);
 }
+
 function openProfilesLockedModal(){
   const modal = document.getElementById('modal-profiles-locked');
   if(modal) modal.classList.add('on');
 }
+
 function closeProfilesLockedModal(){
   const modal = document.getElementById('modal-profiles-locked');
   if(modal) modal.classList.remove('on');
 }
+
 function tryOpenProfiles(i){
   activeChap = i;
   if(!chapterQuestionsReady(chapters[i])){
@@ -553,33 +541,41 @@ function tryOpenProfiles(i){
   applyAutoSeuils(chapters[i]);
   setTab(i,'profils');
 }
+
+/* ── SCORING EN MOYENNE, PAS EN ADDITION ───────── */
 function getQuestionMaxScore(q){
   const scores = (q.answers || []).map(a => Number(a.s)).filter(n => !isNaN(n));
-  return scores.length ? Math.max(...scores) : 0;
+  return scores.length ? Math.max(...scores) : 2;
 }
-function getChapterMaxScore(ch){
-  return (ch.questions || []).reduce((sum, q) => sum + getQuestionMaxScore(q), 0);
+
+function getChapterMaxAverageScore(ch){
+  const validQuestions = (ch.questions || []).filter(questionHasValidScoring);
+  if (!validQuestions.length) return 2;
+
+  const totalMax = validQuestions.reduce((sum, q) => sum + getQuestionMaxScore(q), 0);
+  return totalMax / validQuestions.length;
 }
+
 function roundScore(n){
-  return Math.round(Number(n) * 10) / 10;
+  return Math.round(Number(n) * 100) / 100;
 }
+
 function suggestAutoSeuils(ch){
-  // L’IA propose les seuils selon le score TOTAL possible du chapitre.
-  // Donc si le chapitre a plus de questions, les seuils augmentent automatiquement.
-  const max = getChapterMaxScore(ch);
-  if(!max || max <= 0) return [{min:0,max:0},{min:0,max:0},{min:0,max:0}];
+  const max = getChapterMaxAverageScore(ch);
   return [
     {min:0, max:roundScore(max * 0.33)},
     {min:roundScore(max * 0.33), max:roundScore(max * 0.66)},
     {min:roundScore(max * 0.66), max:roundScore(max)}
   ];
 }
+
 function applyAutoSeuils(ch){
   if(!chapterQuestionsReady(ch)) return;
   ch.seuils = suggestAutoSeuils(ch);
   ch.seuils_auto = true;
   saveState();
 }
+
 function refreshThresholdsAfterQuestionChange(){
   const ch = chapters[activeChap];
   if(chapterQuestionsReady(ch)) applyAutoSeuils(ch);
@@ -611,10 +607,21 @@ function renderNav() {
   const total = chapters.reduce((a, c) => a + c.questions.length, 0);
   document.getElementById('sb-total').innerHTML = `<strong>${total}</strong> questions au total`;
 }
-function selectChap(i) { activeChap = i; openCards = {}; renderNav(); renderMain(); updateSaveButton(); }
+
+function selectChap(i) {
+  activeChap = i;
+  openCards = {};
+  renderNav();
+  renderMain();
+  updateSaveButton();
+}
+
 function setTab(i, tab) {
   if(tab === 'profils'){
-    if(!chapterQuestionsReady(chapters[i])){ tryOpenProfiles(i); return; }
+    if(!chapterQuestionsReady(chapters[i])){
+      tryOpenProfiles(i);
+      return;
+    }
     applyAutoSeuils(chapters[i]);
   }
   activeChap = i;
@@ -628,12 +635,15 @@ function setTab(i, tab) {
 function renderMain() {
   const ch = chapters[activeChap];
   document.getElementById('bc-cur').textContent = activeTab === 'questions' ? `Questions — ${ch.name}` : `Profils — ${ch.name}`;
-  if (activeTab === 'questions') renderQuestions(ch); else renderProfils(ch);
+  if (activeTab === 'questions') renderQuestions(ch);
+  else renderProfils(ch);
 }
+
 function renderQuestions(ch) {
   const n = ch.questions.length;
   const pct = Math.min(100, Math.round((n / 10) * 100));
   const isEmpty = n === 0;
+
   const header = `
     <div class="chap-head">
       <div class="chap-info">
@@ -651,6 +661,7 @@ function renderQuestions(ch) {
         <button class="btn-add-manual" onclick="addManual()">Ajouter manuellement</button>
       </div>` : ''}
     </div>`;
+
   const emptyState = `
     <div style="padding:12px 0 0">
       <div onclick="confirmRegen()" style="background:linear-gradient(135deg,#18375d 0%,#007883 100%);border-radius:14px;padding:28px 24px;cursor:pointer;margin-bottom:12px">
@@ -658,19 +669,49 @@ function renderQuestions(ch) {
         <div style="font-size:12px;color:rgba(255,255,255,0.75);font-family:Asap,sans-serif;line-height:1.4">L'IA propose des mises en situation adaptées au chapitre, avec réponses et scores. Vous pourrez tout modifier ensuite.</div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div onclick="openPanel()" style="background:#fff;border:1px solid #d8e0ea;border-radius:12px;padding:18px 16px;cursor:pointer"><div style="font-size:13px;font-weight:600;color:#18375d;font-family:Asap,sans-serif;margin-bottom:3px">Piocher dans les bibliothèques</div><div style="font-size:11px;color:#94a3b8;font-family:Asap,sans-serif;line-height:1.4">Importez des questions existantes.</div></div>
-        <div onclick="addManual()" style="background:#fff;border:1px solid #d8e0ea;border-radius:12px;padding:18px 16px;cursor:pointer"><div style="font-size:13px;font-weight:600;color:#18375d;font-family:Asap,sans-serif;margin-bottom:3px">Ajouter manuellement</div><div style="font-size:11px;color:#94a3b8;font-family:Asap,sans-serif;line-height:1.4">Rédigez vos propres mises en situation.</div></div>
+        <div onclick="openPanel()" style="background:#fff;border:1px solid #d8e0ea;border-radius:12px;padding:18px 16px;cursor:pointer">
+          <div style="font-size:13px;font-weight:600;color:#18375d;font-family:Asap,sans-serif;margin-bottom:3px">Piocher dans les bibliothèques</div>
+          <div style="font-size:11px;color:#94a3b8;font-family:Asap,sans-serif;line-height:1.4">Importez des questions existantes.</div>
+        </div>
+        <div onclick="addManual()" style="background:#fff;border:1px solid #d8e0ea;border-radius:12px;padding:18px 16px;cursor:pointer">
+          <div style="font-size:13px;font-weight:600;color:#18375d;font-family:Asap,sans-serif;margin-bottom:3px">Ajouter manuellement</div>
+          <div style="font-size:11px;color:#94a3b8;font-family:Asap,sans-serif;line-height:1.4">Rédigez vos propres mises en situation.</div>
+        </div>
       </div>
     </div>`;
+
   const qHTML = isEmpty ? emptyState : ch.questions.map((q, qi) => renderCard(q, qi)).join('');
+
   document.getElementById('main-editor').innerHTML = `
     ${header}
     ${!isEmpty ? `<div class="q-counter"><span class="qc-text"><strong>${n}</strong> question${n !== 1 ? 's' : ''} · min 4, max 10</span><div class="qc-bar"><div class="qc-fill" style="width:${pct}%"></div></div></div>
-    <div class="likert-info"><span class="likert-info-ico">ℹ️</span><div class="likert-info-body"><strong>Conversion échelle → score</strong> — Les questions Likert (1→5) sont normalisées : 1=0 · 2=0,5 · 3=1 · 4=1,5 · 5=2.<span id="likert-extra" style="display:none"> Les scores des questions sont additionnés pour déterminer le profil du chapitre. Les seuils sont proposés automatiquement en fonction du nombre de questions et des scores.</span></div><span class="likert-info-toggle" onclick="toggleLikertInfo()">Voir plus</span></div>` : ''}
+    <div class="likert-info">
+      <span class="likert-info-ico">ℹ️</span>
+      <div class="likert-info-body">
+        <strong>Conversion échelle → score</strong> — Les questions Likert (1→5) sont normalisées : 1=0 · 2=0,5 · 3=1 · 4=1,5 · 5=2.
+        <span id="likert-extra" style="display:none"> Le score du chapitre est une moyenne des réponses, ce qui permet de comparer les profils même si le nombre de questions varie. Les seuils sont proposés automatiquement sur une échelle 0 → 2.</span>
+      </div>
+      <span class="likert-info-toggle" onclick="toggleLikertInfo()">Voir plus</span>
+    </div>` : ''}
     <div class="q-list" id="q-list">${qHTML}</div>`;
 }
-function toggleLikertInfo() { likertInfoOpen = !likertInfoOpen; const el=document.getElementById('likert-extra'); const btn=document.querySelector('.likert-info-toggle'); if(el) el.style.display=likertInfoOpen?'inline':'none'; if(btn) btn.textContent=likertInfoOpen?'Réduire':'Voir plus'; }
-function updateQuestionText(qid, value) { const q = chapters[activeChap].questions.find(q => q.id === qid); if (q) { q.text = value; saveState(); } }
+
+function toggleLikertInfo() {
+  likertInfoOpen = !likertInfoOpen;
+  const el = document.getElementById('likert-extra');
+  const btn = document.querySelector('.likert-info-toggle');
+  if(el) el.style.display = likertInfoOpen ? 'inline' : 'none';
+  if(btn) btn.textContent = likertInfoOpen ? 'Réduire' : 'Voir plus';
+}
+
+function updateQuestionText(qid, value) {
+  const q = chapters[activeChap].questions.find(q => q.id === qid);
+  if (q) {
+    q.text = value;
+    saveState();
+  }
+}
+
 function renderCard(q, qi) {
   const open = openCards[q.id];
   const p = PROV[q.prov] || PROV.AI;
@@ -678,61 +719,488 @@ function renderCard(q, qi) {
   const tagsHTML = (q.tags || []).map((t, ti) => `<span class="tag-pill ${t.ai ? 'ai-sug' : ''}">${t.ai ? '✦ ' : ''}${esc(t.t)}<span class="tag-x" onclick="removeTag('${q.id}',${ti});event.stopPropagation()">×</span></span>`).join('');
   const addBtn = (q.tags || []).length < 6 ? `<span class="tag-add" onclick="addTag('${q.id}');event.stopPropagation()">+ Tag</span>` : '';
   let bodyHTML = '';
+
   if (open) {
     const isLikert = q.type === 'likert';
     const answersHTML = isLikert
       ? `<div class="likert-list">${q.answers.map((a, ai) => `<div class="la-row"><div class="la-bar"></div><input class="la-inp" value="${esc(a.l)}" oninput="updateAnswer('${q.id}',${ai},'l',this.value)"><span class="la-score-info">→ score ${a.s}</span><div class="score-pill" onclick="editScore(this,event,'${q.id}',${ai})" data-score="${a.s}"><span class="sp-lbl">Score</span><span class="sp-val">${a.s}</span></div></div>`).join('')}</div>`
       : `<div class="mc-list">${q.answers.map((a, ai) => `<div class="mc-row"><div class="mc-dot"></div><input class="mc-inp" value="${esc(a.l)}" oninput="updateAnswer('${q.id}',${ai},'l',this.value)"><div class="score-pill" onclick="editScore(this,event,'${q.id}',${ai})" data-score="${a.s}"><span class="sp-lbl">Score</span><span class="sp-val">${a.s}</span></div><button class="qa-btn del" onclick="deleteAnswer('${q.id}',${ai});event.stopPropagation()">×</button></div>`).join('')}<button class="btn-add-manual" style="margin-top:8px" onclick="addAnswer('${q.id}')">+ Ajouter une réponse</button></div>`;
+
     bodyHTML = `<div class="q-body"><span class="type-badge ${isLikert ? 'tb-likert' : 'tb-choix'}">${isLikert ? 'Échelle 1→5 (normalisée 0→2)' : 'Mise en situation — choix comportemental'}</span><div class="score-note">Scores : 0 = posture fragile · 1 = intention partielle · 2 = posture constructive</div>${answersHTML}</div>`;
   }
-  return `<div class="q-card ${open ? 'open' : ''}" id="qc-${q.id}"><div class="q-header" onclick="toggleCard('${q.id}')"><div class="q-num">${qi + 1}</div><div class="q-main"><div class="q-text editable-q" contenteditable="true" spellcheck="true" onclick="event.stopPropagation()" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();} event.stopPropagation();" oninput="updateQuestionText('${q.id}', this.innerText)">${esc(q.text)}</div><div class="q-tags-row">${provHTML}${tagsHTML}${addBtn}</div></div><div class="q-right" onclick="event.stopPropagation()"><button class="q-chevron-btn" onclick="toggleCard('${q.id}')">▾</button><div class="q-vsep"></div><button class="qa-btn regen-q" title="Régénérer avec l'IA" onclick="regenOne('${q.id}',this)">${icoRegen}</button><button class="qa-btn del" title="Supprimer" onclick="deleteQ('${q.id}')">${icoTrash}</button></div></div>${bodyHTML}</div>`;
+
+  return `<div class="q-card ${open ? 'open' : ''}" id="qc-${q.id}">
+    <div class="q-header" onclick="toggleCard('${q.id}')">
+      <div class="q-num">${qi + 1}</div>
+      <div class="q-main">
+        <div class="q-text editable-q" contenteditable="true" spellcheck="true" onclick="event.stopPropagation()" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();} event.stopPropagation();" oninput="updateQuestionText('${q.id}', this.innerText)">${esc(q.text)}</div>
+        <div class="q-tags-row">${provHTML}${tagsHTML}${addBtn}</div>
+      </div>
+      <div class="q-right" onclick="event.stopPropagation()">
+        <button class="q-chevron-btn" onclick="toggleCard('${q.id}')">▾</button>
+        <div class="q-vsep"></div>
+        <button class="qa-btn regen-q" title="Régénérer avec l'IA" onclick="regenOne('${q.id}',this)">${icoRegen}</button>
+        <button class="qa-btn del" title="Supprimer" onclick="deleteQ('${q.id}')">${icoTrash}</button>
+      </div>
+    </div>
+    ${bodyHTML}
+  </div>`;
 }
-function updateAnswer(qid, ai, field, value){ const q=chapters[activeChap].questions.find(q=>q.id===qid); if(q && q.answers[ai]){ q.answers[ai][field]=field==='s'?Number(value):value; refreshThresholdsAfterQuestionChange(); saveState(); } }
-function addAnswer(qid){ const q=chapters[activeChap].questions.find(q=>q.id===qid); if(q){ q.answers.push({l:'Nouvelle réponse',s:1}); refreshThresholdsAfterQuestionChange(); saveState(); renderMain(); } }
-function deleteAnswer(qid, ai){ const q=chapters[activeChap].questions.find(q=>q.id===qid); if(q){ q.answers.splice(ai,1); refreshThresholdsAfterQuestionChange(); saveState(); renderMain(); updateSaveButton(); } }
+
+function updateAnswer(qid, ai, field, value){
+  const q = chapters[activeChap].questions.find(q => q.id === qid);
+  if(q && q.answers[ai]){
+    q.answers[ai][field] = field === 's' ? Number(value) : value;
+    refreshThresholdsAfterQuestionChange();
+    saveState();
+  }
+}
+
+function addAnswer(qid){
+  const q = chapters[activeChap].questions.find(q => q.id === qid);
+  if(q){
+    q.answers.push({l:'Nouvelle réponse',s:1});
+    refreshThresholdsAfterQuestionChange();
+    saveState();
+    renderMain();
+  }
+}
+
+function deleteAnswer(qid, ai){
+  const q = chapters[activeChap].questions.find(q => q.id === qid);
+  if(q){
+    q.answers.splice(ai,1);
+    refreshThresholdsAfterQuestionChange();
+    saveState();
+    renderMain();
+    updateSaveButton();
+  }
+}
 
 function renderProfils(ch) {
-  if(!chapterQuestionsReady(ch)){ openProfilesLockedModal(); activeTab='questions'; renderNav(); renderQuestions(ch); return; }
+  if(!chapterQuestionsReady(ch)){
+    openProfilesLockedModal();
+    activeTab = 'questions';
+    renderNav();
+    renderQuestions(ch);
+    return;
+  }
+
   applyAutoSeuils(ch);
-  const seuilsHTML = ch.seuils.map((s, i) => { const pc = profils_config[i]; return `<div class="seuil-item"><div class="seuil-dot" style="background:${pc.couleur}"></div><span class="seuil-label">${pc.nom}<br><small style="font-weight:400;color:#94a3b8">seuil IA</small></span><div class="seuil-range"><input class="seuil-inp" type="number" min="0" step="0.1" value="${s.min}" onchange="chapters[activeChap].seuils[${i}].min=parseFloat(this.value);saveState();updateSaveButton()"><span class="seuil-sep">→</span><input class="seuil-inp" type="number" min="0"  step="0.1" value="${s.max}" onchange="chapters[activeChap].seuils[${i}].max=parseFloat(this.value);saveState();updateSaveButton()"></div></div>`; }).join('');
-  const profilsHTML = ch.profils.map((p, i) => { const pc = profils_config[i]; const mkwHTML = (p.motscles||[]).map((m, mi) => `<span class="mkw" style="background:${pc.bgHead};border-color:${pc.borderHead};color:${pc.textColor}">${esc(m)}<span class="mkw-x" onclick="removeMkw(${i},${mi})">×</span></span>`).join(''); return `<div class="profil-card"><div class="profil-header" style="background:${pc.bgHead};border-bottom:1px solid ${pc.borderHead}"><div class="profil-level"><div class="profil-dot" style="background:${pc.couleur}"></div><span class="profil-level-name" style="color:${pc.textColor}">Profil ${i+1} — ${pc.nom}</span></div><div style="display:flex;align-items:center;gap:10px"><span class="profil-score-range" style="color:${pc.textColor}">Score ${ch.seuils[i].min} → ${ch.seuils[i].max}</span><button class="btn-ai-profil" style="background:rgba(0,0,0,0.08);color:${pc.textColor}" onclick="genProfil(${i})">${icoStar} Générer avec l'IA</button></div></div><div class="profil-body"><div class="pfield"><label>Titre du profil <span style="color:#eb6366">*</span></label><input type="text" value="${esc(p.titre)}" placeholder="Titre évocateur" oninput="chapters[activeChap].profils[${i}].titre=this.value;saveState();updateSaveButton()"></div><div class="pfield"><label>Phrase courte de résumé</label><input type="text" class="short" value="${esc(p.phrase)}" placeholder="Une phrase concise, bienveillante" oninput="chapters[activeChap].profils[${i}].phrase=this.value;saveState();updateSaveButton()"></div><div class="pfield"><label>Description détaillée</label><div class="rte-wrap"><div class="rte-toolbar"><button class="rte-btn" onclick="fmt('bold')" title="Gras"><b>G</b></button><button class="rte-btn" onclick="fmt('underline')" title="Souligné"><u>S</u></button><div class="rte-sep"></div><button class="rte-btn" onclick="fmt('insertUnorderedList')" title="Liste à puces">☰</button><div class="rte-sep"></div><button class="rte-btn" onclick="addLink()" title="Lien hypertexte">🔗</button></div><div class="rte-area" contenteditable="true" data-placeholder="Description bienveillante et actionnable…" oninput="chapters[activeChap].profils[${i}].description=this.innerHTML;saveState();updateSaveButton()">${p.description}</div></div></div><div class="pfield"><label>Mots clés</label><div class="mkw-wrap" onclick="this.querySelector('.mkw-inp').focus()">${mkwHTML}<input class="mkw-inp" placeholder="+ mot clé" onkeydown="addMkw(event,${i})"></div></div></div></div>`; }).join('');
-  document.getElementById('main-editor').innerHTML = `<div class="chap-head"><div class="chap-info"><div class="chap-badge">Chapitre ${activeChap+1} · Profils de résultat</div><div style="display:flex;align-items:center;gap:6px"><input class="chap-name-inp" value="${esc(ch.name)}" oninput="chapters[activeChap].name=this.value;saveState();renderNav()"><span style="color:#c5ccd5;font-size:13px">✏️</span></div><input class="chap-desc-inp" value="${esc(ch.desc)}" oninput="chapters[activeChap].desc=this.value;saveState()"></div></div><div class="seuils-card"><div class="seuils-head"><span class="seuils-title">${icoStar} Seuils de score par profil</span><span class="seuils-hint">Seuils proposés automatiquement selon les questions et les scores du chapitre. Ils sont ajustables si besoin.</span></div><div class="seuils-row">${seuilsHTML}</div></div><div class="profils-grid">${profilsHTML}</div>`;
+
+  const seuilsHTML = ch.seuils.map((s, i) => {
+    const pc = profils_config[i];
+    return `<div class="seuil-item">
+      <div class="seuil-dot" style="background:${pc.couleur}"></div>
+      <span class="seuil-label">${pc.nom}<br><small style="font-weight:400;color:#94a3b8">moyenne</small></span>
+      <div class="seuil-range">
+        <input class="seuil-inp" type="number" min="0" max="2" step="0.01" value="${s.min}" onchange="chapters[activeChap].seuils[${i}].min=parseFloat(this.value);saveState();updateSaveButton()">
+        <span class="seuil-sep">→</span>
+        <input class="seuil-inp" type="number" min="0" max="2" step="0.01" value="${s.max}" onchange="chapters[activeChap].seuils[${i}].max=parseFloat(this.value);saveState();updateSaveButton()">
+      </div>
+    </div>`;
+  }).join('');
+
+  const profilsHTML = ch.profils.map((p, i) => {
+    const pc = profils_config[i];
+    const mkwHTML = (p.motscles||[]).map((m, mi) => `<span class="mkw" style="background:${pc.bgHead};border-color:${pc.borderHead};color:${pc.textColor}">${esc(m)}<span class="mkw-x" onclick="removeMkw(${i},${mi})">×</span></span>`).join('');
+    return `<div class="profil-card">
+      <div class="profil-header" style="background:${pc.bgHead};border-bottom:1px solid ${pc.borderHead}">
+        <div class="profil-level">
+          <div class="profil-dot" style="background:${pc.couleur}"></div>
+          <span class="profil-level-name" style="color:${pc.textColor}">Profil ${i+1} — ${pc.nom}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="profil-score-range" style="color:${pc.textColor}">Moyenne ${ch.seuils[i].min} → ${ch.seuils[i].max}</span>
+          <button class="btn-ai-profil" style="background:rgba(0,0,0,0.08);color:${pc.textColor}" onclick="genProfil(${i})">${icoStar} Générer avec l'IA</button>
+        </div>
+      </div>
+      <div class="profil-body">
+        <div class="pfield">
+          <label>Titre du profil <span style="color:#eb6366">*</span></label>
+          <input type="text" value="${esc(p.titre)}" placeholder="Titre évocateur" oninput="chapters[activeChap].profils[${i}].titre=this.value;saveState();updateSaveButton()">
+        </div>
+        <div class="pfield">
+          <label>Phrase courte de résumé</label>
+          <input type="text" class="short" value="${esc(p.phrase)}" placeholder="Une phrase concise, bienveillante" oninput="chapters[activeChap].profils[${i}].phrase=this.value;saveState();updateSaveButton()">
+        </div>
+        <div class="pfield">
+          <label>Description détaillée</label>
+          <div class="rte-wrap">
+            <div class="rte-toolbar">
+              <button class="rte-btn" onclick="fmt('bold')" title="Gras"><b>G</b></button>
+              <button class="rte-btn" onclick="fmt('underline')" title="Souligné"><u>S</u></button>
+              <div class="rte-sep"></div>
+              <button class="rte-btn" onclick="fmt('insertUnorderedList')" title="Liste à puces">☰</button>
+              <div class="rte-sep"></div>
+              <button class="rte-btn" onclick="addLink()" title="Lien hypertexte">🔗</button>
+            </div>
+            <div class="rte-area" contenteditable="true" data-placeholder="Description bienveillante et actionnable…" oninput="chapters[activeChap].profils[${i}].description=this.innerHTML;saveState();updateSaveButton()">${p.description}</div>
+          </div>
+        </div>
+        <div class="pfield">
+          <label>Mots clés</label>
+          <div class="mkw-wrap" onclick="this.querySelector('.mkw-inp').focus()">${mkwHTML}<input class="mkw-inp" placeholder="+ mot clé" onkeydown="addMkw(event,${i})"></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('main-editor').innerHTML = `
+    <div class="chap-head">
+      <div class="chap-info">
+        <div class="chap-badge">Chapitre ${activeChap+1} · Profils de résultat</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <input class="chap-name-inp" value="${esc(ch.name)}" oninput="chapters[activeChap].name=this.value;saveState();renderNav()">
+          <span style="color:#c5ccd5;font-size:13px">✏️</span>
+        </div>
+        <input class="chap-desc-inp" value="${esc(ch.desc)}" oninput="chapters[activeChap].desc=this.value;saveState()">
+      </div>
+    </div>
+    <div class="seuils-card">
+      <div class="seuils-head">
+        <span class="seuils-title">${icoStar} Seuils de moyenne par profil</span>
+        <span class="seuils-hint">Seuils proposés automatiquement selon les réponses possibles. Échelle moyenne 0 → 2.</span>
+      </div>
+      <div class="seuils-row">${seuilsHTML}</div>
+    </div>
+    <div class="profils-grid">${profilsHTML}</div>`;
 }
 
-function toggleCard(id) { openCards[id] = !openCards[id]; renderMain(); }
-function deleteQ(id) { chapters[activeChap].questions = chapters[activeChap].questions.filter(q => q.id !== id); delete openCards[id]; refreshThresholdsAfterQuestionChange(); saveState(); renderNav(); renderMain(); updateSaveButton(); }
-function regenOne(id, btn) { const ch = chapters[activeChap], idx = ch.questions.findIndex(q => q.id === id); if (idx > -1) ch.questions[idx] = makeAIQuestion(id); refreshThresholdsAfterQuestionChange(); saveState(); renderNav(); renderMain(); updateSaveButton(); }
-function makeAIQuestion(id){ return { id: id || 'q' + Date.now(), type:'choix', prov:'AI', text:"Une situation nouvelle apparaît dans votre quotidien professionnel. Que faites-vous en priorité ?", tags:[{t:'Réflexe',ai:true},{t:'Situation concrète',ai:true}], answers:[{l:"J'agis vite avec les informations disponibles.",s:0},{l:"Je demande un avis avant de décider.",s:1},{l:"Je clarifie le cadre avant d'agir.",s:2}] }; }
-function addManual() { if (chapters[activeChap].questions.length >= 10) return; const id = 'q' + Date.now(); chapters[activeChap].questions.push({ id, type: 'choix', prov: 'CLIENT', text: 'Nouvelle mise en situation', tags: [], answers: [{l:'Réponse A',s:0},{l:'Réponse B',s:1},{l:'Réponse C',s:2}] }); openCards[id] = true; refreshThresholdsAfterQuestionChange(); saveState(); renderNav(); renderMain(); updateSaveButton(); }
-function addOneAI() { if (chapters[activeChap].questions.length >= 10) return; const q = makeAIQuestion('q' + Date.now()); chapters[activeChap].questions.push(q); openCards[q.id] = true; refreshThresholdsAfterQuestionChange(); saveState(); renderNav(); renderMain(); updateSaveButton(); }
-function removeTag(qid, ti) { const q = chapters[activeChap].questions.find(q => q.id === qid); if (q) q.tags.splice(ti, 1); saveState(); renderMain(); }
-function addTag(qid) { const t = prompt('Nom du tag :'); if (!t) return; const q = chapters[activeChap].questions.find(q => q.id === qid); if (q && q.tags.length < 6) q.tags.push({t, ai:false}); saveState(); renderMain(); }
-function askRegen() { const n=chapters[activeChap].questions.length; document.getElementById('modal-q-count').textContent = `${n} question${n!==1?'s':''}`; document.getElementById('modal-regen').classList.add('on'); }
-function closeRegenModal() { document.getElementById('modal-regen').classList.remove('on'); }
-function confirmRegen() { closeRegenModal(); chapters[activeChap].questions = [makeAIQuestion('qr1'), makeAIQuestion('qr2'), makeAIQuestion('qr3'), makeAIQuestion('qr4'), makeAIQuestion('qr5')]; refreshThresholdsAfterQuestionChange(); saveState(); openCards = {}; renderNav(); renderMain(); updateSaveButton(); }
+function toggleCard(id) {
+  openCards[id] = !openCards[id];
+  renderMain();
+}
 
-function editScore(pill, e, qid, ai) { e.stopPropagation(); const v = prompt('Score entre 0 et 2 :', pill.dataset.score); if (v === null) return; const n = Number(v); if (isNaN(n) || n < 0 || n > 2) return; updateAnswer(qid, ai, 's', n); renderMain(); updateSaveButton(); }
-function removeMkw(profIdx, mkIdx) { chapters[activeChap].profils[profIdx].motscles.splice(mkIdx, 1); saveState(); renderMain(); }
-function addMkw(e, profIdx) { if (e.key !== 'Enter') return; const val = e.target.value.trim(); if (!val) return; e.preventDefault(); chapters[activeChap].profils[profIdx].motscles.push(val); saveState(); renderMain(); }
-function genProfil(profIdx) { const texts = [{titre:"La prise de conscience démarre",phrase:"Vous identifiez certains réflexes, mais ils restent encore irréguliers.",desc:"Ce profil montre une posture en construction. L'objectif est de rendre les bons réflexes plus visibles et plus faciles à activer dans le quotidien."},{titre:"Les réflexes progressent",phrase:"Vous adoptez déjà plusieurs comportements utiles, mais pas encore dans toutes les situations.",desc:"Vous disposez de points d'appui solides. La prochaine étape consiste à gagner en constance, notamment dans les moments de pression ou d'incertitude."},{titre:"Les bons réflexes sont ancrés",phrase:"Vous agissez avec constance et pouvez inspirer les pratiques autour de vous.",desc:"Votre posture est installée dans le quotidien. Vous êtes une ressource pour renforcer la dynamique collective et diffuser les bons comportements."}]; const t=texts[profIdx]; Object.assign(chapters[activeChap].profils[profIdx], {titre:t.titre, phrase:t.phrase, description:t.desc}); saveState(); renderNav(); renderMain(); updateSaveButton(); }
-function fmt(cmd) { document.execCommand(cmd, false, null); }
-function addLink() { const url = prompt('URL du lien :'); if (url) document.execCommand('createLink', false, url); }
+function deleteQ(id) {
+  chapters[activeChap].questions = chapters[activeChap].questions.filter(q => q.id !== id);
+  delete openCards[id];
+  refreshThresholdsAfterQuestionChange();
+  saveState();
+  renderNav();
+  renderMain();
+  updateSaveButton();
+}
 
-function openPanel() { activeFilterTag=''; activeLib='ma'; document.getElementById('panel-search-inp').value=''; document.getElementById('overlay').classList.add('on'); document.getElementById('panel-right').classList.add('on'); updateLibToggle(); renderPanelTags(); renderPanelList('', ''); }
-function closePanel() { document.getElementById('overlay').classList.remove('on'); document.getElementById('panel-right').classList.remove('on'); }
-function switchLib(lib) { activeLib = lib; activeFilterTag=''; document.getElementById('panel-search-inp').value=''; updateLibToggle(); renderPanelTags(); renderPanelList('', ''); }
-function updateLibToggle() { document.getElementById('lib-btn-ma').classList.toggle('on', activeLib === 'ma'); document.getElementById('lib-btn-shared').classList.toggle('on', activeLib === 'shared'); }
-function currentLib() { return activeLib === 'ma' ? myLibQuestions : sharedLibQuestions; }
-function renderPanelTags() { const all = [...new Set(currentLib().flatMap(q => q.tags || []))]; document.getElementById('panel-tags-wrap').innerHTML = all.map(t => `<span class="filter-tag ${t === activeFilterTag ? 'on' : ''}" onclick="filterByTag('${esc(t)}')">${esc(t)}</span>`).join(''); }
-function filterByTag(t) { activeFilterTag = activeFilterTag === t ? '' : t; renderPanelTags(); renderPanelList(document.getElementById('panel-search-inp').value, activeFilterTag); }
-function filterPanel(val) { renderPanelList(val, activeFilterTag); }
-function renderPanelList(search, tag) { const filtered = currentLib().filter(q => !q.added && (!search || String(q.text).toLowerCase().includes(search.toLowerCase())) && (!tag || (q.tags||[]).includes(tag))); const list=document.getElementById('panel-list'); if(!filtered.length){ list.innerHTML='<div style="text-align:center;padding:28px;color:#94a3b8;font-size:13px;font-family:Asap,sans-serif">Aucune question disponible</div>'; return; } list.innerHTML = filtered.map(q => `<div class="panel-q" id="pq-${q.id}"><div style="flex:1"><div class="panel-q-text">${esc(q.text)}</div><div class="panel-q-meta"><span class="tag-prov ${q.prov==='EXPERT'?'expert':q.prov==='CLIENT'?'client':''}" style="font-size:10px">${PROV[q.prov]?.ico||'🤖'} ${PROV[q.prov]?.label||''}</span>${(q.tags||[]).map(t => `<span class="tag-pill" style="font-size:10px">${esc(t)}</span>`).join('')}</div></div><button class="btn-add-from-base" onclick="addFromLib('${q.id}')" title="Ajouter">+</button></div>`).join(''); }
-function addFromLib(qid) { if (chapters[activeChap].questions.length >= 10) return; const bq=currentLib().find(q => q.id === qid); if(!bq) return; bq.added = true; const id='q'+Date.now(); chapters[activeChap].questions.push({ id, type:'likert', prov:bq.prov||'AI', text:bq.text, tags:(bq.tags||[]).map(t=>({t,ai:false})), answers:[{l:'Jamais',s:0},{l:'Rarement',s:0.5},{l:'Parfois',s:1},{l:'Souvent',s:1.5},{l:'Toujours',s:2}] }); refreshThresholdsAfterQuestionChange(); saveState(); renderNav(); renderMain(); updateSaveButton(); renderPanelList(document.getElementById('panel-search-inp').value, activeFilterTag); }
+function regenOne(id, btn) {
+  const ch = chapters[activeChap];
+  const idx = ch.questions.findIndex(q => q.id === id);
+  if (idx > -1) ch.questions[idx] = makeAIQuestion(id);
+  refreshThresholdsAfterQuestionChange();
+  saveState();
+  renderNav();
+  renderMain();
+  updateSaveButton();
+}
 
-function chapProblems(c) { const problems=[]; if(c.questions.length < 4) problems.push({type:'q', msg:`${c.questions.length} question${c.questions.length!==1?'s':''} — minimum 4 requises`, tab:'questions'}); else { const badQ=c.questions.filter(q => !q.answers || q.answers.length < 3 || q.answers.some(a => typeof Number(a.s) !== 'number' || isNaN(Number(a.s)) || Number(a.s)<0 || Number(a.s)>2)); if(badQ.length) problems.push({type:'q', msg:`${badQ.length} question${badQ.length>1?'s':''} incomplète${badQ.length>1?'s':''} — min 3 réponses, scores entre 0 et 2 requis`, tab:'questions'}); } const badP=c.profils.filter(p => !String(p.titre).trim() || !String(p.phrase).trim() || !stripHtml(p.description).trim()); if(badP.length) problems.push({type:'p', msg:`${badP.length} profil${badP.length>1?'s':''} incomplet${badP.length>1?'s':''} — titre, résumé et description requis`, tab:'profils'}); const badS=c.seuils.some(s => isNaN(Number(s.min)) || isNaN(Number(s.max)) || Number(s.min)>=Number(s.max) || Number(s.min)<0); if(badS) problems.push({type:'p', msg:'Seuils incohérents', tab:'profils'}); return problems; }
-function updateSaveButton() { const btn=document.getElementById('btn-save'); const hint=document.getElementById('btn-save-hint'); btn.textContent='Continuer vers le paramétrage'; const allProblems=chapters.map(c=>({c, problems:chapProblems(c)})).filter(x=>x.problems.length); btn.disabled = allProblems.length > 0; hint.classList.toggle('visible', allProblems.length > 0); if(allProblems.length) hint.textContent='Questions et/ou profils incomplets sur certains chapitres'; }
-function trySave() { syncToState(); const allProblems=chapters.map(c=>({c, problems:chapProblems(c)})).filter(x=>x.problems.length); if(allProblems.length){ const list=document.getElementById('modal-save-list'); list.innerHTML=allProblems.map(({c,problems}) => problems.map(p => `<div style="display:flex;align-items:center;justify-content:space-between;background:#fafbfc;border:1px solid #e8edf4;border-radius:8px;padding:9px 14px;gap:10px"><div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:700;color:#18375d;font-family:Asap,sans-serif">Chapitre ${c.id} — ${esc(c.name)}</div><div style="font-size:11px;color:#94a3b8;font-family:Asap,sans-serif;margin-top:2px;line-height:1.4">${p.msg}</div></div><button onclick="closeSaveModal();setTab(${c.id-1},'${p.tab}')" style="background:#eb6366;color:#fff;border:none;border-radius:7px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:Asap,sans-serif;flex-shrink:0">Compléter →</button></div>`).join('')).join(''); document.getElementById('modal-save-blocked').classList.add('on'); return; } window.location.href='parametrage.html'; }
-function closeSaveModal() { document.getElementById('modal-save-blocked').classList.remove('on'); }
+function makeAIQuestion(id){
+  return {
+    id: id || 'q' + Date.now(),
+    type:'choix',
+    prov:'AI',
+    text:"Une situation nouvelle apparaît dans votre quotidien professionnel. Que faites-vous en priorité ?",
+    tags:[{t:'Réflexe',ai:true},{t:'Situation concrète',ai:true}],
+    answers:[
+      {l:"J'agis vite avec les informations disponibles.",s:0},
+      {l:"Je demande un avis avant de décider.",s:1},
+      {l:"Je clarifie le cadre avant d'agir.",s:2}
+    ]
+  };
+}
+
+function addManual() {
+  if (chapters[activeChap].questions.length >= 10) return;
+  const id = 'q' + Date.now();
+  chapters[activeChap].questions.push({
+    id,
+    type: 'choix',
+    prov: 'CLIENT',
+    text: 'Nouvelle mise en situation',
+    tags: [],
+    answers: [
+      {l:'Réponse A',s:0},
+      {l:'Réponse B',s:1},
+      {l:'Réponse C',s:2}
+    ]
+  });
+  openCards[id] = true;
+  refreshThresholdsAfterQuestionChange();
+  saveState();
+  renderNav();
+  renderMain();
+  updateSaveButton();
+}
+
+function addOneAI() {
+  if (chapters[activeChap].questions.length >= 10) return;
+  const q = makeAIQuestion('q' + Date.now());
+  chapters[activeChap].questions.push(q);
+  openCards[q.id] = true;
+  refreshThresholdsAfterQuestionChange();
+  saveState();
+  renderNav();
+  renderMain();
+  updateSaveButton();
+}
+
+function removeTag(qid, ti) {
+  const q = chapters[activeChap].questions.find(q => q.id === qid);
+  if (q) q.tags.splice(ti, 1);
+  saveState();
+  renderMain();
+}
+
+function addTag(qid) {
+  const t = prompt('Nom du tag :');
+  if (!t) return;
+  const q = chapters[activeChap].questions.find(q => q.id === qid);
+  if (q && q.tags.length < 6) q.tags.push({t, ai:false});
+  saveState();
+  renderMain();
+}
+
+function askRegen() {
+  const n = chapters[activeChap].questions.length;
+  document.getElementById('modal-q-count').textContent = `${n} question${n!==1?'s':''}`;
+  document.getElementById('modal-regen').classList.add('on');
+}
+
+function closeRegenModal() {
+  document.getElementById('modal-regen').classList.remove('on');
+}
+
+function confirmRegen() {
+  closeRegenModal();
+  chapters[activeChap].questions = [
+    makeAIQuestion('qr1'),
+    makeAIQuestion('qr2'),
+    makeAIQuestion('qr3'),
+    makeAIQuestion('qr4'),
+    makeAIQuestion('qr5')
+  ];
+  refreshThresholdsAfterQuestionChange();
+  saveState();
+  openCards = {};
+  renderNav();
+  renderMain();
+  updateSaveButton();
+}
+
+function editScore(pill, e, qid, ai) {
+  e.stopPropagation();
+  const v = prompt('Score entre 0 et 2 :', pill.dataset.score);
+  if (v === null) return;
+  const n = Number(v);
+  if (isNaN(n) || n < 0 || n > 2) return;
+  updateAnswer(qid, ai, 's', n);
+  renderMain();
+  updateSaveButton();
+}
+
+function removeMkw(profIdx, mkIdx) {
+  chapters[activeChap].profils[profIdx].motscles.splice(mkIdx, 1);
+  saveState();
+  renderMain();
+}
+
+function addMkw(e, profIdx) {
+  if (e.key !== 'Enter') return;
+  const val = e.target.value.trim();
+  if (!val) return;
+  e.preventDefault();
+  chapters[activeChap].profils[profIdx].motscles.push(val);
+  saveState();
+  renderMain();
+}
+
+function genProfil(profIdx) {
+  const texts = [
+    {
+      titre:"La prise de conscience démarre",
+      phrase:"Vous identifiez certains réflexes, mais ils restent encore irréguliers.",
+      desc:"Ce profil montre une posture en construction. L'objectif est de rendre les bons réflexes plus visibles et plus faciles à activer dans le quotidien."
+    },
+    {
+      titre:"Les réflexes progressent",
+      phrase:"Vous adoptez déjà plusieurs comportements utiles, mais pas encore dans toutes les situations.",
+      desc:"Vous disposez de points d'appui solides. La prochaine étape consiste à gagner en constance, notamment dans les moments de pression ou d'incertitude."
+    },
+    {
+      titre:"Les bons réflexes sont ancrés",
+      phrase:"Vous agissez avec constance et pouvez inspirer les pratiques autour de vous.",
+      desc:"Votre posture est installée dans le quotidien. Vous êtes une ressource pour renforcer la dynamique collective et diffuser les bons comportements."
+    }
+  ];
+  const t = texts[profIdx];
+  Object.assign(chapters[activeChap].profils[profIdx], {
+    titre:t.titre,
+    phrase:t.phrase,
+    description:t.desc
+  });
+  saveState();
+  renderNav();
+  renderMain();
+  updateSaveButton();
+}
+
+function fmt(cmd) {
+  document.execCommand(cmd, false, null);
+}
+
+function addLink() {
+  const url = prompt('URL du lien :');
+  if (url) document.execCommand('createLink', false, url);
+}
+
+function openPanel() {
+  activeFilterTag = '';
+  activeLib = 'ma';
+  document.getElementById('panel-search-inp').value = '';
+  document.getElementById('overlay').classList.add('on');
+  document.getElementById('panel-right').classList.add('on');
+  updateLibToggle();
+  renderPanelTags();
+  renderPanelList('', '');
+}
+
+function closePanel() {
+  document.getElementById('overlay').classList.remove('on');
+  document.getElementById('panel-right').classList.remove('on');
+}
+
+function switchLib(lib) {
+  activeLib = lib;
+  activeFilterTag = '';
+  document.getElementById('panel-search-inp').value = '';
+  updateLibToggle();
+  renderPanelTags();
+  renderPanelList('', '');
+}
+
+function updateLibToggle() {
+  document.getElementById('lib-btn-ma').classList.toggle('on', activeLib === 'ma');
+  document.getElementById('lib-btn-shared').classList.toggle('on', activeLib === 'shared');
+}
+
+function currentLib() {
+  return activeLib === 'ma' ? myLibQuestions : sharedLibQuestions;
+}
+
+function renderPanelTags() {
+  const all = [...new Set(currentLib().flatMap(q => q.tags || []))];
+  document.getElementById('panel-tags-wrap').innerHTML = all.map(t => `<span class="filter-tag ${t === activeFilterTag ? 'on' : ''}" onclick="filterByTag('${esc(t)}')">${esc(t)}</span>`).join('');
+}
+
+function filterByTag(t) {
+  activeFilterTag = activeFilterTag === t ? '' : t;
+  renderPanelTags();
+  renderPanelList(document.getElementById('panel-search-inp').value, activeFilterTag);
+}
+
+function filterPanel(val) {
+  renderPanelList(val, activeFilterTag);
+}
+
+function renderPanelList(search, tag) {
+  const filtered = currentLib().filter(q => !q.added && (!search || String(q.text).toLowerCase().includes(search.toLowerCase())) && (!tag || (q.tags||[]).includes(tag)));
+  const list = document.getElementById('panel-list');
+  if(!filtered.length){
+    list.innerHTML = '<div style="text-align:center;padding:28px;color:#94a3b8;font-size:13px;font-family:Asap,sans-serif">Aucune question disponible</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(q => `<div class="panel-q" id="pq-${q.id}">
+    <div style="flex:1">
+      <div class="panel-q-text">${esc(q.text)}</div>
+      <div class="panel-q-meta">
+        <span class="tag-prov ${q.prov==='EXPERT'?'expert':q.prov==='CLIENT'?'client':''}" style="font-size:10px">${PROV[q.prov]?.ico||'🤖'} ${PROV[q.prov]?.label||''}</span>
+        ${(q.tags||[]).map(t => `<span class="tag-pill" style="font-size:10px">${esc(t)}</span>`).join('')}
+      </div>
+    </div>
+    <button class="btn-add-from-base" onclick="addFromLib('${q.id}')" title="Ajouter">+</button>
+  </div>`).join('');
+}
+
+function addFromLib(qid) {
+  if (chapters[activeChap].questions.length >= 10) return;
+  const bq = currentLib().find(q => q.id === qid);
+  if(!bq) return;
+  bq.added = true;
+  const id = 'q' + Date.now();
+  chapters[activeChap].questions.push({
+    id,
+    type:'likert',
+    prov:bq.prov||'AI',
+    text:bq.text,
+    tags:(bq.tags||[]).map(t=>({t,ai:false})),
+    answers:[
+      {l:'Jamais',s:0},
+      {l:'Rarement',s:0.5},
+      {l:'Parfois',s:1},
+      {l:'Souvent',s:1.5},
+      {l:'Toujours',s:2}
+    ]
+  });
+  refreshThresholdsAfterQuestionChange();
+  saveState();
+  renderNav();
+  renderMain();
+  updateSaveButton();
+  renderPanelList(document.getElementById('panel-search-inp').value, activeFilterTag);
+}
+
+function chapProblems(c) {
+  const problems = [];
+
+  if(c.questions.length < 4) {
+    problems.push({type:'q', msg:`${c.questions.length} question${c.questions.length!==1?'s':''} — minimum 4 requises`, tab:'questions'});
+  } else {
+    const badQ = c.questions.filter(q => !q.answers || q.answers.length < 3 || q.answers.some(a => isNaN(Number(a.s)) || Number(a.s)<0 || Number(a.s)>2));
+    if(badQ.length) problems.push({type:'q', msg:`${badQ.length} question${badQ.length>1?'s':''} incomplète${badQ.length>1?'s':''} — min 3 réponses, scores entre 0 et 2 requis`, tab:'questions'});
+  }
+
+  const badP = c.profils.filter(p => !String(p.titre).trim() || !String(p.phrase).trim() || !stripHtml(p.description).trim());
+  if(badP.length) problems.push({type:'p', msg:`${badP.length} profil${badP.length>1?'s':''} incomplet${badP.length>1?'s':''} — titre, résumé et description requis`, tab:'profils'});
+
+  const badS = c.seuils.some(s => isNaN(Number(s.min)) || isNaN(Number(s.max)) || Number(s.min)>=Number(s.max) || Number(s.min)<0 || Number(s.max)>2);
+  if(badS) problems.push({type:'p', msg:'Seuils incohérents — ils doivent rester sur une moyenne 0 → 2', tab:'profils'});
+
+  return problems;
+}
+
+function updateSaveButton() {
+  const btn = document.getElementById('btn-save');
+  const hint = document.getElementById('btn-save-hint');
+  btn.textContent = 'Continuer vers le paramétrage';
+  const allProblems = chapters.map(c => ({c, problems:chapProblems(c)})).filter(x => x.problems.length);
+  btn.disabled = allProblems.length > 0;
+  hint.classList.toggle('visible', allProblems.length > 0);
+  if(allProblems.length) hint.textContent = 'Questions et/ou profils incomplets sur certains chapitres';
+}
+
+function trySave() {
+  syncToState();
+  const allProblems = chapters.map(c => ({c, problems:chapProblems(c)})).filter(x => x.problems.length);
+
+  if(allProblems.length){
+    const list = document.getElementById('modal-save-list');
+    list.innerHTML = allProblems.map(({c,problems}) => problems.map(p => `<div style="display:flex;align-items:center;justify-content:space-between;background:#fafbfc;border:1px solid #e8edf4;border-radius:8px;padding:9px 14px;gap:10px">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:700;color:#18375d;font-family:Asap,sans-serif">Chapitre ${c.id} — ${esc(c.name)}</div>
+        <div style="font-size:11px;color:#94a3b8;font-family:Asap,sans-serif;margin-top:2px;line-height:1.4">${p.msg}</div>
+      </div>
+      <button onclick="closeSaveModal();setTab(${c.id-1},'${p.tab}')" style="background:#eb6366;color:#fff;border:none;border-radius:7px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:Asap,sans-serif;flex-shrink:0">Compléter →</button>
+    </div>`).join('')).join('');
+
+    document.getElementById('modal-save-blocked').classList.add('on');
+    return;
+  }
+
+  window.location.href = 'parametrage.html';
+}
+
+function closeSaveModal() {
+  document.getElementById('modal-save-blocked').classList.remove('on');
+}
 
 renderNav();
 renderMain();
