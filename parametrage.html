@@ -2,9 +2,26 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paramétrage — Into The Shift</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/asap@5/index.css">
 <link rel="stylesheet" href="style.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18375d}
+.subnav{background:#fff;border-bottom:1px solid #e2e8f0;display:flex;padding:8px 18px;gap:4px;overflow-x:auto}
+.subnav::-webkit-scrollbar{display:none}
+.sn{padding:7px 14px;border-radius:8px;font-size:12px;color:#64748b;cursor:pointer;border:none;background:transparent;white-space:nowrap;font-weight:500;font-family:'Asap',sans-serif;transition:all .12s}
+.sn.on{background:#18375d;color:#fff;font-weight:600}.sn:not(.on):hover{background:#eef1f6;color:#18375d}
+.stepper-wrap{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 24px;overflow-x:auto}.stepper{display:flex;align-items:center;gap:0;min-width:640px}.step{display:flex;align-items:center;gap:8px;flex-shrink:0}.step-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}.step-circle.done{background:#007883;color:#fff}.step-circle.active{background:#18375d;color:#fff}.step-circle.todo{background:#edf1f7;color:#94a3b8}.step-label{font-size:12px;font-weight:600;white-space:nowrap}.step-label.done{color:#007883}.step-label.active{color:#18375d}.step-label.todo{color:#c5ccd5}.step-connector{flex:1;height:2px;margin:0 12px;border-radius:1px;min-width:20px}.step-connector.done{background:#007883}.step-connector.todo{background:#e2e8f0}
+.page-wrap{max-width:1100px;margin:0 auto;padding:24px 24px 60px}.page-title{font-size:20px;font-weight:700;color:#18375d;margin-bottom:6px}.page-sub{font-size:13px;color:#64748b;line-height:1.5;max-width:760px;margin-bottom:22px}.two-col{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}@media(max-width:860px){.two-col{grid-template-columns:1fr}}
+.block{background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:22px 24px;margin-bottom:16px}.block-title{font-size:15px;font-weight:700;color:#18375d;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.block-sub{font-size:12px;color:#94a3b8;line-height:1.5;margin-bottom:18px}.block-divider{height:1px;background:#f0f4f8;margin:16px 0}.field{margin-bottom:14px}.field label{display:block;font-size:10px;font-weight:700;color:#18375d;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}.req{color:#eb6366;margin-left:2px}.inp{width:100%;padding:9px 13px;border:1px solid #d8e0ea;border-radius:8px;font-size:13px;color:#18375d;font-family:'Asap',sans-serif;outline:none;transition:border-color .15s;background:#fff}.inp:focus{border-color:#18375d}.inp::placeholder{color:#c5ccd5}textarea.inp{resize:vertical;min-height:90px;line-height:1.6}.inp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.inp-row{grid-template-columns:1fr}}
+.url-preview{margin-top:6px;padding:8px 12px;background:#f0f8f7;border:1px solid #b8dfe0;border-radius:7px;font-size:12px;color:#007883;display:flex;align-items:center;gap:7px;flex-wrap:wrap}.url-label{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}.url-val{font-weight:600;word-break:break-all}.url-note{font-size:11px;color:#94a3b8;margin-top:4px}.oblig-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#fceaea;color:#eb6366;border:1px solid #ffd6d4}.btn-ai{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(90deg,#18375d,#007883);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif;transition:opacity .15s;margin-bottom:10px}.btn-ai:hover{opacity:.88}.btn-add{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#007883;border:1px solid #b8dfe0;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif;transition:all .12s}.btn-add:hover{background:#e5f4f5}.btn-del{width:28px;height:28px;border-radius:6px;border:1px solid #f5c0c1;background:#fceaea;color:#eb6366;cursor:pointer;display:flex;align-items:center;justify-content:center}.btn-del:hover{background:#f8d5d6}
+.socio-card{background:#fafbfc;border:1px solid #d8e0ea;border-radius:10px;padding:14px 16px;margin-bottom:10px}.socio-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.socio-card-num{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em}.socio-opts{display:flex;flex-direction:column;gap:5px;margin-top:8px}.socio-opt-row{display:flex;align-items:center;gap:8px}.socio-opt-inp{flex:1;padding:6px 10px;border:1px solid #d8e0ea;border-radius:6px;font-size:12px;color:#18375d;font-family:'Asap',sans-serif;outline:none}.btn-del-opt{width:22px;height:22px;border-radius:5px;border:none;background:#f0f2f5;color:#94a3b8;cursor:pointer;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}.btn-del-opt:hover{background:#fceaea;color:#eb6366}.btn-add-opt{font-size:11px;color:#007883;font-weight:600;background:none;border:none;cursor:pointer;padding:4px 0;margin-top:3px}.btn-add-opt:hover{text-decoration:underline}
+.alert{border-radius:9px;padding:10px 14px;font-size:12px;line-height:1.5;display:flex;align-items:flex-start;gap:8px;margin-top:12px}.alert-neutral{background:#f0f8f7;border:1px solid #b8dfe0;color:#007883}.alert-warning{background:#fff8ec;border:1px solid #ffd490;color:#b7840a}.alert-danger{background:#fceaea;border:1px solid #ffd6d4;color:#c0392b}.alert-info{background:#fff8ec;border:1px solid #ffd490;color:#b7840a}.alert-ico{font-size:14px;flex-shrink:0;margin-top:1px}
+.resource-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}.preview-box{background:#f4f6f9;border:1.5px dashed #d8e0ea;border-radius:12px;padding:18px 20px}.preview-label{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}.preview-msg{font-size:13px;color:#475569;line-height:1.6;margin-bottom:14px}.preview-res{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}.preview-res-item{display:flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #d8e0ea;border-radius:7px;margin-bottom:5px;background:#fff;font-size:12px;color:#18375d}
+.sidebar{position:sticky;top:78px}.sidebar-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;overflow:hidden;margin-bottom:12px}.sidebar-head{background:#18375d;padding:13px 16px}.sidebar-head-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}.sidebar-head-val{font-size:14px;font-weight:600;color:#fff}.sidebar-body{padding:14px 16px}.sidebar-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f0f4f8}.sidebar-row:last-child{border-bottom:none}.sidebar-row-lbl{font-size:12px;color:#64748b}.sidebar-row-val{font-size:12px;font-weight:700;color:#18375d}.status-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#edf1f7;color:#64748b}.sidebar-url{padding:10px 14px;background:#f0f8f7;border-top:1px solid #e2e8f0}.sidebar-url-lbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}.sidebar-url-val{font-size:11px;color:#007883;font-weight:600;word-break:break-all}.pack-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;overflow:hidden}.pack-head{background:#fceaea;padding:10px 14px;border-bottom:1px solid #ffd6d4}.pack-head-lbl{font-size:10px;font-weight:700;color:#c0392b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}.pack-head-val{font-size:13px;font-weight:700;color:#c0392b}.pack-body{padding:12px 14px}.pack-bar-w{height:5px;background:#edf1f7;border-radius:3px;overflow:hidden;margin-bottom:6px}.pack-bar-f{height:100%;border-radius:3px;background:#eb6366;width:20%}.pack-note{font-size:11px;color:#94a3b8;line-height:1.4}.bottom-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap}.btn-back{padding:10px 20px;border:1px solid #d8e0ea;border-radius:8px;background:#fff;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif}.btn-back:hover{background:#f7f9fc}.btn-continue{padding:10px 22px;border:none;border-radius:8px;background:#eb6366;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif;display:flex;align-items:center;gap:7px}.btn-continue:hover:not(:disabled){background:#d4474a}.btn-continue:disabled{background:#f5c0c1;cursor:not-allowed}.missing{background:#fff8ec;border-color:#ffd490}
+</style>
 </head>
 <body>
 <div id="header"></div>
@@ -32,146 +49,105 @@
 
 <div class="page-wrap">
   <h1 class="page-title">Paramétrer l'autodiagnostic</h1>
-  <p class="page-sub">Définissez ce que verront les répondants avant l’autodiagnostic, les données socio-démo utiles à l’analyse, le pack de passations et l’URL de passation.</p>
+  <p class="page-sub">Définissez ce que verront les répondants avant et après l'autodiagnostic, les données socio-démo utiles à l'analyse, et l'URL de passation.</p>
 
   <div class="two-col">
-    <main>
-      <section class="block">
+    <div>
+      <div class="block">
         <div class="block-title">Informations générales</div>
-        <div class="block-sub">Ces informations servent à identifier l’autodiagnostic et à configurer son URL de passation.</div>
+        <div class="block-sub">Ces informations servent à identifier l'autodiagnostic et à configurer son URL de passation.</div>
         <div class="inp-row">
-          <div class="field"><label>Nom de l'autodiagnostic<span class="req">*</span></label><input class="inp" id="nom" oninput="saveForm()"></div>
-          <div class="field"><label>Titre visible par les répondants<span class="req">*</span></label><input class="inp" id="titre" placeholder="Rédigez un titre engageant pour le collaborateur" oninput="saveForm()"></div>
+          <div class="field"><label>Nom de l'autodiagnostic<span class="req">*</span></label><input class="inp" id="nom" type="text" oninput="updateParam('nom',this.value);updateSidebar();checkContinue()"></div>
+          <div class="field"><label>Titre visible par les répondants<span class="req">*</span></label><input class="inp" id="titre" type="text" placeholder="Rédigez un titre engageant" oninput="updateParam('titre',this.value);checkContinue()"></div>
         </div>
-        <div class="field"><label>Description interne</label><input class="inp" id="desc" oninput="saveForm()"></div>
+        <div class="field"><label>Description interne</label><input class="inp" id="desc" type="text" oninput="updateParam('desc',this.value)"></div>
         <div class="inp-row">
-          <div class="field"><label>Date de lancement souhaitée<span class="req">*</span></label><input class="inp" id="date_lancement" type="date" oninput="saveForm()"></div>
-          <div class="field"><label>Date de clôture</label><input class="inp" id="date_cloture" type="date" oninput="saveForm()"></div>
+          <div class="field"><label>Date de lancement souhaitée<span class="req">*</span></label><input class="inp" id="date_lancement" type="date" oninput="updateParam('date_lancement',this.value);updateSidebar();checkContinue()"></div>
+          <div class="field"><label>Date de clôture</label><input class="inp" id="date_cloture" type="date" oninput="updateParam('date_cloture',this.value);updateSidebar()"></div>
         </div>
-        <div class="field">
-          <label>Pack de passations souhaité<span class="req">*</span></label>
-          <select class="inp" id="pack" onchange="saveForm()">
-            <option value="200">200 passations</option><option value="500">500 passations</option><option value="1200">1 200 passations</option><option value="2000">2 000 passations</option><option value="3000">3 000 passations</option><option value="5000">5 000 passations</option><option value="7000">7 000 passations</option><option value="illimite">Illimité</option>
-          </select>
-          <div class="url-note">Ces passations sont mutualisées pour tous les autodiagnostics de votre entreprise.</div>
-        </div>
-        <div class="field">
-          <label>Slug de l'URL<span class="req">*</span></label>
-          <input class="inp" id="slug" oninput="saveForm()">
-          <div class="url-preview"><span class="url-label">URL</span><span class="url-val" id="urlPreview"></span></div>
-          <div class="url-note">Le slug compose l’adresse de passation. Il doit être court, lisible et sans espace.</div>
-        </div>
-        <button class="btn btn-secondary" onclick="openPreview()">Voir l’aperçu de la passation</button>
-      </section>
-
-      <section class="block">
-        <div class="block-title">Introduction affichée avant l'autodiagnostic</div>
-        <div class="block-sub">Cette introduction doit préciser le caractère 100 % anonyme.</div>
-        <button class="btn btn-ai" onclick="generateIntro()">Générer une introduction avec l’IA</button>
-        <div class="field"><label>Texte d’introduction<span class="req">*</span></label><textarea class="inp" id="intro" oninput="saveForm()"></textarea></div>
-      </section>
-
-      <section class="block">
-        <div class="block-title">Données socio-démo utiles à l’analyse</div>
-        <div class="block-sub">Ajoutez uniquement les données utiles à l’analyse, en préservant l’anonymat.</div>
-        <div id="demoList"></div>
-        <button class="btn btn-add" onclick="addDemo()">+ Ajouter une donnée</button>
-      </section>
-
-      <section class="block">
-        <div class="block-title">Ressources complémentaires</div>
-        <div class="block-sub">Ajoutez les ressources utiles qui pourront être affichées dans l’autodiagnostic.</div>
-        <div id="resourceList"></div>
-        <button class="btn btn-add" onclick="addResource()">+ Ajouter une ressource</button>
-      </section>
-
-      <div class="bottom-actions">
-        <button class="btn btn-secondary" onclick="window.location.href='questions.html'">← Retour création</button>
-        <button class="btn btn-primary" onclick="next()">Continuer vers la campagne</button>
+        <div class="field"><label>Slug de l'URL<span class="req">*</span></label><input class="inp" id="slug" type="text" oninput="updateSlug(this.value);checkContinue()" placeholder="ex: securite-culture-surete"><div class="url-preview"><span class="url-label">URL</span><span class="url-val" id="url-preview"></span></div><div class="url-note">Le slug compose l'adresse de passation. Il doit être court, lisible et sans espace.</div></div>
       </div>
-    </main>
 
-    <aside class="sidebar">
-      <div class="sidebar-card">
-        <div class="sidebar-head"><div class="sidebar-head-lbl">Thème</div><div class="sidebar-head-val" id="sideTitle"></div></div>
-        <div class="sidebar-body">
-          <div class="sidebar-row"><span class="sidebar-row-lbl">Chapitres</span><span class="sidebar-row-val" id="sideChapters"></span></div>
-          <div class="sidebar-row"><span class="sidebar-row-lbl">Questions</span><span class="sidebar-row-val" id="sideQuestions"></span></div>
-          <div class="sidebar-row"><span class="sidebar-row-lbl">Profils</span><span class="sidebar-row-val" id="sideProfiles"></span></div>
-          <div class="sidebar-row"><span class="sidebar-row-lbl">Lancement</span><span class="sidebar-row-val" id="sideLaunch"></span></div>
-        </div>
-        <div class="sidebar-url"><div class="sidebar-url-lbl">URL de passation</div><div class="sidebar-url-val" id="sideUrl"></div></div>
+      <div class="block">
+        <div class="block-title">Introduction affichée avant l'autodiagnostic <span class="oblig-badge">Obligatoire avant publication</span></div>
+        <div class="block-sub">Cette introduction doit préciser le caractère <strong>100 % anonyme</strong> : aucun login, aucun mot de passe, aucun cookie, aucun suivi d'adresse IP.</div>
+        <button class="btn-ai" id="btn-gen-intro" onclick="generateIntro()">✦ Générer une introduction avec l'IA</button>
+        <div class="field" style="margin-bottom:0"><label>Texte d'introduction<span class="req">*</span></label><textarea class="inp" id="intro" rows="6" oninput="updateParam('intro',this.value);checkContinue()"></textarea></div>
       </div>
-      <div class="pack-card"><div class="pack-head"><div class="pack-head-lbl">Pack passations</div><div class="pack-head-val" id="sidePack"></div></div><div class="pack-body"><div class="pack-note">Ces passations sont mutualisées pour tous les autodiagnostics de votre entreprise.</div><br><div class="pack-note">Pour obtenir les tarifs</div><a href="mailto:cmichelon@meandyoutoo.app" style="color:#007883;font-weight:800;text-decoration:none;font-size:12px">Contactez-nous →</a></div></div>
-    </aside>
+
+      <div class="block">
+        <div class="block-title">Données socio-démo utiles à l'analyse <span class="oblig-badge">Au moins 1 requise</span></div>
+        <div class="block-sub">Ces données permettent de lire les résultats par segment et d'identifier les écarts entre populations, tout en préservant l'anonymat.</div>
+        <div class="alert alert-info" style="margin-bottom:14px"><span class="alert-ico">🔒</span><span>Plus vous ajoutez de données socio-démo, plus les croisements peuvent créer de petits groupes. Réduisez les critères si l'alerte anonymat devient trop forte.</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+          <div class="field" style="margin-bottom:0"><label>Nombre total de répondants estimé<span class="req">*</span></label><input class="inp" id="nb_repondants" type="number" min="1" oninput="updateParam('nb_repondants',parseInt(this.value||0));checkAnonymity()"></div>
+          <div style="padding:10px 14px;background:#f7f9fc;border:1px solid #e2e8f0;border-radius:8px;display:flex;flex-direction:column;justify-content:center"><div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Taille moyenne après croisement</div><div id="cross-estimate" style="font-size:16px;font-weight:700;color:#18375d">—</div><div style="font-size:10px;color:#94a3b8;margin-top:1px">personnes environ par combinaison</div></div>
+        </div>
+        <div id="anon-alert"></div><div id="socio-list"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px"><button type="button" class="btn-add" onclick="addSociodemo()">+ Ajouter une donnée</button><button type="button" class="btn-ai" style="margin-bottom:0" onclick="suggestSociodemo()">✦ Suggérer avec l'IA</button></div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">Fin d'autodiagnostic et ressources</div>
+        <div class="block-sub">Configurez le message et les ressources affichés après les résultats individuels.</div>
+        <div class="field"><label>Message de fin</label><textarea class="inp" id="msg_fin" rows="3" oninput="updateParam('message_fin',this.value);updatePreview()"></textarea></div>
+        <div class="block-divider"></div><div style="font-size:12px;font-weight:700;color:#18375d;margin-bottom:8px">Ressources complémentaires</div><div id="resources-list"></div><button type="button" class="btn-add" onclick="addResource()" style="margin-top:4px">+ Ajouter une ressource</button>
+        <div class="block-divider"></div><div style="font-size:12px;font-weight:700;color:#18375d;margin-bottom:10px">Aperçu</div><div class="preview-box" id="preview-box"></div>
+      </div>
+
+      <div class="bottom-actions"><button class="btn-back" onclick="goBack()">← Retour à l'éditeur</button><button class="btn-continue" id="btn-continue" onclick="goNext()">Continuer vers le lancement →</button></div>
+    </div>
+
+    <div class="sidebar">
+      <div class="sidebar-card"><div class="sidebar-head"><div class="sidebar-head-lbl">Thème</div><div class="sidebar-head-val" id="sb-theme"></div></div><div class="sidebar-body"><div class="sidebar-row"><span class="sidebar-row-lbl">Chapitres</span><span class="sidebar-row-val" id="sb-chap"></span></div><div class="sidebar-row"><span class="sidebar-row-lbl">Questions</span><span class="sidebar-row-val" id="sb-q"></span></div><div class="sidebar-row"><span class="sidebar-row-lbl">Profils</span><span class="sidebar-row-val" id="sb-profils"></span></div><div class="sidebar-row"><span class="sidebar-row-lbl">Statut</span><span class="status-badge">Brouillon</span></div><div class="sidebar-row"><span class="sidebar-row-lbl">Lancement</span><span class="sidebar-row-val" id="sb-lancement">À renseigner</span></div><div class="sidebar-row"><span class="sidebar-row-lbl">Clôture</span><span class="sidebar-row-val" id="sb-cloture">—</span></div></div><div class="sidebar-url"><div class="sidebar-url-lbl">URL de passation</div><div class="sidebar-url-val" id="sb-url"></div></div></div>
+      <div class="pack-card"><div class="pack-head"><div class="pack-head-lbl">Pack passations</div><div class="pack-head-val" id="pack-title">Passations mutualisées</div></div><div class="pack-body"><div class="pack-bar-w"><div class="pack-bar-f"></div></div><div class="pack-note">Ces passations sont mutualisées pour tous les autodiagnostics de l'organisation cliente.</div><div style="margin-top:10px;padding-top:10px;border-top:1px solid #f0f4f8"><div style="font-size:11px;color:#64748b;margin-bottom:5px">Besoin de recharger le pack ?</div><a href="mailto:contact@meandyoutoo.app" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#007883;text-decoration:none">Contactez-nous →</a></div></div></div>
+    </div>
   </div>
 </div>
 
 <script>
 let state = itsLoad();
-if(!state.chapters){ window.location.href="index.html"; }
+if(!state.chapters){ window.location.href = 'index.html'; }
+if(!state.parametrage) state.parametrage = {};
+if(!state.parametrage.sociodemo) state.parametrage.sociodemo = [{q:"À quelle catégorie appartenez-vous ?",opts:["Collaborateur·rice","Manager","Direction"],min_groupe:25}];
+if(!state.parametrage.resources) state.parametrage.resources = [];
 
-function fill(){
-  document.getElementById("nom").value = state.meta?.nom || ("Autodiagnostic " + state.title);
-  document.getElementById("titre").value = state.meta?.titre || "";
-  document.getElementById("desc").value = state.meta?.desc || "";
-  document.getElementById("date_lancement").value = state.meta?.date_lancement || "";
-  document.getElementById("date_cloture").value = state.meta?.date_cloture || "";
-  document.getElementById("slug").value = state.meta?.slug || itsSlugify(state.title);
-  document.getElementById("pack").value = state.packPassations || "200";
-  document.getElementById("intro").value = state.intro || "";
-  renderDemos();
-  renderResources();
-  updateSide();
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function slugify(text){return String(text||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/&/g,'et').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
+function formatDateFr(d){if(!d)return ''; const p=d.split('-'); return p.length===3 ? p[2]+'/'+p[1]+'/'+p[0] : d}
+function themeTitle(){return state.themeTitle || state.title || state.name || state.selectedTheme?.title || state.selectedTheme?.name || 'Nouveau thème'}
+function ensureDefaults(){
+  const p = state.parametrage;
+  const t = themeTitle();
+  if(!p.nom) p.nom = 'Autodiagnostic ' + t;
+  if(!p.titre) p.titre = t;
+  if(!p.desc) p.desc = 'Campagne interne sur ' + t + '.';
+  if(!p.slug) p.slug = slugify(t) || 'mon-autodiagnostic';
+  if(!p.intro) p.intro = "Bienvenue dans cet autodiagnostic consacré à " + t + ". Il vous propose des situations concrètes du quotidien professionnel pour vous aider à identifier vos réflexes, vos points d'appui et vos axes de progression. Il ne s'agit pas d'une évaluation individuelle ni d'un contrôle de performance. Cet autodiagnostic est entièrement anonyme : aucun login, aucun mot de passe, aucun cookie, aucun suivi d'adresse IP. Personne ne pourra associer vos réponses à votre identité. Vous avez donc tout intérêt à répondre sincèrement. Les résultats seront analysés de manière agrégée afin d'aider l'entreprise à mieux cibler ses actions. Temps estimé : 5 à 7 minutes.";
+  if(!p.message_fin) p.message_fin = "Merci d'avoir réalisé cet autodiagnostic. Vos réponses contribuent à mieux comprendre les pratiques du quotidien et à identifier les actions les plus utiles pour progresser collectivement.";
+  if(!p.nb_repondants) p.nb_repondants = 120;
 }
-function saveForm(){
-  state.meta = {
-    nom:document.getElementById("nom").value,
-    titre:document.getElementById("titre").value,
-    desc:document.getElementById("desc").value,
-    date_lancement:document.getElementById("date_lancement").value,
-    date_cloture:document.getElementById("date_cloture").value,
-    slug:itsSlugify(document.getElementById("slug").value)
-  };
-  document.getElementById("slug").value = state.meta.slug;
-  state.packPassations = document.getElementById("pack").value;
-  state.intro = document.getElementById("intro").value;
-  itsSave(state);
-  updateSide();
-}
-function url(){ return "https://selfdiag-mayt.meandyoutoo.app/mon-entreprise/" + (state.meta?.slug || itsSlugify(state.title)); }
-function updateSide(){
-  document.getElementById("urlPreview").textContent = url();
-  document.getElementById("sideUrl").textContent = url();
-  document.getElementById("sideTitle").textContent = state.title || "Autodiagnostic";
-  document.getElementById("sideChapters").textContent = state.chapters.length;
-  document.getElementById("sideQuestions").textContent = state.chapters.reduce((a,c)=>a+(c.questions||[]).length,0);
-  document.getElementById("sideProfiles").textContent = state.chapters.reduce((a,c)=>a+(c.profiles||[]).length,0);
-  document.getElementById("sideLaunch").textContent = itsFormatDateFR(state.meta?.date_lancement);
-  document.getElementById("sidePack").textContent = state.packPassations === "illimite" ? "Illimité" : Number(state.packPassations||200).toLocaleString("fr-FR")+" passations";
-}
-function renderDemos(){
-  document.getElementById("demoList").innerHTML = (state.demographics||[]).map((d,i)=>`
-    <div class="q-card">
-      <div class="field"><label>Question socio-démo</label><input class="inp" value="${d.q.replace(/"/g,'&quot;')}" oninput="state.demographics[${i}].q=this.value;itsSave(state)"></div>
-      <div class="field"><label>Réponses possibles</label><input class="inp" value="${(d.opts||[]).join(' | ').replace(/"/g,'&quot;')}" oninput="state.demographics[${i}].opts=this.value.split('|').map(x=>x.trim());itsSave(state)"></div>
-    </div>`).join("");
-}
-function addDemo(){ state.demographics.push({q:"Nouvelle donnée socio-démo",opts:["Option A","Option B"],min_groupe:10}); itsSave(state); renderDemos(); }
-function renderResources(){
-  document.getElementById("resourceList").innerHTML = (state.resources||[]).map((r,i)=>`
-    <div class="resource-row">
-      <input class="inp" value="${r.titre.replace(/"/g,'&quot;')}" oninput="state.resources[${i}].titre=this.value;itsSave(state)">
-      <input class="inp" value="${r.url.replace(/"/g,'&quot;')}" oninput="state.resources[${i}].url=this.value;itsSave(state)">
-      <button class="btn btn-danger" onclick="state.resources.splice(${i},1);itsSave(state);renderResources()">×</button>
-    </div>`).join("");
-}
-function addResource(){ state.resources.push({titre:"Nouvelle ressource",url:"https://www.monentreprise.fr/ressources/consignes"}); itsSave(state); renderResources(); }
-function generateIntro(){ document.getElementById("intro").value = "Bienvenue dans cet autodiagnostic consacré à " + (state.title||"votre sujet") + ". Il vous propose des situations concrètes du quotidien professionnel pour vous aider à identifier vos réflexes. Cet autodiagnostic est entièrement anonyme : aucun login, aucun mot de passe, aucun cookie, aucun suivi d’adresse IP. Les résultats seront analysés de manière agrégée."; saveForm(); }
-function openPreview(){ saveForm(); window.open("apercu-passation.html","_blank"); }
-function next(){ saveForm(); window.location.href="campagne.html"; }
-fill();
+function save(){ itsSave(state); }
+function updateParam(k,v){ state.parametrage[k]=v; save(); }
+function init(){ ensureDefaults(); const p=state.parametrage; ['nom','titre','desc','date_lancement','date_cloture','slug','intro','nb_repondants'].forEach(id=>{const el=document.getElementById(id); if(el) el.value=p[id]||''}); document.getElementById('msg_fin').value=p.message_fin||''; updateSlug(p.slug); renderSociodemo(); renderResources(); updateSidebar(); updatePreview(); checkAnonymity(); checkContinue(); }
+function updateSlug(v){ const slug=slugify(v||document.getElementById('slug').value||'mon-autodiagnostic'); state.parametrage.slug=slug; const url='app.intotheshift.app/client/'+slug; document.getElementById('slug').value=slug; document.getElementById('url-preview').textContent=url; document.getElementById('sb-url').textContent=url; save(); }
+function updateSidebar(){ const p=state.parametrage; document.getElementById('sb-theme').textContent=themeTitle(); document.getElementById('sb-chap').textContent=(state.chapters||[]).length; document.getElementById('sb-q').textContent=(state.chapters||[]).reduce((a,c)=>a+((c.questions||[]).length),0); document.getElementById('sb-profils').textContent=(state.chapters||[]).reduce((a,c)=>a+((c.profiles||c.profils||[]).length),0); document.getElementById('sb-lancement').textContent=p.date_lancement?formatDateFr(p.date_lancement):'À renseigner'; document.getElementById('sb-cloture').textContent=p.date_cloture?formatDateFr(p.date_cloture):'—'; }
+function generateIntro(){ const btn=document.getElementById('btn-gen-intro'); btn.textContent='⏳ Génération…'; btn.disabled=true; setTimeout(()=>{ state.parametrage.intro="Bienvenue dans cet autodiagnostic consacré à " + themeTitle() + ". Vous allez découvrir des situations concrètes du quotidien professionnel et choisir les réactions qui correspondent le mieux à vos réflexes. Il ne s'agit pas d'une évaluation individuelle : l'objectif est de favoriser la prise de conscience et d'identifier des pistes d'action utiles. Cet autodiagnostic est entièrement anonyme : aucun login, aucun mot de passe, aucun cookie, aucun suivi d'adresse IP. Répondez sincèrement, sans chercher la bonne réponse. Les résultats collectifs seront analysés de manière agrégée afin d'aider l'organisation à mieux cibler ses actions. Temps estimé : 5 à 7 minutes."; document.getElementById('intro').value=state.parametrage.intro; btn.textContent='Régénérer avec l\'IA'; btn.disabled=false; save(); checkContinue(); },600); }
+function renderSociodemo(){ const arr=state.parametrage.sociodemo; const c=document.getElementById('socio-list'); if(!arr.length){ c.innerHTML='<div class="alert alert-danger" style="margin-bottom:10px"><span class="alert-ico">⛔</span><span>Au moins une donnée socio-démo est nécessaire pour continuer.</span></div>'; checkContinue(); return; } c.innerHTML=arr.map((s,i)=>{ const mg=s.min_groupe; const col=mg==null?'#94a3b8':mg<5?'#c0392b':mg<10?'#b7840a':'#27823a'; const bg=mg==null?'#f0f2f5':mg<5?'#fceaea':mg<10?'#fff9ec':'#f0fbf2'; const hint=mg==null?'Estimez le plus petit groupe':mg<5?'🚨 Groupe très petit':mg<10?'⚠️ Groupe petit — restez vigilant':'✓ Groupe suffisant'; return `<div class="socio-card"><div class="socio-card-head"><span class="socio-card-num">Donnée ${i+1} · choix unique</span><button class="btn-del" onclick="removeSociodemo(${i})">×</button></div><div class="inp-row" style="margin-bottom:8px"><div class="field" style="margin-bottom:0"><label>Intitulé de la question</label><input class="inp" value="${esc(s.q)}" oninput="state.parametrage.sociodemo[${i}].q=this.value;save()"></div><div class="field" style="margin-bottom:0"><label>Effectif min. du plus petit groupe</label><input class="inp" type="number" min="1" value="${mg??''}" style="background:${bg};border-color:${col};color:${col};font-weight:700" oninput="state.parametrage.sociodemo[${i}].min_groupe=this.value?parseInt(this.value):null;save();renderSociodemo()"><div style="font-size:10px;font-weight:700;color:${col};margin-top:3px">${hint}</div></div></div><div class="field" style="margin-bottom:0"><label>Réponses possibles</label><div class="socio-opts">${(s.opts||[]).map((o,oi)=>`<div class="socio-opt-row"><input class="socio-opt-inp" value="${esc(o)}" oninput="state.parametrage.sociodemo[${i}].opts[${oi}]=this.value;save()"><button class="btn-del-opt" onclick="removeSocioOpt(${i},${oi})">×</button></div>`).join('')}</div><button class="btn-add-opt" onclick="addSocioOpt(${i})">+ Ajouter une option</button></div></div>` }).join(''); checkAnonymity(); checkContinue(); }
+function addSociodemo(){ state.parametrage.sociodemo.push({q:'Nouvelle question socio-démo',opts:['Option A','Option B','Option C'],min_groupe:null}); save(); renderSociodemo(); }
+function removeSociodemo(i){ state.parametrage.sociodemo.splice(i,1); save(); renderSociodemo(); }
+function addSocioOpt(i){ state.parametrage.sociodemo[i].opts.push('Nouvelle option'); save(); renderSociodemo(); }
+function removeSocioOpt(i,oi){ if(state.parametrage.sociodemo[i].opts.length<=2)return; state.parametrage.sociodemo[i].opts.splice(oi,1); save(); renderSociodemo(); }
+function suggestSociodemo(){ const sugg=[{q:"Ancienneté dans l'entreprise",opts:["Moins d'un an","1 à 3 ans","4 à 10 ans","Plus de 10 ans"],min_groupe:null},{q:"Type de poste",opts:["Terrain","Bureau","Encadrement","Support"],min_groupe:null},{q:"Périmètre",opts:["France","International","Groupe"],min_groupe:null}]; sugg.forEach(s=>{if(!state.parametrage.sociodemo.some(x=>x.q===s.q))state.parametrage.sociodemo.push(s)}); save(); renderSociodemo(); }
+function checkAnonymity(){ const arr=state.parametrage.sociodemo||[]; const nR=parseInt(document.getElementById('nb_repondants').value)||0; const prod=arr.reduce((a,s)=>a*((s.opts||[]).length||1),1); const cg=nR>0&&prod?Math.round((nR/prod)*10)/10:null; const cross=document.getElementById('cross-estimate'); cross.textContent=cg!==null?'≈ '+cg:'—'; cross.style.color=cg===null?'#18375d':cg<5?'#c0392b':cg<10?'#b7840a':'#27823a'; let html=''; if(cg!==null&&cg<5) html='<div class="alert alert-danger" style="margin-bottom:10px"><span class="alert-ico">🚨</span><span><strong>Risque d’anonymat élevé</strong> — Certaines combinaisons peuvent concerner très peu de répondants. Réduisez le nombre de critères.</span></div>'; else if(cg!==null&&cg<10) html='<div class="alert alert-warning" style="margin-bottom:10px"><span class="alert-ico">⚠️</span><span><strong>Risque d’anonymat à vérifier</strong> — Certains groupes peuvent être petits. Vérifiez les croisements avant restitution.</span></div>'; else if(cg!==null) html='<div class="alert alert-neutral" style="margin-bottom:10px"><span class="alert-ico">✓</span><span><strong>Croisement plutôt confortable</strong> — Chaque combinaison regroupe en moyenne environ <strong>'+cg+' personnes</strong>.</span></div>'; document.getElementById('anon-alert').innerHTML=html; save(); }
+function renderResources(){ const arr=state.parametrage.resources; document.getElementById('resources-list').innerHTML=arr.map((r,i)=>`<div class="resource-row"><input class="inp" style="flex:2;min-width:140px;font-size:12px;padding:7px 11px" value="${esc(r.titre)}" placeholder="Titre de la ressource" oninput="state.parametrage.resources[${i}].titre=this.value;save();updatePreview()"><input class="inp" style="flex:3;min-width:180px;font-size:12px;padding:7px 11px;color:#007883" type="url" value="${esc(r.url)}" placeholder="https://..." oninput="state.parametrage.resources[${i}].url=this.value;save()"><button class="btn-del" onclick="removeResource(${i})">×</button></div>`).join(''); updatePreview(); }
+function addResource(){ state.parametrage.resources.push({titre:'Nouvelle ressource',url:'https://'}); save(); renderResources(); }
+function removeResource(i){ state.parametrage.resources.splice(i,1); save(); renderResources(); }
+function updatePreview(){ const msg=state.parametrage.message_fin||''; const res=(state.parametrage.resources||[]).map(r=>`<div class="preview-res-item">↗ ${esc(r.titre)}</div>`).join(''); document.getElementById('preview-box').innerHTML='<div class="preview-label">Aperçu — fin d\'autodiagnostic</div><p class="preview-msg">'+esc(msg)+'</p>'+(res?'<div class="preview-res">Ressources complémentaires</div>'+res:''); }
+function checkContinue(){ const p=state.parametrage; const ok=(p.nom||'').trim()&&(p.titre||'').trim()&&(p.slug||'').trim()&&(p.intro||'').trim()&&(p.date_lancement||'').trim()&&(p.sociodemo||[]).length>0; document.getElementById('btn-continue').disabled=!ok; }
+function goBack(){ save(); window.location.href='questions.html'; }
+function goNext(){ state.parametrage.done=true; save(); window.location.href='campagne.html'; }
+init();
 </script>
 </body>
-</html>
 </html>
