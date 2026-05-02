@@ -2,668 +2,176 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paramétrage — Into The Shift</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/asap@5/index.css">
 <link rel="stylesheet" href="style.css">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18375d}
-.topbar{background:#18375d;display:flex;align-items:center;padding:0 24px;height:54px;gap:12px;position:sticky;top:0;z-index:50}
-.logo{display:flex;align-items:stretch}
-.logo-self{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.5px;align-self:center}
-.logo-tech{background:#eb6366;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 5px;margin-left:3px;border-radius:2px;min-height:30px}
-.logo-tech span{font-size:8px;font-weight:700;color:#fff;line-height:1.05;letter-spacing:0.5px}
-.tb-sp{flex:1}
-.acct{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:30px;padding:5px 13px 5px 5px}
-.av{width:26px;height:26px;border-radius:50%;background:#eb6366;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
-.acct-n{font-size:13px;color:rgba(255,255,255,0.9)}
-.subnav{background:#fff;border-bottom:1px solid #e2e8f0;display:flex;padding:8px 18px;gap:4px;overflow-x:auto}
-.subnav::-webkit-scrollbar{display:none}
-.sn{padding:7px 14px;border-radius:8px;font-size:12px;color:#64748b;cursor:pointer;border:none;background:transparent;white-space:nowrap;font-weight:500;font-family:'Asap',sans-serif;transition:all 0.12s}
-.sn.on{background:#18375d;color:#fff;font-weight:600}
-.sn:not(.on):hover{background:#eef1f6;color:#18375d}
-.breadcrumb{display:flex;align-items:center;gap:6px;padding:11px 24px;border-bottom:1px solid #f0f4f8;background:#fafbfc;flex-wrap:wrap}
-.bc-link{font-size:12px;color:#007883;cursor:pointer;font-weight:500;font-family:'Asap',sans-serif}
-.bc-link:hover{text-decoration:underline}
-.bc-sep{font-size:12px;color:#c5ccd5}
-.bc-cur{font-size:12px;color:#64748b;font-family:'Asap',sans-serif}
-.stepper-wrap{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 24px;overflow-x:auto}
-.stepper{display:flex;align-items:center;gap:0;min-width:600px}
-.step{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.step-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'Asap',sans-serif;flex-shrink:0}
-.step-circle.done{background:#007883;color:#fff}
-.step-circle.active{background:#18375d;color:#fff}
-.step-circle.todo{background:#edf1f7;color:#94a3b8}
-.step-label{font-size:12px;font-weight:600;font-family:'Asap',sans-serif;white-space:nowrap}
-.step-label.done{color:#007883}
-.step-label.active{color:#18375d}
-.step-label.todo{color:#c5ccd5}
-.step-connector{flex:1;height:2px;margin:0 12px;border-radius:1px;min-width:20px}
-.step-connector.done{background:#007883}
-.step-connector.todo{background:#e2e8f0}
-.page-wrap{max-width:1100px;margin:0 auto;padding:24px 24px 60px}
-.page-title{font-size:20px;font-weight:700;color:#18375d;margin-bottom:6px}
-.page-sub{font-size:13px;color:#64748b;line-height:1.5;max-width:680px;margin-bottom:22px}
-.two-col{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
-@media(max-width:860px){.two-col{grid-template-columns:1fr}}
-.block{background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:22px 24px;margin-bottom:16px}
-.block-title{font-size:15px;font-weight:700;color:#18375d;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.block-sub{font-size:12px;color:#94a3b8;line-height:1.5;margin-bottom:18px}
-.block-divider{height:1px;background:#f0f4f8;margin:16px 0}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:10px;font-weight:700;color:#18375d;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px}
-.req{color:#eb6366;margin-left:2px}
-.inp{width:100%;padding:9px 13px;border:1px solid #d8e0ea;border-radius:8px;font-size:13px;color:#18375d;font-family:'Asap',sans-serif;outline:none;transition:border-color 0.15s;background:#fff}
-.inp:focus{border-color:#18375d}
-.inp::placeholder{color:#c5ccd5;font-weight:400}
-textarea.inp{resize:vertical;min-height:90px;line-height:1.6}
-.inp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.inp-row{grid-template-columns:1fr}}
-.url-preview{margin-top:6px;padding:8px 12px;background:#f0f8f7;border:1px solid #b8dfe0;border-radius:7px;font-size:12px;color:#007883;font-family:'Asap',sans-serif;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.url-label{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;flex-shrink:0}
-.url-val{font-weight:600;word-break:break-all}
-.url-note{font-size:11px;color:#94a3b8;margin-top:4px;font-family:'Asap',sans-serif}
-.oblig-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#fceaea;color:#eb6366;border:1px solid #ffd6d4;font-family:'Asap',sans-serif}
-.btn-ai{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(90deg,#18375d,#007883);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif;transition:opacity 0.15s;margin-bottom:10px}
-.btn-ai:hover{opacity:0.88}
-.btn-add{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#007883;border:1px solid #b8dfe0;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif;transition:all 0.12s}
-.btn-add:hover{background:#e5f4f5}
-.socio-card{background:#fafbfc;border:1px solid #d8e0ea;border-radius:10px;padding:14px 16px;margin-bottom:10px}
-.socio-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.socio-card-num{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.06em}
-.btn-del{width:28px;height:28px;border-radius:6px;border:1px solid #f5c0c1;background:#fceaea;color:#eb6366;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s}
-.btn-del:hover{background:#f8d5d6}
-.socio-opts{display:flex;flex-direction:column;gap:5px;margin-top:8px}
-.socio-opt-row{display:flex;align-items:center;gap:8px}
-.socio-opt-inp{flex:1;padding:6px 10px;border:1px solid #d8e0ea;border-radius:6px;font-size:12px;color:#18375d;font-family:'Asap',sans-serif;outline:none}
-.socio-opt-inp:focus{border-color:#18375d}
-.btn-del-opt{width:22px;height:22px;border-radius:5px;border:none;background:#f0f2f5;color:#94a3b8;cursor:pointer;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.12s}
-.btn-del-opt:hover{background:#fceaea;color:#eb6366}
-.btn-add-opt{font-size:11px;color:#007883;font-weight:600;font-family:'Asap',sans-serif;background:none;border:none;cursor:pointer;padding:4px 0;margin-top:3px}
-.btn-add-opt:hover{text-decoration:underline}
-.alert{border-radius:9px;padding:10px 14px;font-size:12px;font-family:'Asap',sans-serif;line-height:1.5;display:flex;align-items:flex-start;gap:8px;margin-top:12px}
-.alert-neutral{background:#f0f8f7;border:1px solid #b8dfe0;color:#007883}
-.alert-warning{background:#fff8ec;border:1px solid #ffd490;color:#b7840a}
-.alert-danger{background:#fceaea;border:1px solid #ffd6d4;color:#c0392b}
-.alert-info{background:#fff8ec;border:1px solid #ffd490;color:#b7840a}
-.alert-ico{font-size:14px;flex-shrink:0;margin-top:1px}
-.resource-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.preview-box{background:#f4f6f9;border:1.5px dashed #d8e0ea;border-radius:12px;padding:18px 20px}
-.preview-label{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px}
-.preview-msg{font-size:13px;color:#475569;line-height:1.6;margin-bottom:14px}
-.preview-res{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px}
-.preview-res-item{display:flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #d8e0ea;border-radius:7px;margin-bottom:5px;background:#fff;font-size:12px;color:#18375d;font-family:'Asap',sans-serif}
-.sidebar{position:sticky;top:78px}
-.sidebar-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;overflow:hidden;margin-bottom:12px}
-.sidebar-head{background:#18375d;padding:13px 16px}
-.sidebar-head-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:2px}
-.sidebar-head-val{font-size:14px;font-weight:600;color:#fff}
-.sidebar-body{padding:14px 16px}
-.sidebar-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f0f4f8;font-family:'Asap',sans-serif}
-.sidebar-row:last-child{border-bottom:none}
-.sidebar-row-lbl{font-size:12px;color:#64748b}
-.sidebar-row-val{font-size:12px;font-weight:700;color:#18375d}
-.status-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#edf1f7;color:#64748b}
-.sidebar-url{padding:10px 14px;background:#f0f8f7;border-top:1px solid #e2e8f0}
-.sidebar-url-lbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px}
-.sidebar-url-val{font-size:11px;color:#007883;font-weight:600;word-break:break-all;font-family:'Asap',sans-serif}
-.pack-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;overflow:hidden}
-.pack-head{background:#fceaea;padding:10px 14px;border-bottom:1px solid #ffd6d4}
-.pack-head-lbl{font-size:10px;font-weight:700;color:#c0392b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px}
-.pack-head-val{font-size:13px;font-weight:700;color:#c0392b}
-.pack-body{padding:12px 14px}
-.pack-bar-w{height:5px;background:#edf1f7;border-radius:3px;overflow:hidden;margin-bottom:6px}
-.pack-bar-f{height:100%;border-radius:3px;background:#eb6366;width:20%}
-.pack-note{font-size:11px;color:#94a3b8;line-height:1.4;font-family:'Asap',sans-serif}
-.bottom-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap}
-.btn-back{padding:10px 20px;border:1px solid #d8e0ea;border-radius:8px;background:#fff;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif}
-.btn-back:hover{background:#f7f9fc}
-.btn-continue{padding:10px 22px;border:none;border-radius:8px;background:#eb6366;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Asap',sans-serif;display:flex;align-items:center;gap:7px}
-.btn-continue:hover:not(:disabled){background:#d4474a}
-.btn-continue:disabled{background:#f5c0c1;cursor:not-allowed}
-</style>
 </head>
 <body>
-
 <div id="header"></div>
 <script src="header.js"></script>
+<script src="catalogue.js"></script>
+<script src="app.js"></script>
 
 <div class="subnav">
-  <button class="sn" onclick="window.location.href='index-bibliotheque.html'">Bibliothèque</button>
+  <button class="sn" onclick="window.location.href='index.html'">Bibliothèque</button>
   <button class="sn" onclick="window.location.href='questions.html'">Création</button>
-  <button class="sn on" onclick="window.location.href='parametrage.html'">Paramétrage</button>
+  <button class="sn on">Paramétrage</button>
   <button class="sn" onclick="window.location.href='campagne.html'">Campagne</button>
   <button class="sn" onclick="window.location.href='validation.html'">Transmission</button>
 </div>
 
-<div class="breadcrumb">
-  <span class="bc-link" onclick="window.location.href='index-bibliotheque.html'">Mes autodiagnostics</span>
-  <span class="bc-sep">›</span>
-  <span class="bc-link" onclick="window.location.href='questions.html'">Créer un autodiagnostic</span>
-  <span class="bc-sep">›</span>
-  <span class="bc-cur">Paramétrage</span>
-</div>
-
 <div class="stepper-wrap">
   <div class="stepper">
-    <div class="step">
-      <div class="step-circle done"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5L5 9.5L11 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <span class="step-label done">Choisir</span>
-    </div>
-    <div class="step-connector done"></div>
-    <div class="step">
-      <div class="step-circle done"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5L5 9.5L11 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <span class="step-label done">Créer</span>
-    </div>
-    <div class="step-connector done"></div>
-    <div class="step"><div class="step-circle active">3</div><span class="step-label active">Paramétrage</span></div>
-    <div class="step-connector todo"></div>
-    <div class="step"><div class="step-circle todo">4</div><span class="step-label todo">Campagne</span></div>
-    <div class="step-connector todo"></div>
+    <div class="step"><div class="step-circle done">✓</div><span class="step-label done">Choisir</span></div><div class="step-connector done"></div>
+    <div class="step"><div class="step-circle done">✓</div><span class="step-label done">Créer</span></div><div class="step-connector done"></div>
+    <div class="step"><div class="step-circle active">3</div><span class="step-label active">Paramétrage</span></div><div class="step-connector todo"></div>
+    <div class="step"><div class="step-circle todo">4</div><span class="step-label todo">Campagne</span></div><div class="step-connector todo"></div>
     <div class="step"><div class="step-circle todo">5</div><span class="step-label todo">Transmettre</span></div>
   </div>
 </div>
 
 <div class="page-wrap">
   <h1 class="page-title">Paramétrer l'autodiagnostic</h1>
-  <p class="page-sub">Définissez ce que verront les répondants avant l'autodiagnostic, les données socio-démo utiles à l'analyse, le pack de passations et l'URL de passation.</p>
+  <p class="page-sub">Définissez ce que verront les répondants avant l’autodiagnostic, les données socio-démo utiles à l’analyse, le pack de passations et l’URL de passation.</p>
 
   <div class="two-col">
-    <div>
-
-      <div class="block">
+    <main>
+      <section class="block">
         <div class="block-title">Informations générales</div>
-        <div class="block-sub">Ces informations servent à identifier l'autodiagnostic dans votre espace et à configurer son URL de passation.</div>
+        <div class="block-sub">Ces informations servent à identifier l’autodiagnostic et à configurer son URL de passation.</div>
         <div class="inp-row">
-          <div class="field">
-            <label>Nom de l'autodiagnostic<span class="req">*</span></label>
-            <input class="inp" id="nom" type="text" value="Autodiagnostic sécurité &amp; sûreté au travail" oninput="syncSlugFromContent();save();updateSidebar()">
-          </div>
-          <div class="field">
-            <label>Titre visible par les répondants<span class="req">*</span></label>
-            <input class="inp" id="titre" type="text" placeholder="Rédigez un titre engageant pour le collaborateur" oninput="syncSlugFromContent();save()">
-          </div>
+          <div class="field"><label>Nom de l'autodiagnostic<span class="req">*</span></label><input class="inp" id="nom" oninput="saveForm()"></div>
+          <div class="field"><label>Titre visible par les répondants<span class="req">*</span></label><input class="inp" id="titre" placeholder="Rédigez un titre engageant pour le collaborateur" oninput="saveForm()"></div>
         </div>
-        <div class="field">
-          <label>Description interne</label>
-          <input class="inp" id="desc" type="text" value="Campagne interne Mon entreprise sur les réflexes sécurité du quotidien." oninput="save()">
-        </div>
+        <div class="field"><label>Description interne</label><input class="inp" id="desc" oninput="saveForm()"></div>
         <div class="inp-row">
-          <div class="field">
-            <label>Date de lancement souhaitée<span class="req">*</span></label>
-            <input class="inp" id="date-lancement" type="date" oninput="save();updateSidebar();checkContinue()">
-          </div>
-          <div class="field">
-            <label>Date de clôture</label>
-            <input class="inp" id="date-cloture" type="date" oninput="save();updateSidebar()">
-          </div>
+          <div class="field"><label>Date de lancement souhaitée<span class="req">*</span></label><input class="inp" id="date_lancement" type="date" oninput="saveForm()"></div>
+          <div class="field"><label>Date de clôture</label><input class="inp" id="date_cloture" type="date" oninput="saveForm()"></div>
         </div>
         <div class="field">
           <label>Pack de passations souhaité<span class="req">*</span></label>
-          <select class="inp" id="pack-passations" onchange="save();updatePack()">
-            <option value="200">200 passations</option>
-            <option value="500">500 passations</option>
-            <option value="1200">1 200 passations</option>
-            <option value="2000">2 000 passations</option>
-            <option value="3000">3 000 passations</option>
-            <option value="5000">5 000 passations</option>
-            <option value="7000">7 000 passations</option>
-            <option value="illimite">Illimité</option>
+          <select class="inp" id="pack" onchange="saveForm()">
+            <option value="200">200 passations</option><option value="500">500 passations</option><option value="1200">1 200 passations</option><option value="2000">2 000 passations</option><option value="3000">3 000 passations</option><option value="5000">5 000 passations</option><option value="7000">7 000 passations</option><option value="illimite">Illimité</option>
           </select>
           <div class="url-note">Ces passations sont mutualisées pour tous les autodiagnostics de votre entreprise.</div>
         </div>
         <div class="field">
           <label>Slug de l'URL<span class="req">*</span></label>
-          <input class="inp" id="slug" type="text" value="securite-surete-travail" oninput="updateSlug()" placeholder="ex: securite-surete-travail">
-          <div class="url-preview">
-            <span class="url-label">URL</span>
-            <span class="url-val" id="url-preview">https://selfdiag-mayt.meandyoutoo.app/mon-entreprise/securite-surete-travail</span>
-          </div>
-          <div class="url-note">Le slug compose l'adresse de passation. Il doit être court, lisible et sans espace.</div>
+          <input class="inp" id="slug" oninput="saveForm()">
+          <div class="url-preview"><span class="url-label">URL</span><span class="url-val" id="urlPreview"></span></div>
+          <div class="url-note">Le slug compose l’adresse de passation. Il doit être court, lisible et sans espace.</div>
         </div>
-      </div>
+        <button class="btn btn-secondary" onclick="openPreview()">Voir l’aperçu de la passation</button>
+      </section>
 
-      <div class="block">
-        <div class="block-title">Introduction affichée avant l'autodiagnostic <span class="oblig-badge">Obligatoire avant publication</span></div>
-        <div class="block-sub">Cette introduction doit impérativement préciser le caractère <strong>100 % anonyme</strong> : aucun login, aucun mot de passe, aucun cookie, aucun suivi d'adresse IP. Cela donne aux répondants un intérêt réel à répondre sincèrement.</div>
-        <button class="btn-ai" id="btn-gen-intro" onclick="generateIntro()">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white"/></svg>
-          Générer une introduction avec l'IA
-        </button>
-        <div class="field" style="margin-bottom:0">
-          <label>Texte d'introduction<span class="req">*</span></label>
-          <textarea class="inp" id="intro" rows="6" oninput="save();checkContinue()" placeholder="Rédigez ici l'introduction que verront les répondants avant de commencer...">Bienvenue dans cet autodiagnostic consacré à la sécurité et à la sûreté au travail. Il vous propose des situations concrètes du quotidien professionnel pour vous aider à identifier vos réflexes, vos points d'appui et vos axes de progression. Il ne s'agit pas d'une évaluation individuelle ni d'un contrôle de performance. Cet autodiagnostic est entièrement anonyme : aucun login, aucun mot de passe, aucun cookie, aucun suivi d'adresse IP. Personne ne pourra associer vos réponses à votre identité. Vous avez donc tout intérêt à répondre sincèrement — et aucune raison de chercher la "bonne réponse". Les résultats seront analysés de manière agrégée afin d'aider l'entreprise à mieux cibler ses actions de sensibilisation et d'accompagnement. Temps estimé : 5 à 7 minutes.</textarea>
-        </div>
-      </div>
+      <section class="block">
+        <div class="block-title">Introduction affichée avant l'autodiagnostic</div>
+        <div class="block-sub">Cette introduction doit préciser le caractère 100 % anonyme.</div>
+        <button class="btn btn-ai" onclick="generateIntro()">Générer une introduction avec l’IA</button>
+        <div class="field"><label>Texte d’introduction<span class="req">*</span></label><textarea class="inp" id="intro" oninput="saveForm()"></textarea></div>
+      </section>
 
-      <div class="block">
-        <div class="block-title">Données socio-démo utiles à l'analyse <span class="oblig-badge">Au moins 1 requise</span></div>
-        <div class="block-sub">Ces données permettent de lire les résultats par segment et d'identifier les écarts de perception ou de pratique entre populations. Elles doivent être choisies avec prudence pour préserver l'anonymat et selon leur pertinence pour une analyse utile.</div>
+      <section class="block">
+        <div class="block-title">Données socio-démo utiles à l’analyse</div>
+        <div class="block-sub">Ajoutez uniquement les données utiles à l’analyse, en préservant l’anonymat.</div>
+        <div id="demoList"></div>
+        <button class="btn btn-add" onclick="addDemo()">+ Ajouter une donnée</button>
+      </section>
 
-        <div class="alert alert-info" style="margin-bottom:14px">
-          <span class="alert-ico">🔒</span>
-          <span>Plus vous ajoutez de données socio-démo, plus les résultats peuvent créer de très petits groupes. Par exemple : <strong>manager + plus de 10 ans d'ancienneté + poste terrain + exposition régulière</strong>. S'il n'y a que quelques personnes dans ce cas, elles pourraient être reconnues indirectement dans les résultats.</span>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
-          <div class="field" style="margin-bottom:0">
-            <label>Nombre total de répondants estimé<span class="req">*</span></label>
-            <input class="inp" id="nb-repondants" type="number" value="120" min="1" oninput="save();checkAnonymity()" placeholder="Ex : 120">
-          </div>
-          <div style="padding:10px 14px;background:#f7f9fc;border:1px solid #e2e8f0;border-radius:8px;display:flex;flex-direction:column;justify-content:center">
-            <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px">Taille moyenne après croisement</div>
-            <div id="cross-estimate" style="font-size:16px;font-weight:700;color:#18375d;font-family:'Asap',sans-serif">—</div>
-            <div style="font-size:10px;color:#94a3b8;font-family:'Asap',sans-serif;margin-top:1px">personnes environ par combinaison</div>
-          </div>
-        </div>
-
-        <div id="anon-alert"></div>
-        <div id="socio-list"></div>
-
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
-          <button type="button" class="btn-add" onclick="addSociodemo()">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#007883" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#007883" stroke-width="2" stroke-linecap="round"/></svg>
-            Ajouter une donnée
-          </button>
-          <button type="button" class="btn-ai" style="margin-bottom:0" onclick="suggestSociodemo()">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white"/></svg>
-            Suggérer des données avec l'IA
-          </button>
-        </div>
-      </div>
-
-      <div class="block">
+      <section class="block">
         <div class="block-title">Ressources complémentaires</div>
-        <div class="block-sub">Ajoutez les ressources utiles qui pourront être affichées dans l'autodiagnostic : lien intranet, charte, procédure, module e-learning ou support interne.</div>
-        <div style="font-size:12px;font-weight:700;color:#18375d;margin-bottom:8px;font-family:'Asap',sans-serif">Ressources client</div>
-        <div id="resources-list"></div>
-        <button type="button" class="btn-add" onclick="addResource()" style="margin-top:4px">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#007883" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#007883" stroke-width="2" stroke-linecap="round"/></svg>
-          Ajouter une ressource
-        </button>
-        <div class="block-divider"></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px">
-          <div style="font-size:12px;font-weight:700;color:#18375d;font-family:'Asap',sans-serif">Aperçu</div>
-          <button type="button" class="btn-add" onclick="openPassationPreview()">Voir l’aperçu de la passation</button>
-        </div>
-        <div class="preview-box" id="preview-box"></div>
-      </div>
+        <div class="block-sub">Ajoutez les ressources utiles qui pourront être affichées dans l’autodiagnostic.</div>
+        <div id="resourceList"></div>
+        <button class="btn btn-add" onclick="addResource()">+ Ajouter une ressource</button>
+      </section>
 
       <div class="bottom-actions">
-        <button class="btn-back" onclick="window.location.href='questions.html'">← Retour à la création</button>
-        <button class="btn-continue" id="btn-continue" onclick="continuer()">
-          Continuer vers la campagne
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        <button class="btn btn-secondary" onclick="window.location.href='questions.html'">← Retour création</button>
+        <button class="btn btn-primary" onclick="next()">Continuer vers la campagne</button>
       </div>
-    </div>
+    </main>
 
-    <div class="sidebar">
+    <aside class="sidebar">
       <div class="sidebar-card">
-        <div class="sidebar-head">
-          <div class="sidebar-head-lbl">Thème</div>
-          <div class="sidebar-head-val" id="sb-theme">Sécurité &amp; sûreté au travail</div>
-        </div>
+        <div class="sidebar-head"><div class="sidebar-head-lbl">Thème</div><div class="sidebar-head-val" id="sideTitle"></div></div>
         <div class="sidebar-body">
-          <div class="sidebar-row"><span class="sidebar-row-lbl">Chapitres</span><span class="sidebar-row-val" id="sb-chap">4</span></div>
-          <div class="sidebar-row"><span class="sidebar-row-lbl">Questions</span><span class="sidebar-row-val" id="sb-q">17</span></div>
-          <div class="sidebar-row"><span class="sidebar-row-lbl">Profils</span><span class="sidebar-row-val" id="sb-profils">12</span></div>
-          <div class="sidebar-row"><span class="sidebar-row-lbl">Statut</span><span class="status-badge">Brouillon</span></div>
-          <div class="sidebar-row"><span class="sidebar-row-lbl">Lancement</span><span class="sidebar-row-val" id="sb-lancement">À renseigner</span></div>
-          <div class="sidebar-row"><span class="sidebar-row-lbl">Clôture</span><span class="sidebar-row-val" id="sb-cloture">—</span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Chapitres</span><span class="sidebar-row-val" id="sideChapters"></span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Questions</span><span class="sidebar-row-val" id="sideQuestions"></span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Profils</span><span class="sidebar-row-val" id="sideProfiles"></span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Lancement</span><span class="sidebar-row-val" id="sideLaunch"></span></div>
         </div>
-        <div class="sidebar-url">
-          <div class="sidebar-url-lbl">URL de passation</div>
-          <div class="sidebar-url-val" id="sb-url">https://selfdiag-mayt.meandyoutoo.app/mon-entreprise/securite-surete-travail</div>
-        </div>
+        <div class="sidebar-url"><div class="sidebar-url-lbl">URL de passation</div><div class="sidebar-url-val" id="sideUrl"></div></div>
       </div>
-      <div class="pack-card">
-        <div class="pack-head">
-          <div class="pack-head-lbl">Pack passations</div>
-          <div class="pack-head-val" id="pack-val">200 passations</div>
-        </div>
-        <div class="pack-body">
-          <div class="pack-bar-w"><div class="pack-bar-f"></div></div>
-          <div class="pack-note">Ces passations sont mutualisées pour tous les autodiagnostics de votre entreprise.</div>
-          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f0f4f8">
-            <div style="font-size:11px;color:#64748b;font-family:'Asap',sans-serif;margin-bottom:5px">Pour obtenir les tarifs</div>
-            <a href="mailto:cmichelon@meandyoutoo.app" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#007883;text-decoration:none;font-family:'Asap',sans-serif">Contactez-nous →</a>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div class="pack-card"><div class="pack-head"><div class="pack-head-lbl">Pack passations</div><div class="pack-head-val" id="sidePack"></div></div><div class="pack-body"><div class="pack-note">Ces passations sont mutualisées pour tous les autodiagnostics de votre entreprise.</div><br><div class="pack-note">Pour obtenir les tarifs</div><a href="mailto:cmichelon@meandyoutoo.app" style="color:#007883;font-weight:800;text-decoration:none;font-size:12px">Contactez-nous →</a></div></div>
+    </aside>
   </div>
 </div>
 
 <script>
-var LS_KEY = 'intotheshift_customizer_state_v3';
-var sociodemo = [
-  { q:"À quelle catégorie appartenez-vous ?", opts:["Collaborateur\u00b7rice","Manager","Direction"], min_groupe: 25 },
-  { q:"Quel est votre service principal ?",   opts:["Production","Maintenance","RH","Fonctions support","Autre"], min_groupe: 10 }
-];
-var resources = [
-  { titre:"Comprendre les bons réflexes sécurité",  url:"https://www.monentreprise.fr/ressources/reflexes-securite" },
-  { titre:"Signaler un presqu'accident",             url:"https://www.monentreprise.fr/ressources/signalement" },
-  { titre:"Préparer un briefing sécurité",           url:"https://www.monentreprise.fr/ressources/briefing-securite" },
-  { titre:"Accéder aux consignes internes",          url:"https://www.monentreprise.fr/ressources/consignes" }
-];
+let state = itsLoad();
+if(!state.chapters){ window.location.href="index.html"; }
 
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function slugify(text) {
-  return String(text||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/&/g,'et').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
-}
-function formatDateFr(dateStr) {
-  if (!dateStr) return '';
-  var parts = dateStr.split('-');
-  if (parts.length !== 3) return dateStr;
-  return parts[2] + '/' + parts[1] + '/' + parts[0];
-}
-function getThemeNameFromUrl() {
-  var params = new URLSearchParams(window.location.search);
-  var themeName = params.get('themeName');
-  if (themeName) return decodeURIComponent(themeName);
-  try {
-    var raw = localStorage.getItem(LS_KEY);
-    var stored = raw ? JSON.parse(raw) : {};
-    return stored.title || stored.adTitle || (stored.meta && stored.meta.nom ? stored.meta.nom.replace(/^Autodiagnostic\s+/i,'') : '') || 'Autodiagnostic personnalisé';
-  } catch(e) { return 'Autodiagnostic personnalisé'; }
-}
-function init() {
-  var themeFromUrl = getThemeNameFromUrl();
-  try {
-    var raw = localStorage.getItem(LS_KEY);
-    var stored = raw ? JSON.parse(raw) : {};
-    var themeTitle = themeFromUrl || stored.title || 'Autodiagnostic personnalisé';
-    document.getElementById('nom').value = (stored.meta && stored.meta.nom) || ('Autodiagnostic ' + themeTitle);
-    var storedTitre = (stored.meta && stored.meta.titre) || '';
-    if (storedTitre === 'Nouveau thème' || storedTitre === 'Autodiagnostic Nouveau thème') storedTitre = '';
-    document.getElementById('titre').value = storedTitre;
-    document.getElementById('desc').value = (stored.meta && stored.meta.desc) || ('Campagne interne Mon entreprise sur ' + themeTitle + '.');
-    document.getElementById('date-lancement').value = stored.launchDate || (stored.meta && stored.meta.date_lancement) || '';
-    document.getElementById('date-cloture').value = stored.closeDate || (stored.meta && stored.meta.date_cloture) || '';
-    document.getElementById('slug').value = (stored.meta && stored.meta.slug) || slugify(themeTitle);
-    if (stored.packPassations && document.getElementById('pack-passations')) document.getElementById('pack-passations').value = stored.packPassations;
-    if (stored.intro) document.getElementById('intro').value = stored.intro;
-    if (stored.demographics && stored.demographics.length) sociodemo = stored.demographics;
-    if (stored.sociodemo && stored.sociodemo.length) sociodemo = stored.sociodemo;
-    if (stored.resources && stored.resources.length) {
-      resources = stored.resources.map(function(r){ return { titre: r.titre || '', url: String(r.url || '').replace('https://www.sonora-rh.fr', 'https://www.monentreprise.fr') }; });
-    }
-    document.getElementById('sb-theme').textContent = themeTitle;
-    if (stored.chapters) {
-      var chs = stored.chapters;
-      document.getElementById('sb-chap').textContent = chs.length;
-      document.getElementById('sb-q').textContent = chs.reduce(function(a,c){ return a+((c.situations||c.questions||[]).length); },0);
-      document.getElementById('sb-profils').textContent = chs.reduce(function(a,c){ return a+((c.profiles||c.profils||[]).length); },0);
-    }
-  } catch(e) { console.warn('Impossible de charger le paramétrage', e); }
-  renderSociodemo();
+function fill(){
+  document.getElementById("nom").value = state.meta?.nom || ("Autodiagnostic " + state.title);
+  document.getElementById("titre").value = state.meta?.titre || "";
+  document.getElementById("desc").value = state.meta?.desc || "";
+  document.getElementById("date_lancement").value = state.meta?.date_lancement || "";
+  document.getElementById("date_cloture").value = state.meta?.date_cloture || "";
+  document.getElementById("slug").value = state.meta?.slug || itsSlugify(state.title);
+  document.getElementById("pack").value = state.packPassations || "200";
+  document.getElementById("intro").value = state.intro || "";
+  renderDemos();
   renderResources();
-  updateSlug();
-  checkAnonymity();
-  checkContinue();
-  updatePreview();
+  updateSide();
 }
-function save() {
-  try {
-    var raw = localStorage.getItem(LS_KEY);
-    var existing = raw ? JSON.parse(raw) : {};
-    existing.meta = {
-      nom: document.getElementById('nom').value,
-      titre: document.getElementById('titre').value,
-      desc: document.getElementById('desc').value,
-      date_lancement: document.getElementById('date-lancement').value,
-      date_cloture: document.getElementById('date-cloture').value,
-      slug: document.getElementById('slug').value
-    };
-    existing.title = document.getElementById('titre').value || existing.title || document.getElementById('nom').value.replace(/^Autodiagnostic\s+/i,'');
-    existing.clientName = existing.clientName || 'Mon entreprise';
-    existing.packPassations = document.getElementById('pack-passations') ? document.getElementById('pack-passations').value : (existing.packPassations || '200');
-    existing.launchDate = document.getElementById('date-lancement').value;
-    existing.closeDate = document.getElementById('date-cloture').value;
-    existing.intro = document.getElementById('intro').value;
-    existing.demographics = sociodemo;
-    existing.sociodemo = sociodemo;
-    existing.resources = resources;
-    localStorage.setItem(LS_KEY, JSON.stringify(existing));
-  } catch(e) {}
+function saveForm(){
+  state.meta = {
+    nom:document.getElementById("nom").value,
+    titre:document.getElementById("titre").value,
+    desc:document.getElementById("desc").value,
+    date_lancement:document.getElementById("date_lancement").value,
+    date_cloture:document.getElementById("date_cloture").value,
+    slug:itsSlugify(document.getElementById("slug").value)
+  };
+  document.getElementById("slug").value = state.meta.slug;
+  state.packPassations = document.getElementById("pack").value;
+  state.intro = document.getElementById("intro").value;
+  itsSave(state);
+  updateSide();
 }
-function updateSlug() {
-  var slug = document.getElementById('slug').value.trim() || 'mon-autodiagnostic';
-  var url = 'https://selfdiag-mayt.meandyoutoo.app/mon-entreprise/' + slug;
-  document.getElementById('url-preview').textContent = url;
-  document.getElementById('sb-url').textContent = url;
-  save();
+function url(){ return "https://selfdiag-mayt.meandyoutoo.app/mon-entreprise/" + (state.meta?.slug || itsSlugify(state.title)); }
+function updateSide(){
+  document.getElementById("urlPreview").textContent = url();
+  document.getElementById("sideUrl").textContent = url();
+  document.getElementById("sideTitle").textContent = state.title || "Autodiagnostic";
+  document.getElementById("sideChapters").textContent = state.chapters.length;
+  document.getElementById("sideQuestions").textContent = state.chapters.reduce((a,c)=>a+(c.questions||[]).length,0);
+  document.getElementById("sideProfiles").textContent = state.chapters.reduce((a,c)=>a+(c.profiles||[]).length,0);
+  document.getElementById("sideLaunch").textContent = itsFormatDateFR(state.meta?.date_lancement);
+  document.getElementById("sidePack").textContent = state.packPassations === "illimite" ? "Illimité" : Number(state.packPassations||200).toLocaleString("fr-FR")+" passations";
 }
-function updateSidebar() {
-  document.getElementById('sb-theme').textContent = document.getElementById('nom').value || '—';
-  var lancement = document.getElementById('date-lancement') ? document.getElementById('date-lancement').value : '';
-  var cloture = document.getElementById('date-cloture') ? document.getElementById('date-cloture').value : '';
-  var sbLancement = document.getElementById('sb-lancement');
-  var sbCloture = document.getElementById('sb-cloture');
-  if (sbLancement) sbLancement.textContent = lancement ? formatDateFr(lancement) : 'À renseigner';
-  if (sbCloture) sbCloture.textContent = cloture ? formatDateFr(cloture) : '—';
+function renderDemos(){
+  document.getElementById("demoList").innerHTML = (state.demographics||[]).map((d,i)=>`
+    <div class="q-card">
+      <div class="field"><label>Question socio-démo</label><input class="inp" value="${d.q.replace(/"/g,'&quot;')}" oninput="state.demographics[${i}].q=this.value;itsSave(state)"></div>
+      <div class="field"><label>Réponses possibles</label><input class="inp" value="${(d.opts||[]).join(' | ').replace(/"/g,'&quot;')}" oninput="state.demographics[${i}].opts=this.value.split('|').map(x=>x.trim());itsSave(state)"></div>
+    </div>`).join("");
 }
-function generateIntro() {
-  var btn = document.getElementById('btn-gen-intro');
-  btn.textContent = '⏳ Génération…'; btn.disabled = true;
-  setTimeout(function() {
-    document.getElementById('intro').value = "Bienvenue dans cet autodiagnostic consacré à la sécurité et à la sûreté au travail. Il vous propose des situations concrètes du quotidien professionnel pour vous aider à identifier vos réflexes, vos points d'appui et vos axes de progression. Il ne s'agit pas d'une évaluation individuelle ni d'un contrôle de performance. Cet autodiagnostic est entièrement anonyme : aucun login, aucun mot de passe, aucun cookie, aucun suivi d'adresse IP. Personne ne pourra associer vos réponses à votre identité. Vous avez donc tout intérêt à répondre sincèrement. Les résultats seront analysés de manière agrégée. Temps estimé : 5 à 7 minutes.";
-    btn.textContent = 'Régénérer'; btn.disabled = false;
-    save(); checkContinue();
-  }, 1400);
+function addDemo(){ state.demographics.push({q:"Nouvelle donnée socio-démo",opts:["Option A","Option B"],min_groupe:10}); itsSave(state); renderDemos(); }
+function renderResources(){
+  document.getElementById("resourceList").innerHTML = (state.resources||[]).map((r,i)=>`
+    <div class="resource-row">
+      <input class="inp" value="${r.titre.replace(/"/g,'&quot;')}" oninput="state.resources[${i}].titre=this.value;itsSave(state)">
+      <input class="inp" value="${r.url.replace(/"/g,'&quot;')}" oninput="state.resources[${i}].url=this.value;itsSave(state)">
+      <button class="btn btn-danger" onclick="state.resources.splice(${i},1);itsSave(state);renderResources()">×</button>
+    </div>`).join("");
 }
-function renderSociodemo() {
-  var container = document.getElementById('socio-list');
-  if (sociodemo.length === 0) {
-    container.innerHTML = '<div class="alert alert-danger" style="margin-bottom:10px"><span class="alert-ico">⛔</span><span>Au moins une donnée socio-démo est nécessaire pour continuer.</span></div>';
-    checkContinue(); return;
-  }
-  var html = '';
-  sociodemo.forEach(function(s, i) {
-    var mg = s.min_groupe;
-    var mgColor = (mg === null || mg === undefined) ? '#94a3b8' : mg < 5 ? '#c0392b' : mg < 10 ? '#b7840a' : '#27823a';
-    var mgBg    = (mg === null || mg === undefined) ? '#f0f2f5'  : mg < 5 ? '#fceaea'  : mg < 10 ? '#fff9ec'  : '#f0fbf2';
-    var mgHint  = (mg === null || mg === undefined) ? '' : mg < 5 ? '🚨 Groupe très petit' : mg < 10 ? '⚠️ Groupe petit — restez vigilant' : '✓ Groupe suffisant';
-    html += '<div class="socio-card">'
-      + '<div class="socio-card-head"><span class="socio-card-num">Donnée ' + (i+1) + ' · Choix unique</span>'
-      + '<button class="btn-del" onclick="removeSociodemo(' + i + ')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><polyline points="3 6 5 6 21 6" stroke="#eb6366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14H6L5 6" stroke="#eb6366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11v6M14 11v6" stroke="#eb6366" stroke-width="2" stroke-linecap="round"/><path d="M9 6V4h6v2" stroke="#eb6366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>'
-      + '<div class="inp-row" style="margin-bottom:8px">'
-      + '<div class="field" style="margin-bottom:0"><label>Intitulé de la question</label>'
-      + '<input class="inp" value="' + esc(s.q) + '" oninput="sociodemo[' + i + '].q=this.value;save()" placeholder="Ex : Quel est votre service ?"></div>'
-      + '<div class="field" style="margin-bottom:0"><label>Effectif min. du plus petit groupe</label>'
-      + '<input class="inp" type="number" min="1" value="' + ((mg !== null && mg !== undefined) ? mg : '') + '" placeholder="Ex : 10" style="background:' + mgBg + ';border-color:' + mgColor + ';color:' + mgColor + ';font-weight:700" oninput="sociodemo[' + i + '].min_groupe=this.value?parseInt(this.value):null;save();renderSociodemo()">'
-      + '<div style="font-size:10px;font-weight:700;color:' + mgColor + ';margin-top:3px;font-family:Asap,sans-serif">' + (mgHint || 'Estimez combien de personnes pourraient être dans le plus petit groupe') + '</div>'
-      + '</div></div>'
-      + '<div class="field" style="margin-bottom:0"><label>Réponses possibles</label><div class="socio-opts">';
-    s.opts.forEach(function(o, oi) {
-      html += '<div class="socio-opt-row"><input class="socio-opt-inp" value="' + esc(o) + '" oninput="sociodemo[' + i + '].opts[' + oi + ']=this.value;save()" placeholder="Option…"><button class="btn-del-opt" onclick="removeSocioOpt(' + i + ',' + oi + ')">✕</button></div>';
-    });
-    html += '</div><button class="btn-add-opt" onclick="addSocioOpt(' + i + ')">+ Ajouter une option</button></div></div>';
-  });
-  container.innerHTML = html;
-  checkAnonymity(); checkContinue();
-}
-function addSociodemo() {
-  sociodemo.push({ q:"Nouvelle question socio-démo", opts:["Option A","Option B","Option C"], min_groupe: null });
-  renderSociodemo(); save(); checkAnonymity();
-}
-function removeSociodemo(i) {
-  sociodemo.splice(i,1); renderSociodemo(); save(); checkAnonymity(); checkContinue();
-}
-function addSocioOpt(i) {
-  sociodemo[i].opts.push("Nouvelle option"); renderSociodemo(); save();
-}
-function removeSocioOpt(i,oi) {
-  if (sociodemo[i].opts.length <= 2) return;
-  sociodemo[i].opts.splice(oi,1); renderSociodemo(); save();
-}
-function suggestSociodemo() {
-  var suggestions = [
-    { q:"Ancienneté dans l'entreprise", opts:["Moins d'un an","1 à 3 ans","4 à 10 ans","Plus de 10 ans"], min_groupe: null },
-    { q:"Type de poste", opts:["Terrain","Bureau","Encadrement","Support"], min_groupe: null },
-    { q:"Exposition aux situations à risque", opts:["Régulière","Occasionnelle","Rare"], min_groupe: null }
-  ];
-  suggestions.forEach(function(s) {
-    if (!sociodemo.some(function(sd){ return sd.q === s.q; })) sociodemo.push(s);
-  });
-  renderSociodemo(); save(); checkAnonymity();
-}
-function checkAnonymity() {
-  var n = sociodemo.length;
-  var el = document.getElementById('anon-alert');
-  var crossEl = document.getElementById('cross-estimate');
-  var nR = parseInt(document.getElementById('nb-repondants').value) || 0;
-
-  if (n === 0) {
-    if (crossEl) crossEl.textContent = '—';
-    el.innerHTML = '';
-    return;
-  }
-
-  // Nombre total de combinaisons possibles si l'on croise toutes les données socio-démo.
-  // Exemple : 3 catégories x 4 anciennetés x 4 types de poste x 3 expositions = 144 combinaisons.
-  var prod = sociodemo.reduce(function(acc, s) {
-    return acc * (s.opts.length || 1);
-  }, 1);
-
-  // Taille moyenne d'un groupe après croisement.
-  var cg = nR > 0 ? Math.round((nR / prod) * 10) / 10 : null;
-
-  if (crossEl) {
-    crossEl.textContent = cg !== null ? ('≈ ' + cg) : '—';
-    crossEl.style.color = cg === null ? '#18375d' : cg < 5 ? '#c0392b' : cg < 10 ? '#b7840a' : '#27823a';
-  }
-
-  var html = '';
-
-  if (cg !== null && cg < 5) {
-    html = '<div class="alert alert-danger" style="margin-bottom:10px">'
-      + '<span class="alert-ico">🚨</span>'
-      + '<span><strong>Risque d’anonymat élevé</strong> — Avec ces critères, certaines combinaisons peuvent concerner très peu de répondants. '
-      + 'Exemple : <em>manager + plus de 10 ans d’ancienneté + poste terrain + exposition régulière au risque</em>. '
-      + 'Pour protéger l’anonymat, réduisez le nombre de critères.</span>'
-      + '</div>';
-  } else if (cg !== null && cg < 10) {
-    html = '<div class="alert alert-warning" style="margin-bottom:10px">'
-      + '<span class="alert-ico">⚠️</span>'
-      + '<span><strong>Risque d’anonymat à vérifier</strong> — Avec ces critères, certaines combinaisons peuvent concerner seulement quelques répondants. '
-      + 'Cela peut suffire à reconnaître indirectement une personne dans les résultats. '
-      + 'Vérifiez les croisements avant de partager une analyse détaillée.</span>'
-      + '</div>';
-  } else if (cg !== null) {
-    html = '<div class="alert alert-neutral" style="margin-bottom:10px">'
-      + '<span class="alert-ico">✓</span>'
-      + '<span><strong>Croisement plutôt confortable</strong> — En moyenne, chaque combinaison de critères regroupe environ <strong>' + cg + ' personnes</strong>. '
-      + 'Gardez tout de même en tête que certains groupes réels peuvent être plus petits que la moyenne.</span>'
-      + '</div>';
-  } else {
-    html = '<div class="alert alert-neutral" style="margin-bottom:10px">'
-      + '<span class="alert-ico">ℹ️</span>'
-      + '<span>Renseignez le nombre total de répondants estimé pour vérifier si vos critères socio-démo risquent de créer de trop petits groupes.</span>'
-      + '</div>';
-  }
-
-  var defined = sociodemo.filter(function(s) {
-    return s.min_groupe && s.min_groupe > 0;
-  });
-
-  if (defined.length > 0) {
-    var worst = defined.reduce(function(a, b) {
-      return a.min_groupe < b.min_groupe ? a : b;
-    });
-
-    if (worst.min_groupe < 5) {
-      html += '<div class="alert alert-danger" style="margin-bottom:10px">'
-        + '<span class="alert-ico">🚨</span>'
-        + '<span><strong>Attention à ce critère</strong> — Pour "<em>' + esc(worst.q) + '</em>", la plus petite réponse pourrait ne concerner que <strong>' + worst.min_groupe + ' personne' + (worst.min_groupe > 1 ? 's' : '') + '</strong>. '
-        + 'Ce critère est donc sensible, même sans croisement avec les autres.</span>'
-        + '</div>';
-    } else if (worst.min_groupe < 10) {
-      html += '<div class="alert alert-warning" style="margin-bottom:10px">'
-        + '<span class="alert-ico">⚠️</span>'
-        + '<span><strong>Petit groupe repéré</strong> — Pour "<em>' + esc(worst.q) + '</em>", la plus petite réponse pourrait concerner environ <strong>' + worst.min_groupe + ' personnes</strong>. '
-        + 'À surveiller si vous croisez ce critère avec d’autres.</span>'
-        + '</div>';
-    }
-  }
-
-  el.innerHTML = html;
-}
-
-function renderResources() {
-  var container = document.getElementById('resources-list');
-  var html = '';
-  resources.forEach(function(r,i) {
-    html += '<div class="resource-row"><input class="inp" style="flex:2;min-width:140px;font-size:12px;padding:7px 11px" value="'+esc(r.titre)+'" placeholder="Titre de la ressource" oninput="resources['+i+'].titre=this.value;save();updatePreview()"><input class="inp" style="flex:3;min-width:180px;font-size:12px;padding:7px 11px;color:#007883" type="url" value="'+esc(r.url)+'" placeholder="https://..." oninput="resources['+i+'].url=this.value;save()"><button class="btn-del" onclick="removeResource('+i+')" title="Supprimer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><polyline points="3 6 5 6 21 6" stroke="#eb6366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14H6L5 6" stroke="#eb6366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11v6M14 11v6" stroke="#eb6366" stroke-width="2" stroke-linecap="round"/><path d="M9 6V4h6v2" stroke="#eb6366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
-  });
-  container.innerHTML = html;
-  updatePreview();
-}
-function addResource() { resources.push({ titre:"Nouvelle ressource", url:"https://" }); renderResources(); save(); }
-function removeResource(i) { resources.splice(i,1); renderResources(); save(); }
-function updatePreview() {
-  var previewEl = document.getElementById('preview-box');
-  if (!previewEl) return;
-  var resHTML = resources.map(function(r){ return '<div class="preview-res-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="#007883" stroke-width="2" stroke-linecap="round"/><polyline points="15 3 21 3 21 9" stroke="#007883" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="#007883" stroke-width="2" stroke-linecap="round"/></svg>'+esc(r.titre)+'</div>'; }).join('');
-  previewEl.innerHTML = '<div class="preview-label">Aperçu — ressources affichées dans l\'autodiagnostic</div>'+(resources.length ? '<div class="preview-res">Ressources complémentaires</div>'+resHTML : '<p class="preview-msg">Aucune ressource ajoutée pour le moment.</p>');
-}
-function getThemeTitleForSlug() {
-  var titre = document.getElementById('titre') ? document.getElementById('titre').value.trim() : '';
-  var nom = document.getElementById('nom') ? document.getElementById('nom').value.trim().replace(/^Autodiagnostic\s+/i,'') : '';
-  var sb = document.getElementById('sb-theme') ? document.getElementById('sb-theme').textContent.trim() : '';
-  return titre || nom || sb || 'mon-autodiagnostic';
-}
-function syncSlugFromContent() {
-  var slugEl = document.getElementById('slug');
-  if (!slugEl) return;
-  var current = slugEl.value.trim();
-  var base = slugify(getThemeTitleForSlug()) || 'mon-autodiagnostic';
-  if (!current || current === 'securite-surete-travail' || current === 'nouveau-theme' || current === 'autodiagnostic-personnalise') {
-    slugEl.value = base;
-    updateSlug();
-  }
-}
-function updatePack() {
-  var el = document.getElementById('pack-passations');
-  if (!el) return;
-  var label = el.value === 'illimite' ? 'Illimité' : Number(el.value).toLocaleString('fr-FR') + ' passations';
-  var packVal = document.getElementById('pack-val');
-  if (packVal) packVal.textContent = label;
-}
-function openPassationPreview() {
-  save();
-  window.open('apercu-passation.html', '_blank');
-}
-function checkContinue() {
-  var ok = document.getElementById('intro').value.trim().length > 0
-    && sociodemo.length > 0
-    && document.getElementById('date-lancement').value.trim().length > 0;
-  document.getElementById('btn-continue').disabled = !ok;
-}
-function continuer() {
-  save();
-  try {
-    var raw = localStorage.getItem(LS_KEY);
-    var stored = raw ? JSON.parse(raw) : {};
-    stored.parametrage_done = true;
-    localStorage.setItem(LS_KEY, JSON.stringify(stored));
-  } catch(e) {}
-  window.location.href = 'campagne.html';
-}
-function applyThemeFromEditor() {
-  // Les données viennent de la page création via le même localStorage.
-}
-init();
-applyThemeFromEditor();
-updateSlug();
-updateSidebar();
-updatePack();
-checkContinue();
-updatePreview();
+function addResource(){ state.resources.push({titre:"Nouvelle ressource",url:"https://www.monentreprise.fr/ressources/consignes"}); itsSave(state); renderResources(); }
+function generateIntro(){ document.getElementById("intro").value = "Bienvenue dans cet autodiagnostic consacré à " + (state.title||"votre sujet") + ". Il vous propose des situations concrètes du quotidien professionnel pour vous aider à identifier vos réflexes. Cet autodiagnostic est entièrement anonyme : aucun login, aucun mot de passe, aucun cookie, aucun suivi d’adresse IP. Les résultats seront analysés de manière agrégée."; saveForm(); }
+function openPreview(){ saveForm(); window.open("apercu-passation.html","_blank"); }
+function next(){ saveForm(); window.location.href="campagne.html"; }
+fill();
 </script>
 </body>
+</html>
 </html>
