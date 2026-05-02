@@ -385,8 +385,8 @@ if (!state || !state.chapters || !state.chapters.length) {
 
 const PROV = {
   AI:     {key:'ai', label:'Base assistée par IA', ico:'🤖', cls:''},
-  EXPERT: {key:'expert', label:'Conçu par expert·e Me&YouToo', ico:'⭐', cls:'expert'},
-  CLIENT: {key:'client', label:'Contribution client anonymisée', ico:'🤝', cls:'client'},
+  TBF:    {key:'tbf', label:'Conçu par The Big Factory', ico:'⭐', cls:'expert'},
+  
 };
 
 const profils_config = [
@@ -419,15 +419,25 @@ function getCurrentSubject(){
 
 function normalizeProv(tags){
   const joined = (tags || []).join(' ').toLowerCase();
-  if (joined.includes('expert')) return 'EXPERT';
-  if (joined.includes('client') || joined.includes('manuel')) return 'CLIENT';
+
+  if (
+    joined.includes('the big factory') ||
+    joined.includes('manager-engageant-tbf')
+  ) return 'TBF';
+
   return 'AI';
 }
 
 function normalizeTags(tags){
   return (tags || [])
     .filter(Boolean)
-    .filter(t => !String(t).toLowerCase().includes('base assistée') && !String(t).toLowerCase().includes('conçu par') && !String(t).toLowerCase().includes('contribution client'))
+    .filter(t => {
+      const x = String(t).toLowerCase();
+      return !x.includes('base assistée')
+        && !x.includes('conçu par')
+        && !x.includes('contribution client')
+        && !x.includes('validation obligatoire');
+    })
     .slice(0,6)
     .map(t => ({t:String(t), ai:String(t).toLowerCase().includes('ia')}));
 }
@@ -478,7 +488,10 @@ function syncToState(){
       id: q.id,
       type: q.type,
       text: q.text,
-      tags: [PROV[q.prov]?.label || 'Base assistée par IA', ...(q.tags || []).map(t => t.t)],
+      tags: [
+  q.prov === 'TBF' ? 'Conçu par The Big Factory' : 'Base assistée par IA',
+  ...(q.tags || []).map(t => t.t)
+],
       answers: q.answers.map(a => ({text:a.l, score:Number(a.s)}))
     })),
     profiles: c.profils.map((p, i) => ({
@@ -504,18 +517,42 @@ let activeFilterTag = '';
 let likertInfoOpen = false;
 
 const fallbackBibliotheque = [
-  {id:'b1',prov:'AI',subject:'',chapter:'',text:"Je participe activement aux exercices organisés.",tags:["Exercice","Participation"],added:false},
-  {id:'b2',prov:'AI',subject:'',chapter:'',text:"Je consulte régulièrement les informations utiles au sujet.",tags:["Veille","Compréhension"],added:false},
-  {id:'b3',prov:'EXPERT',subject:'',chapter:'',text:"Avant de démarrer une tâche, j'identifie systématiquement les points de vigilance.",tags:["Méthode","Prévention"],added:false},
-  {id:'b4',prov:'CLIENT',subject:'',chapter:'',text:"Je remonte les situations à risque sans attendre.",tags:["Signalement","Proactivité"],added:false},
+  {id:'b1',prov:'AI',subject:'',chapter:'',text:"Vous recevez une demande inhabituelle dans votre quotidien professionnel. Que faites-vous ?",tags:["Base assistée par IA"],added:false},
+  {id:'b2',prov:'AI',subject:'',chapter:'',text:"Une situation ambiguë apparaît et personne ne semble vouloir la traiter. Que faites-vous ?",tags:["Base assistée par IA"],added:false},
+  {id:'b3',prov:'AI',subject:'',chapter:'',text:"Vous devez choisir entre aller vite et vérifier un point important. Que privilégiez-vous ?",tags:["Base assistée par IA"],added:false}
 ];
 
 function getRawBibliotheque(){
-  if (typeof ITS_CATALOGUE !== 'undefined') {
-    if (Array.isArray(ITS_CATALOGUE.bibliotheque)) return ITS_CATALOGUE.bibliotheque;
-    if (Array.isArray(ITS_CATALOGUE.questions)) return ITS_CATALOGUE.questions;
-    if (Array.isArray(ITS_CATALOGUE.library)) return ITS_CATALOGUE.library;
+  const out = [];
+
+  if (Array.isArray(window.ITS_CATALOGUE)) {
+    window.ITS_CATALOGUE.forEach(ad => {
+      const isTBF = ad.id === 'manager-engageant-tbf';
+
+      (ad.chapters || []).forEach(ch => {
+        (ch.questions || []).forEach(q => {
+          out.push({
+            id: q.id,
+            prov: isTBF ? 'TBF' : 'AI',
+            subject: ad.title || ad.theme || '',
+            chapter: ch.title || '',
+            text: q.text || '',
+            tags: [
+              ...(isTBF ? ['Conçu par The Big Factory'] : ['Base assistée par IA']),
+              ad.theme || '',
+              ch.title || ''
+            ].filter(Boolean),
+            answers: q.answers || [],
+            type: q.type || 'choix',
+            added: false
+          });
+        });
+      });
+    });
+
+    return out;
   }
+
   return fallbackBibliotheque;
 }
 
@@ -950,7 +987,7 @@ function addManual() {
   chapters[activeChap].questions.push({
     id,
     type: 'choix',
-    prov: 'CLIENT',
+    prov: 'AI',
     text: 'Nouvelle mise en situation',
     tags: [],
     answers: [
@@ -1157,7 +1194,7 @@ function renderPanelList(search, tag) {
     <div style="flex:1">
       <div class="panel-q-text">${esc(q.text)}</div>
       <div class="panel-q-meta">
-        <span class="tag-prov ${q.prov==='EXPERT'?'expert':q.prov==='CLIENT'?'client':''}" style="font-size:10px">${PROV[q.prov]?.ico||'🤖'} ${PROV[q.prov]?.label||''}</span>
+        <span class="tag-prov ${q.prov==='TBF'?'expert':''}" style="font-size:10px">${PROV[q.prov]?.ico||'🤖'} ${PROV[q.prov]?.label||''}</span>
         ${(q.subject ? [`Sujet : ${q.subject}`] : []).map(t => `<span class="tag-pill" style="font-size:10px">${esc(t)}</span>`).join('')}
         ${(q.chapter ? [`Partie : ${q.chapter}`] : []).map(t => `<span class="tag-pill" style="font-size:10px">${esc(t)}</span>`).join('')}
         ${(q.tags||[]).map(t => `<span class="tag-pill" style="font-size:10px">${esc(t)}</span>`).join('')}
