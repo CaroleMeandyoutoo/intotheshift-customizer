@@ -9,21 +9,79 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18375d}
-.subnav{background:#fff;border-bottom:1px solid #e2e8f0;display:flex;padding:8px 18px;gap:4px;overflow-x:auto}.subnav::-webkit-scrollbar{display:none}
-.sn{padding:7px 14px;border-radius:8px;font-size:12px;color:#64748b;cursor:pointer;border:none;background:transparent;white-space:nowrap;font-weight:500;font-family:'Asap',sans-serif;transition:all .12s}.sn.on{background:#18375d;color:#fff;font-weight:600}.sn:not(.on):hover{background:#eef1f6;color:#18375d}
-.breadcrumb{display:flex;align-items:center;gap:6px;padding:11px 24px;border-bottom:1px solid #f0f4f8;background:#fafbfc;flex-wrap:wrap}.bc-link{font-size:12px;color:#007883;cursor:pointer;font-weight:500}.bc-sep{font-size:12px;color:#c5ccd5}.bc-cur{font-size:12px;color:#64748b}
-.stepper-wrap{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 24px;overflow-x:auto}.stepper{display:flex;align-items:center;gap:0;min-width:600px}.step{display:flex;align-items:center;gap:8px;flex-shrink:0}.step-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}.step-circle.done{background:#007883;color:#fff}.step-circle.active{background:#18375d;color:#fff}.step-label{font-size:12px;font-weight:600;white-space:nowrap}.step-label.done{color:#007883}.step-label.active{color:#18375d}.step-connector{flex:1;height:2px;margin:0 12px;border-radius:1px;min-width:20px}.step-connector.done{background:#007883}
-.page-wrap{max-width:1100px;margin:0 auto;padding:24px 24px 60px}.page-title{font-size:20px;font-weight:700;margin-bottom:6px}.page-sub{font-size:13px;color:#64748b;line-height:1.5;max-width:780px;margin-bottom:22px}
-.grid{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}@media(max-width:900px){.grid{grid-template-columns:1fr}}
-.block{background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:22px 24px;margin-bottom:16px}.block-title{font-size:15px;font-weight:800;color:#18375d;margin-bottom:4px}.block-sub{font-size:12px;color:#94a3b8;line-height:1.5;margin-bottom:18px}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}@media(max-width:700px){.mini-grid{grid-template-columns:1fr}}
-.kpi{background:#fafbfc;border:1px solid #e2e8f0;border-radius:11px;padding:13px}.kpi-lbl{font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}.kpi-val{font-size:15px;font-weight:800;color:#18375d;line-height:1.3}.pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;background:#f0f8f7;color:#007883;border:1px solid #b8dfe0;font-size:11px;font-weight:800}
-.table-wrap{overflow:auto;border:1px solid #d8e0ea;border-radius:12px}.data-table{width:100%;border-collapse:collapse;background:#fff;font-size:12px}.data-table th{background:#fafbfc;color:#94a3b8;text-align:left;text-transform:uppercase;letter-spacing:.05em;font-size:10px;padding:10px;border-bottom:1px solid #e2e8f0;white-space:nowrap}.data-table td{padding:10px;border-bottom:1px solid #f0f4f8;color:#18375d;vertical-align:top}.data-table tr:last-child td{border-bottom:none}.data-table .muted{color:#64748b}
-.alert{border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.5;display:flex;gap:9px;margin-bottom:14px}.alert-info{background:#f0f8f7;border:1px solid #b8dfe0;color:#007883}.alert-warn{background:#fff8ec;border:1px solid #ffd490;color:#8a6408}.ico{font-size:15px;flex-shrink:0;margin-top:1px}
-.checklist{display:flex;flex-direction:column;gap:9px}.check-row{display:flex;gap:9px;align-items:flex-start;padding:10px 12px;border:1px solid #e2e8f0;border-radius:10px;background:#fff}.check-row input{margin-top:2px;accent-color:#007883}.check-title{font-size:12px;font-weight:800;color:#18375d;display:block}.check-sub{font-size:11px;color:#64748b;line-height:1.4;margin-top:2px;display:block}
-.mailbox{background:#fafbfc;border:1px solid #e2e8f0;border-radius:12px;padding:14px}.mail-subject{font-size:11px;font-weight:800;color:#94a3b8;text-transform:uppercase;margin-bottom:6px}.mail-body{white-space:pre-wrap;font-size:12px;color:#475569;line-height:1.55;background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:12px;max-height:220px;overflow:auto}
-.btn{border:none;border-radius:8px;padding:10px 15px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Asap',sans-serif;display:inline-flex;align-items:center;gap:7px;text-decoration:none}.btn-primary{background:#eb6366;color:#fff}.btn-primary:hover{background:#d4474a}.btn-secondary{background:#fff;color:#18375d;border:1px solid #d8e0ea}.btn-secondary:hover{background:#f7f9fc}.btn-teal{background:#007883;color:#fff}.btn-teal:hover{background:#00656e}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.bottom-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap}
-.sidebar{position:sticky;top:78px}.side-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;overflow:hidden;margin-bottom:14px}.side-head{background:#18375d;padding:13px 16px}.side-head-lbl{font-size:10px;font-weight:800;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}.side-head-val{font-size:14px;font-weight:700;color:#fff}.side-body{padding:14px 16px}.side-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #f0f4f8}.side-row:last-child{border-bottom:none}.side-row-lbl{font-size:12px;color:#64748b}.side-row-val{font-size:12px;font-weight:800;color:#18375d;text-align:right}.side-url{padding:10px 14px;background:#f0f8f7;border-top:1px solid #e2e8f0}.side-url-lbl{font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}.side-url-val{font-size:11px;color:#007883;font-weight:700;word-break:break-all}
-.copy-note{font-size:11px;color:#007883;margin-top:8px;display:none}.copy-note.on{display:block}
+.subnav{background:#fff;border-bottom:1px solid #e2e8f0;display:flex;padding:8px 18px;gap:4px;overflow-x:auto}
+.subnav::-webkit-scrollbar{display:none}
+.sn{padding:7px 14px;border-radius:8px;font-size:12px;color:#64748b;cursor:pointer;border:none;background:transparent;white-space:nowrap;font-weight:500;font-family:'Asap',sans-serif;transition:all .12s}
+.sn.on{background:#18375d;color:#fff;font-weight:600}
+.sn:not(.on):hover{background:#eef1f6;color:#18375d}
+
+.stepper-wrap{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 24px;overflow-x:auto}
+.stepper{display:flex;align-items:center;gap:0;min-width:620px}
+.step{display:flex;align-items:center;gap:8px;flex-shrink:0;cursor:pointer}
+.step-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.step-circle.done{background:#007883;color:#fff}
+.step-circle.active{background:#18375d;color:#fff}
+.step-label{font-size:12px;font-weight:600;white-space:nowrap}
+.step-label.done{color:#007883}
+.step-label.active{color:#18375d}
+.step-connector{flex:1;height:2px;margin:0 12px;border-radius:1px;min-width:20px;background:#007883}
+
+.page-wrap{max-width:1100px;margin:0 auto;padding:24px 24px 60px}
+.page-title{font-size:20px;font-weight:700;color:#18375d;margin-bottom:6px}
+.page-sub{font-size:13px;color:#64748b;line-height:1.5;max-width:760px;margin-bottom:22px}
+.grid{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+.block{background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:22px 24px;margin-bottom:16px}
+.block-title{font-size:15px;font-weight:700;color:#18375d;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.block-sub{font-size:12px;color:#94a3b8;line-height:1.5;margin-bottom:18px}
+.alert{border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.5;display:flex;gap:9px;margin-top:12px}
+.alert-neutral{background:#f0f8f7;border:1px solid #b8dfe0;color:#007883}
+.alert-warning{background:#fff8ec;border:1px solid #ffd490;color:#8a6408}
+.alert-success{background:#f0fbf2;border:1px solid #b8e8c0;color:#27823a}
+.alert-ico{font-size:15px;flex-shrink:0;margin-top:1px}
+
+.summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(max-width:640px){.summary-grid{grid-template-columns:1fr}}
+.sum-card{background:#fafbfc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px}
+.sum-lbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.sum-val{font-size:13px;font-weight:700;color:#18375d;line-height:1.35;word-break:break-word}
+
+.checklist{display:flex;flex-direction:column;gap:9px}
+.check-row{display:flex;gap:9px;align-items:flex-start;padding:11px 12px;border:1px solid #e2e8f0;border-radius:10px;background:#fff}
+.check-row input{margin-top:2px;accent-color:#007883}
+.check-title{font-size:12px;font-weight:700;color:#18375d;display:block}
+.check-sub{font-size:11px;color:#64748b;line-height:1.4;margin-top:2px;display:block}
+
+.btn-main,.btn-back{border-radius:8px;padding:11px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Asap',sans-serif;display:inline-flex;align-items:center;gap:8px;transition:all .12s}
+.btn-main{border:none;background:#eb6366;color:#fff}
+.btn-main:hover:not(:disabled){background:#d4474a}
+.btn-main:disabled{background:#f5c0c1;cursor:not-allowed}
+.btn-back{border:1px solid #d8e0ea;background:#fff;color:#64748b}
+.btn-back:hover{background:#f7f9fc}
+.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap}
+
+.sidebar{position:sticky;top:78px}
+.sidebar-card,.side-mini{background:#fff;border:1px solid #d8e0ea;border-radius:14px;overflow:hidden;margin-bottom:14px}
+.sidebar-head{background:#18375d;padding:13px 16px}
+.sidebar-head-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}
+.sidebar-head-val{font-size:14px;font-weight:600;color:#fff}
+.sidebar-body{padding:14px 16px}
+.sidebar-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid #f0f4f8}
+.sidebar-row:last-child{border-bottom:none}
+.sidebar-row-lbl{font-size:12px;color:#64748b}
+.sidebar-row-val{font-size:12px;font-weight:700;color:#18375d;text-align:right}
+.sidebar-url{padding:10px 14px;background:#f0f8f7;border-top:1px solid #e2e8f0}
+.sidebar-url-lbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.sidebar-url-val{font-size:11px;color:#007883;font-weight:600;word-break:break-all}
+
+.side-mini-head{padding:12px 14px;background:#18375d;color:#fff;font-size:13px;font-weight:800}
+.side-mini-body{padding:13px 14px}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:20px;font-size:10px;font-weight:800;background:#fff8ec;color:#b7840a}
+.pill-ok{background:#f0fbf2;color:#27823a}
+.progress-wrap{height:7px;background:#edf1f7;border-radius:20px;overflow:hidden;margin:8px 0}
+.progress-fill{height:100%;background:#007883;border-radius:20px;transition:width .2s}
+.hidden{display:none}
 </style>
 </head>
 <body>
@@ -40,180 +98,319 @@ body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18
   <button class="sn on">Transmission</button>
 </div>
 
-<div class="breadcrumb">
-  <span class="bc-link" onclick="window.location.href='index.html'">Bibliothèque</span><span class="bc-sep">›</span>
-  <span class="bc-link" onclick="window.location.href='campagne.html'">Préparer le lancement</span><span class="bc-sep">›</span>
-  <span class="bc-cur">Transmission</span>
+<div class="stepper-wrap">
+  <div class="stepper">
+    <div class="step" onclick="window.location.href='index.html'"><div class="step-circle done">✓</div><span class="step-label done">Choisir</span></div><div class="step-connector"></div>
+    <div class="step" onclick="window.location.href='questions.html'"><div class="step-circle done">✓</div><span class="step-label done">Créer</span></div><div class="step-connector"></div>
+    <div class="step" onclick="window.location.href='parametrage.html'"><div class="step-circle done">✓</div><span class="step-label done">Paramétrer</span></div><div class="step-connector"></div>
+    <div class="step" onclick="window.location.href='campagne.html'"><div class="step-circle done">✓</div><span class="step-label done">Préparer</span></div><div class="step-connector"></div>
+    <div class="step"><div class="step-circle active">5</div><span class="step-label active">Transmettre</span></div>
+  </div>
 </div>
 
-<div class="stepper-wrap"><div class="stepper">
-  <div class="step" onclick="window.location.href='index.html'" style="cursor:pointer"><div class="step-circle done">✓</div><span class="step-label done">Choisir</span></div><div class="step-connector done"></div>
-  <div class="step" onclick="window.location.href='questions.html'" style="cursor:pointer"><div class="step-circle done">✓</div><span class="step-label done">Créer</span></div><div class="step-connector done"></div>
-  <div class="step" onclick="window.location.href='parametrage.html'" style="cursor:pointer"><div class="step-circle done">✓</div><span class="step-label done">Paramétrer</span></div><div class="step-connector done"></div>
-  <div class="step" onclick="window.location.href='campagne.html'" style="cursor:pointer"><div class="step-circle done">✓</div><span class="step-label done">Préparer le lancement</span></div><div class="step-connector done"></div>
-  <div class="step"><div class="step-circle active">5</div><span class="step-label active">Transmettre</span></div>
-</div></div>
-
 <div class="page-wrap">
-  <h1 class="page-title">Transmettre votre autodiagnostic à Into The Shift</h1>
-  <p class="page-sub">Relisez les éléments de synthèse, téléchargez le fichier de transmission, puis envoyez-le à l’équipe Into The Shift pour mise en ligne. Nous vérifierons le fichier avant activation du lien de passation.</p>
+  <h1 class="page-title">Transmettre votre autodiagnostic pour mise en ligne</h1>
+  <p class="page-sub">
+    Votre autodiagnostic est prêt à être finalisé. Une fois transmis, l’équipe Into The Shift vérifiera les derniers éléments,
+    configurera la mise en ligne et vous enverra prochainement le lien de passation à diffuser auprès de vos collaborateurs.
+  </p>
+
   <div class="grid">
     <main>
       <section class="block">
-        <div class="block-title">Synthèse à transmettre</div>
-        <div class="block-sub">Ces informations sont reprises depuis les étapes précédentes.</div>
-        <div class="mini-grid">
-          <div class="kpi"><div class="kpi-lbl">Autodiagnostic</div><div class="kpi-val" id="kpi-title">—</div></div>
-          <div class="kpi"><div class="kpi-lbl">Lancement</div><div class="kpi-val" id="kpi-launch">—</div></div>
-          <div class="kpi"><div class="kpi-lbl">Clôture</div><div class="kpi-val" id="kpi-close">—</div></div>
-          <div class="kpi"><div class="kpi-lbl">Entreprise</div><div class="kpi-val" id="kpi-company">—</div></div>
-          <div class="kpi"><div class="kpi-lbl">Pack choisi</div><div class="kpi-val" id="kpi-pack">—</div></div>
-          <div class="kpi"><div class="kpi-lbl">Contenu</div><div class="kpi-val" id="kpi-content">—</div></div>
+        <div class="block-title">Récapitulatif avant transmission</div>
+        <div class="block-sub">Vérifiez les informations principales avant de nous transmettre votre demande.</div>
+        <div class="summary-grid">
+          <div class="sum-card"><div class="sum-lbl">Entreprise</div><div class="sum-val" id="sum-company">—</div></div>
+          <div class="sum-card"><div class="sum-lbl">Titre collaborateur</div><div class="sum-val" id="sum-title">—</div></div>
+          <div class="sum-card"><div class="sum-lbl">Date de lancement souhaitée</div><div class="sum-val" id="sum-launch">—</div></div>
+          <div class="sum-card"><div class="sum-lbl">Date de clôture</div><div class="sum-val" id="sum-close">—</div></div>
+          <div class="sum-card"><div class="sum-lbl">Pack choisi</div><div class="sum-val" id="sum-pack">—</div></div>
+          <div class="sum-card"><div class="sum-lbl">URL prévue</div><div class="sum-val" id="sum-url">—</div></div>
+        </div>
+        <div class="alert alert-neutral">
+          <span class="alert-ico">ℹ️</span>
+          <span>Le lien affiché ici correspond à l’adresse prévue. Nous vous confirmerons le lien définitif après mise en ligne.</span>
         </div>
       </section>
 
       <section class="block">
-        <div class="block-title">Contrôle final côté client</div>
-        <div class="block-sub">Cette checklist permet de confirmer que les éléments transmis sont prêts pour mise en ligne.</div>
+        <div class="block-title">Validation finale</div>
+        <div class="block-sub">Cochez les points validés avant de transmettre votre demande.</div>
         <div class="checklist">
-          <label class="check-row"><input type="checkbox" checked onchange="updateReady()"><span><span class="check-title">Dates de campagne vérifiées</span><span class="check-sub">La date de lancement et la date de clôture correspondent bien à la période souhaitée.</span></span></label>
-          <label class="check-row"><input type="checkbox" checked onchange="updateReady()"><span><span class="check-title">Messages de communication vérifiés</span><span class="check-sub">Le kit de communication a été relu et adapté au contexte interne.</span></span></label>
-          <label class="check-row"><input type="checkbox" checked onchange="updateReady()"><span><span class="check-title">Canaux de diffusion identifiés</span><span class="check-sub">Email, managers, intranet, Teams / Slack ou affichage ont été sélectionnés.</span></span></label>
-          <label class="check-row"><input type="checkbox" onchange="updateReady()"><span><span class="check-title">Visuels demandés si besoin</span><span class="check-sub">Affiche, bannière ou QR code peuvent être demandés à l’équipe Into The Shift.</span></span></label>
-          <label class="check-row"><input type="checkbox" onchange="updateReady()"><span><span class="check-title">Transmission prête</span><span class="check-sub">Le fichier de transmission peut être envoyé à Into The Shift pour mise en ligne.</span></span></label>
+          <label class="check-row"><input type="checkbox" checked onchange="updateReady()"><span><span class="check-title">Dates de campagne vérifiées</span><span class="check-sub">La date de lancement souhaitée et la date de clôture sont correctes.</span></span></label>
+          <label class="check-row"><input type="checkbox" checked onchange="updateReady()"><span><span class="check-title">Messages de communication vérifiés</span><span class="check-sub">Les textes du kit de communication sont prêts à être adaptés ou diffusés.</span></span></label>
+          <label class="check-row"><input type="checkbox" checked onchange="updateReady()"><span><span class="check-title">Canaux de diffusion vérifiés</span><span class="check-sub">Email, managers, intranet, Teams / Slack ou autres canaux internes sont identifiés.</span></span></label>
+          <label class="check-row"><input type="checkbox" onchange="updateReady()"><span><span class="check-title">Visuels demandés si besoin</span><span class="check-sub">Vous pouvez nous demander des visuels prêts à diffuser pour accompagner le lancement.</span></span></label>
+          <label class="check-row"><input type="checkbox" onchange="updateReady()"><span><span class="check-title">Transmission à Into The Shift validée</span><span class="check-sub">Vous confirmez que les éléments peuvent être transmis pour préparation de la mise en ligne.</span></span></label>
+        </div>
+        <div class="alert alert-warning" id="missing-alert">
+          <span class="alert-ico">⚠️</span>
+          <span>Le bouton de transmission s’activera quand tous les points seront cochés.</span>
+        </div>
+        <div class="alert alert-success hidden" id="success-alert">
+          <span class="alert-ico">✓</span>
+          <span>Votre demande a bien été préparée. Nous allons finaliser la mise en ligne et vous transmettre le lien de passation.</span>
         </div>
       </section>
 
-      <section class="block">
-        <div class="block-title">Aperçu du fichier de transmission</div>
-        <div class="block-sub">Le fichier contient les paramètres, les données socio-démo, les ressources, les chapitres, questions, réponses et profils. Le format est pensé pour pouvoir être relu puis intégré par l’équipe Into The Shift.</div>
-        <div class="alert alert-info"><span class="ico">ℹ️</span><span>Le téléchargement génère un fichier <strong>.xls</strong> ouvrable dans Excel. Il reprend les informations du parcours actuel.</span></div>
-        <div class="table-wrap">
-          <table class="data-table" id="preview-table"><thead><tr><th>Section</th><th>Champ</th><th>Valeur</th></tr></thead><tbody></tbody></table>
-        </div>
-        <div class="actions">
-          <button class="btn btn-teal" onclick="downloadExcel()">Télécharger le fichier de transmission</button>
-          <button class="btn btn-secondary" onclick="copyMail()">Copier le mail de transmission</button>
-          <a class="btn btn-secondary" id="mailto-link" href="#">Préparer l’email</a>
-        </div>
-        <div class="copy-note" id="copy-note">Mail copié.</div>
-      </section>
-
-      <section class="block">
-        <div class="block-title">Email de transmission proposé</div>
-        <div class="block-sub">À envoyer avec le fichier de transmission téléchargé en pièce jointe.</div>
-        <div class="mailbox">
-          <div class="mail-subject">Objet</div>
-          <div id="mail-subject" style="font-size:13px;font-weight:800;color:#18375d;margin-bottom:12px">—</div>
-          <div class="mail-subject">Message</div>
-          <div class="mail-body" id="mail-body"></div>
-        </div>
-      </section>
-
-      <div class="bottom-actions">
-        <button class="btn btn-secondary" onclick="window.location.href='campagne.html'">← Retour à la campagne</button>
-        <button class="btn btn-primary" id="btn-final" onclick="markSent()" disabled>J’ai transmis à Into The Shift</button>
+      <div class="actions">
+        <button class="btn-back" onclick="window.location.href='campagne.html'">← Retour au lancement</button>
+        <button class="btn-main" id="btn-transmit" onclick="transmit()" disabled>Transmettre pour mise en ligne</button>
       </div>
     </main>
 
     <aside class="sidebar">
-      <div class="side-card">
-        <div class="side-head"><div class="side-head-lbl">Transmission</div><div class="side-head-val" id="side-title">—</div></div>
-        <div class="side-body">
-          <div class="side-row"><span class="side-row-lbl">Statut</span><span class="side-row-val"><span class="pill" id="side-status">À transmettre</span></span></div>
-          <div class="side-row"><span class="side-row-lbl">Questions</span><span class="side-row-val" id="side-q">—</span></div>
-          <div class="side-row"><span class="side-row-lbl">Profils</span><span class="side-row-val" id="side-p">—</span></div>
-          <div class="side-row"><span class="side-row-lbl">Données socio-démo</span><span class="side-row-val" id="side-socio">—</span></div>
-          <div class="side-row"><span class="side-row-lbl">Ressources</span><span class="side-row-val" id="side-res">—</span></div>
+      <div class="sidebar-card">
+        <div class="sidebar-head">
+          <div class="sidebar-head-lbl">Autodiagnostic</div>
+          <div class="sidebar-head-val" id="sb-title">—</div>
         </div>
-        <div class="side-url"><div class="side-url-lbl">URL prévue</div><div class="side-url-val" id="side-url">—</div></div>
+        <div class="sidebar-body">
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Chapitres</span><span class="sidebar-row-val" id="sb-chapters">—</span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Questions</span><span class="sidebar-row-val" id="sb-questions">—</span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Profils</span><span class="sidebar-row-val" id="sb-profils">—</span></div>
+          <div class="sidebar-row"><span class="sidebar-row-lbl">Pack</span><span class="sidebar-row-val" id="sb-pack">—</span></div>
+        </div>
+        <div class="sidebar-url">
+          <div class="sidebar-url-lbl">URL prévue</div>
+          <div class="sidebar-url-val" id="sb-url">—</div>
+        </div>
       </div>
-      <div class="side-card">
-        <div class="side-head"><div class="side-head-lbl">Après transmission</div><div class="side-head-val">Mise en ligne</div></div>
-        <div class="side-body" style="font-size:12px;color:#475569;line-height:1.55">L’équipe Into The Shift vérifie le fichier, met en ligne l’autodiagnostic puis confirme l’activation du lien de passation.</div>
+
+      <div class="side-mini">
+        <div class="side-mini-head">État de validation</div>
+        <div class="side-mini-body">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+            <span style="font-size:12px;color:#64748b">Points validés</span>
+            <span class="pill" id="check-pill">0/5</span>
+          </div>
+          <div class="progress-wrap"><div class="progress-fill" id="check-progress" style="width:0%"></div></div>
+          <div style="font-size:11px;color:#94a3b8;line-height:1.4" id="check-hint">Transmission en attente de validation.</div>
+        </div>
       </div>
     </aside>
   </div>
 </div>
 
 <script>
-let state = (typeof itsLoad === 'function') ? itsLoad() : (JSON.parse(localStorage.getItem('intoTheShiftState')||'{}'));
-if(!state || !state.chapters){ state = state || {}; state.chapters = []; }
-function saveState(){ if(typeof itsSave === 'function') itsSave(state); else localStorage.setItem('intoTheShiftState',JSON.stringify(state)); }
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function slugify(text){return String(text||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/&/g,'et').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
-function fmtDate(s){if(!s)return 'À renseigner'; const p=String(s).split('-'); return p.length===3 ? p[2]+'/'+p[1]+'/'+p[0] : s;}
-function getParam(){state.parametrage=state.parametrage||{}; return state.parametrage;}
-function getCamp(){state.campagne=state.campagne||{}; return state.campagne;}
-function getThemeTitle(){return state.title || state.themeTitle || state.name || getParam().titre || getParam().nom || 'Autodiagnostic';}
-function getCompany(){return getParam().entreprise || getParam().company || 'nomdelentreprise';}
-function getSlug(){return getParam().slug || slugify(getThemeTitle()) || 'autodiagnostic';}
-function getUrl(){return 'https://selfdiag-mayt.meandyoutoo.app/' + slugify(getCompany()) + '/' + getSlug();}
-function getPack(){return getParam().pack || getParam().packChoisi || getCamp().pack || 'À renseigner';}
-function getLaunch(){return getParam().date_lancement || getParam().dateLancement || getCamp().date_lancement || getCamp().dateLaunch || '';}
-function getClose(){return getParam().date_cloture || getParam().dateCloture || getCamp().date_cloture || getCamp().dateClose || '';}
-function answerText(a){return a.text || a.l || a.label || ''}
-function scoreVal(a){return a.score ?? a.s ?? ''}
-function profTitle(p){return p.title || p.titre || ''}
-function profSummary(p){return p.summary || p.phrase || ''}
-function profDesc(p){return p.description || p.desc || ''}
-function socioList(){return getParam().sociodemo || state.sociodemo || []}
-function resList(){return getParam().resources || state.resources || []}
-function rows(){
-  const r=[]; const p=getParam();
-  r.push(['Paramètres','Nom de l’autodiagnostic',p.nom||getThemeTitle()]);
-  r.push(['Paramètres','Titre répondant',p.titre||getThemeTitle()]);
-  r.push(['Paramètres','Entreprise',getCompany()]);
-  r.push(['Paramètres','Pack choisi',getPack()]);
-  r.push(['Paramètres','Date de lancement',fmtDate(getLaunch())]);
-  r.push(['Paramètres','Date de clôture',fmtDate(getClose())]);
-  r.push(['Paramètres','URL prévue',getUrl()]);
-  r.push(['Introduction','Texte d’introduction',p.intro || state.intro || '']);
-  socioList().forEach((s,i)=>r.push(['Données socio-démo','Donnée '+(i+1),(s.q||s.question||'')+' — Options : '+((s.opts||s.options||[]).join(' | '))]));
-  resList().forEach((res,i)=>r.push(['Ressources','Ressource '+(i+1),(res.titre||res.title||'')+' — '+(res.url||'')]));
-  (state.chapters||[]).forEach((c,ci)=>{
-    r.push(['Chapitre '+(ci+1),'Titre',c.title||c.name||'']);
-    r.push(['Chapitre '+(ci+1),'Description',c.description||c.desc||'']);
-    (c.questions||[]).forEach((q,qi)=>{
-      r.push(['Chapitre '+(ci+1),'Question '+(qi+1),q.text||'']);
-      (q.answers||[]).forEach((a,ai)=>r.push(['Chapitre '+(ci+1),'Réponse '+(qi+1)+'.'+(ai+1),answerText(a)+' — Score : '+scoreVal(a)]));
+let state = {};
+try {
+  state = typeof itsLoad === 'function' ? itsLoad() : (JSON.parse(localStorage.getItem('its_state') || '{}') || {});
+} catch(e) {
+  state = {};
+}
+
+function esc(s){
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function slugify(text){
+  return String(text || '')
+    .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/&/g,'et').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+}
+function formatDateFr(s){
+  if(!s) return '—';
+  const p = String(s).split('-');
+  return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : s;
+}
+function getParam(){
+  state.parametrage = state.parametrage || {};
+  return state.parametrage;
+}
+function getThemeTitle(){
+  return state.themeTitle || state.title || state.nom || getParam().titre || getParam().nom || 'Autodiagnostic';
+}
+function getCollaboratorTitle(){
+  return getParam().titre_repondants || getParam().titre || getThemeTitle();
+}
+function getCompany(){
+  return getParam().entreprise || getParam().company || state.company || 'nomdelentreprise';
+}
+function getSlug(){
+  return getParam().slug || state.slug || slugify(getThemeTitle()) || 'autodiagnostic';
+}
+function getUrl(){
+  return 'https://selfdiag-mayt.meandyoutoo.app/' + slugify(getCompany()) + '/' + getSlug();
+}
+function normalizeAnswer(a){
+  return {
+    text: a.text || a.label || a.l || a.reponse || '',
+    score: (a.score !== undefined ? a.score : (a.s !== undefined ? a.s : ''))
+  };
+}
+function normalizeQuestion(q){
+  const answers = (q.answers || q.opts || []).map((a, i) => {
+    if(typeof a === 'string') return { text:a, score:(q.scores && q.scores[i] !== undefined ? q.scores[i] : '') };
+    return normalizeAnswer(a);
+  });
+  return {
+    type: q.type || 'choix',
+    text: q.text || q.question || '',
+    answers
+  };
+}
+function getChapters(){
+  return (state.chapters || state.theme?.chapters || []).map((c, i) => ({
+    title: c.title || c.name || `Chapitre ${i+1}`,
+    description: c.description || c.desc || '',
+    questions: (c.questions || []).map(normalizeQuestion),
+    profiles: c.profiles || c.profils || [],
+    seuils: c.seuils || []
+  }));
+}
+function profileTitle(p){ return p.title || p.titre || ''; }
+function profilePhrase(p){ return p.summary || p.phrase || ''; }
+function profileDesc(p){ return p.description || p.desc || ''; }
+function profileMin(ch,p,i){ return p.min ?? (ch.seuils?.[i]?.min ?? ''); }
+function profileMax(ch,p,i){ return p.max ?? (ch.seuils?.[i]?.max ?? ''); }
+
+function buildExcelHtml(){
+  const chapters = getChapters();
+  const rows = [];
+  const header = [
+    'type','chapitre_numero','chapitre_titre','chapitre_description',
+    'question_numero','question_type','question_texte',
+    'reponse_1','score_1','reponse_2','score_2','reponse_3','score_3','reponse_4','score_4',
+    'profil_numero','titre_profil','phrase_courte','description','score_min','score_max'
+  ];
+  rows.push(header);
+
+  chapters.forEach((ch, ci) => {
+    rows.push(['CHAPITRE', ci+1, ch.title, ch.description, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+
+    ch.questions.forEach((q, qi) => {
+      const a = q.answers || [];
+      rows.push([
+        'QUESTION','','','',
+        qi+1, q.type, q.text,
+        a[0]?.text || '', a[0]?.score ?? '',
+        a[1]?.text || '', a[1]?.score ?? '',
+        a[2]?.text || '', a[2]?.score ?? '',
+        a[3]?.text || '', a[3]?.score ?? '',
+        '', '', '', '', '', ''
+      ]);
     });
-    (c.profiles||c.profils||[]).forEach((pr,pi)=>{
-      r.push(['Chapitre '+(ci+1),'Profil '+(pi+1)+' titre',profTitle(pr)]);
-      r.push(['Chapitre '+(ci+1),'Profil '+(pi+1)+' résumé',profSummary(pr)]);
-      r.push(['Chapitre '+(ci+1),'Profil '+(pi+1)+' description',profDesc(pr)]);
+
+    ch.profiles.forEach((p, pi) => {
+      rows.push([
+        'PROFIL','','','','','','','','','','','','','','',
+        pi+1, profileTitle(p), profilePhrase(p), profileDesc(p), profileMin(ch,p,pi), profileMax(ch,p,pi)
+      ]);
     });
   });
-  return r;
+
+  const css = `
+    table{border-collapse:collapse;font-family:Arial,sans-serif;font-size:11pt}
+    th{background:#18375d;color:#fff;font-weight:bold}
+    th,td{border:1px solid #cfd8e3;padding:6px;vertical-align:top}
+    td.num{text-align:center}
+  `;
+  const numCols = new Set([1,4,8,10,12,14,15,19,20]);
+  const htmlRows = rows.map((r, ri) => '<tr>' + r.map((v, ci) => {
+    const tag = ri === 0 ? 'th' : 'td';
+    const cls = numCols.has(ci) ? ' class="num"' : '';
+    return `<${tag}${cls}>${esc(v)}</${tag}>`;
+  }).join('') + '</tr>').join('');
+
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${css}</style></head><body><table>${htmlRows}</table></body></html>`;
 }
-function render(){
-  const title=getThemeTitle(), qCount=(state.chapters||[]).reduce((a,c)=>a+(c.questions||[]).length,0), pCount=(state.chapters||[]).reduce((a,c)=>a+((c.profiles||c.profils||[]).length),0);
-  document.getElementById('kpi-title').textContent=title; document.getElementById('kpi-launch').textContent=fmtDate(getLaunch()); document.getElementById('kpi-close').textContent=fmtDate(getClose());
-  document.getElementById('kpi-company').textContent=getCompany(); document.getElementById('kpi-pack').textContent=getPack(); document.getElementById('kpi-content').textContent=qCount+' questions · '+pCount+' profils';
-  document.getElementById('side-title').textContent=title; document.getElementById('side-q').textContent=qCount; document.getElementById('side-p').textContent=pCount; document.getElementById('side-socio').textContent=socioList().length; document.getElementById('side-res').textContent=resList().length; document.getElementById('side-url').textContent=getUrl();
-  const tbody=document.querySelector('#preview-table tbody'); tbody.innerHTML=rows().slice(0,22).map(x=>'<tr><td>'+esc(x[0])+'</td><td>'+esc(x[1])+'</td><td class="muted">'+esc(x[2])+'</td></tr>').join('');
-  const subject='Transmission autodiagnostic — '+title+' — '+getCompany();
-  const body='Bonjour,\n\nVous trouverez ci-joint le fichier de transmission pour la mise en ligne de notre autodiagnostic.\n\nAutodiagnostic : '+title+'\nEntreprise : '+getCompany()+'\nPack choisi : '+getPack()+'\nDate de lancement souhaitée : '+fmtDate(getLaunch())+'\nDate de clôture : '+fmtDate(getClose())+'\nURL prévue : '+getUrl()+'\n\nNous avons vérifié les dates, les messages de communication et les canaux de diffusion.\n\nMerci de nous confirmer la bonne réception et la mise en ligne du lien de passation.\n\nBien cordialement,';
-  document.getElementById('mail-subject').textContent=subject; document.getElementById('mail-body').textContent=body;
-  document.getElementById('mailto-link').href='mailto:contact@intotheshift.io?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body+'\n\n[Pièce jointe à ajouter : fichier de transmission téléchargé]');
-  if(state.transmission_done){document.getElementById('side-status').textContent='Transmis'; document.getElementById('btn-final').disabled=false;}
+
+function buildPayload(){
+  const param = getParam();
+  return {
+    submitted_at: new Date().toISOString(),
+    entreprise: getCompany(),
+    titre_autodiag: getThemeTitle(),
+    titre_repondants: getCollaboratorTitle(),
+    date_lancement: param.date_lancement || param.dateLancement || '',
+    date_cloture: param.date_cloture || param.dateCloture || '',
+    pack: param.pack || state.pack || '',
+    slug: getSlug(),
+    url_prevue: getUrl(),
+    chapters: getChapters(),
+    excel_html: buildExcelHtml()
+  };
+}
+
+function refresh(){
+  const param = getParam();
+  const chapters = getChapters();
+  const qCount = chapters.reduce((a,c)=>a+(c.questions||[]).length,0);
+  const pCount = chapters.reduce((a,c)=>a+(c.profiles||[]).length,0);
+  const title = getThemeTitle();
+  const company = getCompany();
+  const launch = param.date_lancement || param.dateLancement || '';
+  const close = param.date_cloture || param.dateCloture || '';
+  const pack = param.pack || state.pack || '—';
+  const url = getUrl();
+
+  document.getElementById('sum-company').textContent = company;
+  document.getElementById('sum-title').textContent = getCollaboratorTitle();
+  document.getElementById('sum-launch').textContent = formatDateFr(launch);
+  document.getElementById('sum-close').textContent = formatDateFr(close);
+  document.getElementById('sum-pack').textContent = pack;
+  document.getElementById('sum-url').textContent = url;
+
+  document.getElementById('sb-title').textContent = title;
+  document.getElementById('sb-chapters').textContent = chapters.length;
+  document.getElementById('sb-questions').textContent = qCount;
+  document.getElementById('sb-profils').textContent = pCount;
+  document.getElementById('sb-pack').textContent = pack;
+  document.getElementById('sb-url').textContent = url;
+
   updateReady();
 }
+
 function updateReady(){
-  const boxes=[...document.querySelectorAll('.check-row input')]; const ok=boxes.every(b=>b.checked); document.getElementById('btn-final').disabled=!ok; return ok;
+  const boxes = Array.from(document.querySelectorAll('.check-row input'));
+  const checked = boxes.filter(b => b.checked).length;
+  const total = boxes.length;
+  const ok = checked === total;
+  document.getElementById('check-pill').textContent = checked + '/' + total;
+  document.getElementById('check-pill').className = 'pill ' + (ok ? 'pill-ok' : '');
+  document.getElementById('check-progress').style.width = Math.round((checked/total)*100) + '%';
+  document.getElementById('check-hint').textContent = ok ? 'Tout est validé : vous pouvez transmettre.' : 'Transmission en attente de validation.';
+  document.getElementById('btn-transmit').disabled = !ok;
+  document.getElementById('missing-alert').classList.toggle('hidden', ok);
 }
-function excelHtml(){
-  const rs=rows();
-  return `<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body><table border="1"><thead><tr><th>Section</th><th>Champ</th><th>Valeur</th></tr></thead><tbody>${rs.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join('')}</tbody></table></body></html>`;
+
+async function transmit(){
+  const payload = buildPayload();
+
+  state.transmission = state.transmission || {};
+  state.transmission.status = 'ready_to_send';
+  state.transmission.submitted_at = payload.submitted_at;
+  state.transmission.payload = payload;
+
+  try {
+    if (typeof itsSave === 'function') itsSave(state);
+    else localStorage.setItem('its_state', JSON.stringify(state));
+  } catch(e) {}
+
+  const webhook = window.ITS_TRANSMISSION_WEBHOOK || '';
+  if (webhook) {
+    try {
+      await fetch(webhook, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      state.transmission.status = 'sent';
+      if (typeof itsSave === 'function') itsSave(state);
+    } catch(e) {
+      state.transmission.status = 'send_error';
+      if (typeof itsSave === 'function') itsSave(state);
+    }
+  }
+
+  document.getElementById('success-alert').classList.remove('hidden');
+  document.getElementById('btn-transmit').disabled = true;
+  document.getElementById('btn-transmit').textContent = 'Demande transmise';
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-function downloadExcel(){
-  const blob=new Blob(['\ufeff'+excelHtml()],{type:'application/vnd.ms-excel;charset=utf-8;'}); const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob); a.download='transmission-'+slugify(getCompany())+'-'+getSlug()+'.xls'; a.click(); URL.revokeObjectURL(a.href);
-  state.transmission_excel_downloaded=true; saveState();
-}
-function copyMail(){navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('mail-subject').textContent+'\n\n'+document.getElementById('mail-body').textContent); const n=document.getElementById('copy-note'); n.classList.add('on'); setTimeout(()=>n.classList.remove('on'),1800)}
-function markSent(){state.transmission_done=true; saveState(); alert('Transmission marquée comme effectuée.'); render();}
-render();
+
+refresh();
 </script>
 </body>
 </html>
