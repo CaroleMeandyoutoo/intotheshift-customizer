@@ -52,8 +52,8 @@ function itsStartFromCatalogue(adId) {
     title: ad.title,
     theme: ad.theme,
     audience: ad.audience,
-    tags: ad.tags || ["Base assistée par IA"],
-    duration: ad.duration || "5 à 7 min",
+    tags: ad.tags || ["Base assistée par IA", "Aide à la rédaction", "Relecture obligatoire"],
+    duration: ad.duration || "8 à 12 min",
     chapters: itsClone(ad.chapters || []),
     meta: {
       nom: "Autodiagnostic " + ad.title,
@@ -64,7 +64,7 @@ function itsStartFromCatalogue(adId) {
       date_cloture: ""
     },
     intro: ad.intro || "",
-    packPassations: "200",
+    packPassations: "",
     demographics: [
       { q:"À quelle catégorie appartenez-vous ?", opts:["Collaborateur·rice","Manager","Direction"], min_groupe:25 },
       { q:"Quel est votre service principal ?", opts:["Production","Maintenance","RH","Fonctions support","Autre"], min_groupe:10 }
