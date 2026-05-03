@@ -384,9 +384,9 @@ if (!state || !state.chapters || !state.chapters.length) {
 }
 
 const PROV = {
-  AI:     {key:'ai', label:'Base assistée par IA', ico:'🤖', cls:''},
-  TBF:    {key:'tbf', label:'Conçu par The Big Factory', ico:'⭐', cls:'expert'},
-  
+  AI:  {key:'ai', label:'Base assistée par IA', ico:'🤖', cls:''},
+  TBF: {key:'tbf', label:'Conçu par The Big Factory', ico:'⭐', cls:'expert'},
+  COMPANY: {key:'company', label:'Création entreprise', ico:'✍️', cls:'client'}
 };
 
 const profils_config = [
@@ -489,7 +489,12 @@ function syncToState(){
       type: q.type,
       text: q.text,
       tags: [
-  q.prov === 'TBF' ? 'Conçu par The Big Factory' : 'Base assistée par IA',
+  tags: [
+  q.prov === 'TBF'
+    ? 'Conçu par The Big Factory'
+    : q.prov === 'COMPANY'
+      ? 'Création entreprise'
+      : 'Base assistée par IA',
   ...(q.tags || []).map(t => t.t)
 ],
       answers: q.answers.map(a => ({text:a.l, score:Number(a.s)}))
@@ -993,7 +998,7 @@ function addManual() {
   chapters[activeChap].questions.push({
     id,
     type: 'choix',
-    prov: 'AI',
+    prov: 'COMPANY',
     text: 'Nouvelle mise en situation',
     tags: [],
     answers: [
