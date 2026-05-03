@@ -380,27 +380,27 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
 </div>
 
 <script>
-let state = (typeof itsLoad === 'function') ? itsLoad() : JSON.parse(localStorage.getItem('its_state') || '{}');
 const urlParams = new URLSearchParams(window.location.search);
-const isBlankMode = urlParams.get('mode') === 'blank' || state?.mode === 'blank';
+const isBlankMode = urlParams.get('mode') === 'blank';
 
-function makeBlankState(){
+function makeBlankDiagnosticState(){
   return {
     mode: 'blank',
+    source: 'blank',
     selectedTheme: null,
     selectedPack: null,
+    currentAdId: null,
     title: '',
     subject: '',
-    theme: '',
     chapters: [
       {
         title: 'Chapitre 1',
-        description: 'Décrivez ici l’objectif de ce chapitre',
+        description: 'Décrivez ici le sujet de ce chapitre',
         questions: [],
         profiles: [
-          { level: 'En développement', title: '', summary: '', description: '' },
-          { level: 'En progression', title: '', summary: '', description: '' },
-          { level: 'Ancré', title: '', summary: '', description: '' }
+          { level:'En développement', title:'', summary:'', description:'', min:0, max:0.66 },
+          { level:'En progression', title:'', summary:'', description:'', min:0.66, max:1.32 },
+          { level:'Ancré', title:'', summary:'', description:'', min:1.32, max:2 }
         ]
       }
     ],
@@ -409,14 +409,16 @@ function makeBlankState(){
   };
 }
 
-if (isBlankMode && (!state || !Array.isArray(state.chapters) || !state.chapters.length)) {
-  state = makeBlankState();
-  if (typeof itsSave === 'function') itsSave(state);
-  else localStorage.setItem('its_state', JSON.stringify(state));
-}
+let state = (typeof itsLoad === 'function') ? itsLoad() : JSON.parse(localStorage.getItem('its_state') || '{}');
 
-if (!state || !Array.isArray(state.chapters) || !state.chapters.length) {
-  window.location.href = 'index.html';
+if (isBlankMode || !state || !Array.isArray(state.chapters) || !state.chapters.length) {
+  if (isBlankMode) {
+    state = makeBlankDiagnosticState();
+    if (typeof itsSave === 'function') itsSave(state);
+    else localStorage.setItem('its_state', JSON.stringify(state));
+  } else {
+    window.location.href = 'index.html';
+  }
 }
 
 const PROV = {
