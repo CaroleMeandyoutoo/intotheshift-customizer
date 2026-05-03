@@ -58,7 +58,7 @@ body{font-family:'Asap',sans-serif;background:#f0f2f5;min-height:100vh;color:#18
         <div class="block-sub">Ces informations servent à identifier l'autodiagnostic et à configurer son URL de passation.</div>
         <div class="inp-row">
           <div class="field"><label>Nom de l'autodiagnostic<span class="req">*</span></label><input class="inp" id="nom" type="text" oninput="updateParam('nom',this.value);updateSidebar();checkContinue()"></div>
-          <div class="field"><label>Titre visible par les répondants<span class="req">*</span></label><input class="inp" id="titre" type="text" placeholder="Rédigez un titre engageant pour le collaborateur" oninput="updateParam('titre',this.value);checkContinue()"></div>
+          <div class="field"><label>Titre visible par les répondants<span class="req">*</span></label><input class="inp" id="titre" type="text" placeholder="Rédigez un titre engageant pour les répondants" oninput="updateParam('titre',this.value);checkContinue()"></div>
         </div>
         <div class="field"><label>Description interne</label><input class="inp" id="desc" type="text" oninput="updateParam('desc',this.value)"></div>
         <div class="inp-row">
@@ -125,7 +125,8 @@ function ensureDefaults(){
   const p = state.parametrage;
   const t = themeTitle();
   if(!p.nom) p.nom = 'Autodiagnostic ' + t;
-  if(!p.titre) p.titre = t;
+  // Le titre visible reste vide par défaut pour laisser apparaître la consigne dans le champ.
+  if(p.titre == null) p.titre = '';
   if(!p.desc) p.desc = 'Campagne interne sur ' + t + '.';
   if(!p.slug) p.slug = slugify(t) || 'mon-autodiagnostic';
   if(!p.entreprise) p.entreprise = 'nomdelentreprise';
@@ -158,13 +159,13 @@ function renderResources(){
   if(!arr.length){
     container.innerHTML = '<div class="alert alert-neutral" style="margin-bottom:10px"><span class="alert-ico">ℹ️</span><span>Aucune ressource ajoutée pour le moment. Vous pouvez laisser cette zone vide ou ajouter des liens utiles pour les répondants.</span></div>';
   } else {
-    container.innerHTML = arr.map((r,i)=>`<div class="resource-row"><input class="inp" style="flex:2;min-width:140px;font-size:12px;padding:7px 11px" value="${esc(r.titre||'')}" placeholder="Titre de la ressource" oninput="state.parametrage.resources[${i}].titre=this.value;save();updatePreview()"><input class="inp" style="flex:3;min-width:180px;font-size:12px;padding:7px 11px;color:#007883" type="url" value="${esc(r.url||'')}" placeholder="https://..." oninput="state.parametrage.resources[${i}].url=this.value;save();updatePreview()"><button class="btn-del" onclick="removeResource(${i})" title="Supprimer">×</button></div>`).join('');
+    container.innerHTML = arr.map((r,i)=>`<div class="resource-row"><input class="inp" style="flex:2;min-width:140px;font-size:12px;padding:7px 11px" value="${esc(r.titre||'')}" placeholder="Nommez votre document" oninput="state.parametrage.resources[${i}].titre=this.value;save();updatePreview()"><input class="inp" style="flex:3;min-width:180px;font-size:12px;padding:7px 11px;color:#007883" type="url" value="${esc(r.url||'')}" placeholder="https://..." oninput="state.parametrage.resources[${i}].url=this.value;save();updatePreview()"><button class="btn-del" onclick="removeResource(${i})" title="Supprimer">×</button></div>`).join('');
   }
   updatePreview();
 }
 function addResource(){
   if(!Array.isArray(state.parametrage.resources)) state.parametrage.resources = [];
-  state.parametrage.resources.push({titre:'Nouvelle ressource', url:'https://'});
+  state.parametrage.resources.push({titre:'', url:'https://'});
   save();
   renderResources();
 }
@@ -181,7 +182,7 @@ function updatePreview(){
     previewEl.innerHTML = '<div class="preview-label">Aperçu — ressources complémentaires</div><div style="font-size:12px;color:#94a3b8;line-height:1.5">Aucune ressource ne sera affichée pour le moment.</div>';
     return;
   }
-  const resHTML = arr.map(r=>'<div class="preview-res-item">↗ '+esc(r.titre||'Nouvelle ressource')+'</div>').join('');
+  const resHTML = arr.map(r=>'<div class="preview-res-item">↗ '+esc(r.titre||'Nommez votre document')+'</div>').join('');
   previewEl.innerHTML = '<div class="preview-label">Aperçu — ressources complémentaires</div><div class="preview-res">Ressources complémentaires</div>'+resHTML;
 }
 function checkContinue(){ const p=state.parametrage; const ok=(p.nom||'').trim()&&(p.titre||'').trim()&&(p.slug||'').trim()&&(p.intro||'').trim()&&(p.date_lancement||'').trim()&&(p.entreprise||'').trim()&&(p.pack_choisi||'').trim()&&(p.sociodemo||[]).length>0; document.getElementById('btn-continue').disabled=!ok; }
