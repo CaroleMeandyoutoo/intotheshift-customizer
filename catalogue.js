@@ -300,7 +300,7 @@
       "fraude-phishing": 5,
       "mots-de-passe-acces": 10,
       "donnees-confidentielles": 15,
-      "reflexes-risques-numeriques": 0
+      "reflexes-cybersécurité": 0
     },
     securite: {
       "culture-securite-terrain": 0,
@@ -430,11 +430,11 @@ function makeQuestions(prefix, domain, chapterIndex, extraTags){
   };
 
   const raw = [
-    ["risques-numeriques","Risques numériques","🔐",[
-      ["reflexes-risques-numeriques","Vos réflexes face aux risques numériques","Tous publics","Identifier les situations numériques sensibles, réagir sans paniquer et protéger les informations utiles.",templates.risquesNumeriques],
-      ["fraude-phishing","Détecter les tentatives de fraude numérique","Tous publics","Repérer les sollicitations douteuses, les demandes urgentes et les faux signaux de confiance.",templates.risquesNumeriques],
-      ["mots-de-passe-acces","Gérer ses accès et ses mots de passe","Tous publics","Adopter les bons réflexes sur les mots de passe, le partage d’accès et les connexions.",templates.risquesNumeriques],
-      ["donnees-confidentielles","Protéger les données et informations sensibles","Collaborateurs","Faire les bons arbitrages face aux documents, transferts, exports et outils numériques.",templates.risquesNumeriques]
+    ["cybersecurite","Cybersécurité","🔐",[
+      ["reflexes-cybersecurite","Vos réflexes face à la cybersécurité","Tous publics","Identifier les situations cyber sensibles, réagir sans paniquer et protéger les accès, les données et les informations utiles.",templates.risquesNumeriques],
+      ["fraude-phishing","Détecter les tentatives de fraude et de phishing","Tous publics","Repérer les emails suspects, les faux liens, les pièces jointes douteuses et les demandes urgentes inhabituelles.",templates.risquesNumeriques],
+      ["mots-de-passe-acces","Sécuriser ses accès et ses mots de passe","Tous publics","Adopter les bons réflexes sur les mots de passe, la double authentification, le partage d’accès et les sessions ouvertes.",templates.risquesNumeriques],
+      ["donnees-confidentielles","Protéger les données sensibles","Collaborateurs","Faire les bons arbitrages face aux documents, exports, outils collaboratifs, prestataires et informations confidentielles.",templates.risquesNumeriques]
     ]],
 
     ["securite-surete","Sécurité & sûreté au travail","🦺",[
