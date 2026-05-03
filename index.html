@@ -25,9 +25,13 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;color:#18375d}
 .tag.help{background:#eef6ff;border-color:#b7d4f3;color:#18375d}
 .tag.review{background:#fff7e8;border-color:#ffc866;color:#8a5a00}
 .catalogue-count{font-size:12px;color:#64748b;margin-left:auto;align-self:center}
+.blank-create-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:20px 22px;margin:22px 0 24px;display:flex;justify-content:space-between;align-items:center;gap:18px;box-shadow:0 8px 24px rgba(24,55,93,.05)}
+.blank-create-title{font-size:17px;font-weight:800;color:#18375d;margin-bottom:5px}
+.blank-create-text{font-size:13px;color:#64748b;line-height:1.5;max-width:780px}
+.blank-create-actions{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
 .filters-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
-@media(max-width:900px){.badges-grid{grid-template-columns:1fr 1fr}.library-hero{flex-direction:column}}
-@media(max-width:560px){.badges-grid{grid-template-columns:1fr}.badge-item{grid-template-columns:1fr}.badges-card .tag{width:max-content;min-width:118px}}
+@media(max-width:900px){.badges-grid{grid-template-columns:1fr 1fr}.library-hero{flex-direction:column}.blank-create-card{flex-direction:column;align-items:flex-start}.blank-create-actions{justify-content:flex-start}}
+@media(max-width:560px){.badges-grid{grid-template-columns:1fr}.badge-item{grid-template-columns:1fr}.badges-card .tag{width:max-content;min-width:118px}.blank-create-actions .btn{width:100%;justify-content:center}}
 .modal-panel{position:relative}
 .modal-close{position:absolute;top:12px;right:14px;width:32px;height:32px;border:1px solid #d8e0ea;border-radius:8px;background:#fff;font-size:18px;font-weight:700;color:#64748b;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5}
 .modal-close:hover{background:#f0f2f5;color:#18375d}
@@ -70,6 +74,16 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;color:#18375d}
 
   <h1 class="page-title">Choisir une base d’autodiagnostic</h1>
   <p class="page-sub">Sélectionnez une base de travail, personnalisez les situations et préparez votre campagne. Into The Shift finalisera ensuite le lien de votre autodiag à diffuser auprès de vos collaborateurs et le dashboard des résultats.</p>
+
+  <div class="blank-create-card">
+    <div>
+      <div class="blank-create-title">Créer un autodiag de A à Z</div>
+      <div class="blank-create-text">Partez d’une page vierge pour créer vos propres chapitres, questions, réponses, profils et ressources, sans reprendre une base du catalogue.</div>
+    </div>
+    <div class="blank-create-actions">
+      <button class="btn btn-secondary" onclick="startBlankDiagnostic()">Créer depuis une page vierge</button>
+    </div>
+  </div>
 
   <div class="filters-row">
     <div id="themeFilters" style="display:flex;gap:8px;flex-wrap:wrap"></div>
@@ -191,6 +205,26 @@ function openPreview(id){
 
 function closePreview(){
   document.getElementById("previewModal").style.display = "none";
+}
+
+function startBlankDiagnostic(){
+  const blankState = {
+    mode: "blank",
+    source: "blank",
+    selectedTheme: null,
+    selectedPack: null,
+    currentAdId: null,
+    title: "",
+    chapters: [],
+    questions: [],
+    profiles: [],
+    resources: [],
+    campaign: {}
+  };
+
+  localStorage.setItem("intotheshift_customizer_state_v1", JSON.stringify(blankState));
+  localStorage.removeItem("its_current_ad_id");
+  window.location.href = "questions.html?mode=blank";
 }
 
 function useAd(id){
