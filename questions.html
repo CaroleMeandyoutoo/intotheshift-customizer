@@ -282,6 +282,26 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
 
 .empty-q{text-align:center;padding:40px;color:#94a3b8;font-size:13px;font-family:'Asap',sans-serif;border:1.5px dashed #e2e8f0;border-radius:10px}
 
+/* ── ÉCRAN DE CADRAGE MODE VIERGE ───────────────── */
+.blank-setup-wrap{max-width:920px;margin:0 auto;padding:12px 0 40px}
+.blank-setup-hero{background:linear-gradient(135deg,#18375d 0%,#007883 100%);border-radius:16px;padding:28px 30px;color:#fff;margin-bottom:18px}
+.blank-setup-kicker{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;opacity:.72;margin-bottom:8px;font-family:'Asap',sans-serif}
+.blank-setup-title{font-size:24px;font-weight:800;line-height:1.2;margin-bottom:8px;font-family:'Asap',sans-serif}
+.blank-setup-text{font-size:13px;line-height:1.6;opacity:.84;max-width:760px;font-family:'Asap',sans-serif}
+.blank-setup-card{background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:22px 24px;box-shadow:0 8px 24px rgba(24,55,93,.05)}
+.blank-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.blank-field{display:flex;flex-direction:column;gap:6px}
+.blank-field.full{grid-column:1 / -1}
+.blank-field label{font-size:11px;font-weight:800;color:#18375d;text-transform:uppercase;letter-spacing:.05em;font-family:'Asap',sans-serif}
+.blank-field input,.blank-field textarea,.blank-field select{border:1px solid #d8e0ea;border-radius:9px;padding:10px 12px;font-size:13px;color:#18375d;font-family:'Asap',sans-serif;outline:none;background:#fff}
+.blank-field textarea{min-height:86px;resize:vertical;line-height:1.5}
+.blank-field input:focus,.blank-field textarea:focus,.blank-field select:focus{border-color:#007883;box-shadow:0 0 0 3px rgba(0,120,131,.08)}
+.blank-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.blank-help{font-size:12px;color:#64748b;line-height:1.5;font-family:'Asap',sans-serif;max-width:560px}
+.blank-error{display:none;background:#fff7e8;border:1px solid #ffc866;color:#8a5a00;border-radius:9px;padding:10px 12px;font-size:12px;line-height:1.4;margin-top:14px;font-family:'Asap',sans-serif}
+.blank-error.on{display:block}
+@media(max-width:760px){.blank-form-grid{grid-template-columns:1fr}.blank-setup-hero{padding:22px}.blank-actions{align-items:flex-start;flex-direction:column}.blank-actions .btn-save{width:auto}}
+
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
@@ -405,20 +425,27 @@ function makeBlankDiagnosticState(){
       }
     ],
     resources: [],
-    campaign: {}
+    campaign: {},
+    blankSetupDone: false
   };
 }
 
 let state = (typeof itsLoad === 'function') ? itsLoad() : JSON.parse(localStorage.getItem('its_state') || '{}');
 
-if (isBlankMode || !state || !Array.isArray(state.chapters) || !state.chapters.length) {
-  if (isBlankMode) {
-    state = makeBlankDiagnosticState();
-    if (typeof itsSave === 'function') itsSave(state);
-    else localStorage.setItem('its_state', JSON.stringify(state));
-  } else {
-    window.location.href = 'index.html';
+if (isBlankMode) {
+  const freshBlank = makeBlankDiagnosticState();
+  if (!state || state.mode !== 'blank') {
+    state = freshBlank;
+  } else if (!Array.isArray(state.chapters) || !state.chapters.length) {
+    state.chapters = freshBlank.chapters;
+    state.blankSetupDone = false;
   }
+  state.mode = 'blank';
+  state.source = 'blank';
+  if (typeof itsSave === 'function') itsSave(state);
+  else localStorage.setItem('its_state', JSON.stringify(state));
+} else if (!state || !Array.isArray(state.chapters) || !state.chapters.length) {
+  window.location.href = 'index.html';
 }
 
 const PROV = {
@@ -710,6 +737,118 @@ function applyAutoSeuils(ch){
 function refreshThresholdsAfterQuestionChange(){
   const ch = chapters[activeChap];
   if(chapterQuestionsReady(ch)) applyAutoSeuils(ch);
+}
+
+
+function needsBlankSetup(){
+  return state && state.mode === 'blank' && state.blankSetupDone !== true;
+}
+
+function makeBlankProfiles(){
+  return [
+    { level:'En développement', title:'', summary:'', description:'', min:0, max:0.66 },
+    { level:'En progression', title:'', summary:'', description:'', min:0.66, max:1.32 },
+    { level:'Ancré', title:'', summary:'', description:'', min:1.32, max:2 }
+  ];
+}
+
+function renderBlankSetup(){
+  document.getElementById('bc-cur').textContent = 'Cadrage de l’autodiag';
+  document.getElementById('chap-nav').innerHTML = '<div style="font-size:12px;color:#94a3b8;line-height:1.5;padding:6px 4px;font-family:Asap,sans-serif">Définissez d’abord le cadre de votre autodiag.</div>';
+  document.getElementById('sb-total').innerHTML = '<strong>0</strong> question';
+  const saveBtn = document.getElementById('btn-save');
+  const hint = document.getElementById('btn-save-hint');
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'Cadrage requis';
+  hint.classList.add('visible');
+  hint.textContent = 'Complétez le cadrage pour créer les chapitres';
+
+  document.getElementById('main-editor').innerHTML = `
+    <div class="blank-setup-wrap">
+      <div class="blank-setup-hero">
+        <div class="blank-setup-kicker">Création de A à Z</div>
+        <div class="blank-setup-title">Définir le cadre avant de créer les questions</div>
+        <div class="blank-setup-text">Pour éviter de générer ou de piocher des situations hors sujet, commencez par préciser le thème, le public et l’objectif. Les chapitres seront ensuite créés vides, prêts à être remplis manuellement ou avec une aide contextualisée.</div>
+      </div>
+      <div class="blank-setup-card">
+        <div class="blank-form-grid">
+          <div class="blank-field full">
+            <label for="blank-title">Titre de l’autodiag</label>
+            <input id="blank-title" placeholder="Ex. Autodiag cybersécurité — réflexes du quotidien" value="${esc(state.title || '')}">
+          </div>
+          <div class="blank-field">
+            <label for="blank-subject">Sujet / thématique</label>
+            <input id="blank-subject" placeholder="Ex. Cybersécurité, QVT, management…" value="${esc(state.subject || '')}">
+          </div>
+          <div class="blank-field">
+            <label for="blank-audience">Public cible</label>
+            <input id="blank-audience" placeholder="Ex. Managers, collaborateurs, équipe RH…" value="${esc(state.audience || '')}">
+          </div>
+          <div class="blank-field full">
+            <label for="blank-objective">Objectif de l’autodiag</label>
+            <textarea id="blank-objective" placeholder="Ex. Identifier les réflexes actuels, sensibiliser aux situations à risque, préparer un plan d’action…">${esc(state.objective || '')}</textarea>
+          </div>
+          <div class="blank-field">
+            <label for="blank-count">Nombre de chapitres</label>
+            <select id="blank-count">
+              ${[1,2,3,4,5,6].map(n => `<option value="${n}" ${Number(state.chapterCount || 4) === n ? 'selected' : ''}>${n} chapitre${n>1?'s':''}</option>`).join('')}
+            </select>
+          </div>
+          <div class="blank-field">
+            <label for="blank-chapters">Noms des chapitres</label>
+            <input id="blank-chapters" placeholder="Optionnel : séparez par des virgules" value="${esc(state.chapterNames || '')}">
+          </div>
+        </div>
+        <div class="blank-error" id="blank-error">Merci de renseigner au moins un titre, un sujet et un objectif.</div>
+        <div class="blank-actions">
+          <div class="blank-help">Après validation, vous arriverez dans l’éditeur avec des chapitres vides. Les boutons IA et bibliothèque seront alors contextualisés par votre sujet.</div>
+          <button class="btn-save" style="width:auto;padding:11px 18px" onclick="completeBlankSetup()">Créer les chapitres</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function completeBlankSetup(){
+  const title = document.getElementById('blank-title').value.trim();
+  const subject = document.getElementById('blank-subject').value.trim();
+  const audience = document.getElementById('blank-audience').value.trim();
+  const objective = document.getElementById('blank-objective').value.trim();
+  const count = Number(document.getElementById('blank-count').value || 4);
+  const chapterNamesRaw = document.getElementById('blank-chapters').value.trim();
+  const err = document.getElementById('blank-error');
+
+  if(!title || !subject || !objective){
+    err.classList.add('on');
+    return;
+  }
+
+  const names = chapterNamesRaw
+    ? chapterNamesRaw.split(',').map(x => x.trim()).filter(Boolean)
+    : [];
+
+  state.title = title;
+  state.subject = subject;
+  state.theme = subject;
+  state.audience = audience;
+  state.objective = objective;
+  state.chapterCount = count;
+  state.chapterNames = chapterNamesRaw;
+  state.blankSetupDone = true;
+  state.chapters = Array.from({length: count}, (_, i) => ({
+    title: names[i] || `Chapitre ${i+1}`,
+    description: names[i] ? `Partie dédiée à ${names[i]}` : `À préciser — ${subject}`,
+    questions: [],
+    profiles: makeBlankProfiles()
+  }));
+
+  chapters = normalizeChaptersFromState();
+  activeChap = 0;
+  activeTab = 'questions';
+  openCards = {};
+  syncToState();
+  renderNav();
+  renderMain();
+  updateSaveButton();
 }
 
 function renderNav() {
@@ -1428,10 +1567,14 @@ function closeSaveModal() {
   document.getElementById('modal-save-blocked').classList.remove('on');
 }
 
-renderNav();
-renderMain();
-updateSaveButton();
-syncToState();
+if (needsBlankSetup()) {
+  renderBlankSetup();
+} else {
+  renderNav();
+  renderMain();
+  updateSaveButton();
+  syncToState();
+}
 </script>
 </body>
 </html>
