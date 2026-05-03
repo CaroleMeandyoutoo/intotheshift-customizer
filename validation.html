@@ -362,53 +362,155 @@ function profileMax(ch,p,i){ return p.max ?? (ch.seuils?.[i]?.max ?? ''); }
 
 function buildExcelHtml(){
   const chapters = getChapters();
-  const rows = [];
-  const header = [
-    'type','chapitre_numero','chapitre_titre','chapitre_description',
-    'question_numero','question_type','question_texte',
-    'reponse_1','score_1','reponse_2','score_2','reponse_3','score_3','reponse_4','score_4',
-    'profil_numero','titre_profil','phrase_courte','description','score_min','score_max'
-  ];
-  rows.push(header);
+  const param = getParam();
+  const client = getClientInfo();
+  const campagne = state.campagne || state.campaign || {};
+  const checklist = campagne.checklist || {};
+  const resources = Array.isArray(param.resources) ? param.resources : [];
+  const sociodemo = Array.isArray(param.sociodemo) ? param.sociodemo : [];
+  const submitted = new Date().toLocaleString('fr-FR');
+  const pack = formatPack(getPackChoice());
+  const url = getUrl();
 
+  function x(v){
+    return String(v ?? '')
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+  function cell(v, style){
+    const isNum = typeof v === 'number' && isFinite(v);
+    const dataType = isNum ? 'Number' : 'String';
+    const ss = style ? ` ss:StyleID="${style}"` : '';
+    return `<Cell${ss}><Data ss:Type="${dataType}">${x(v)}</Data></Cell>`;
+  }
+  function row(values, style){
+    return `<Row>${values.map(v => cell(v, style)).join('')}</Row>`;
+  }
+  function section(title, mergeAcross = 5){
+    return `<Row><Cell ss:StyleID="Section" ss:MergeAcross="${mergeAcross}"><Data ss:Type="String">${x(title)}</Data></Cell></Row>`;
+  }
+  function sheet(name, rowsXml){
+    return `<Worksheet ss:Name="${x(name).slice(0,31)}"><Table>${rowsXml}</Table></Worksheet>`;
+  }
+  function yesNo(v){ return v ? 'Oui' : 'Non'; }
+
+  const generalRows = [
+    section('Informations de transmission'),
+    row(['Champ','Valeur'], 'Header'),
+    row(['Date de transmission', submitted]),
+    row(['Entreprise déclarée', client.entreprise || getCompany()]),
+    row(['Prénom', client.prenom]),
+    row(['Nom', client.nom]),
+    row(['Email professionnel', client.email]),
+    row(['Fonction', client.fonction]),
+    row(['Téléphone', client.telephone]),
+    row(['Commentaire client', client.commentaire]),
+    row(['URL prévue', url]),
+    row(['Slug', getSlug()]),
+    row(['Pack choisi', pack]),
+    row(['Date lancement souhaitée', param.date_lancement || param.dateLancement || '']),
+    row(['Date clôture', param.date_cloture || param.dateCloture || '']),
+    row(['Nombre répondants estimé', param.nb_repondants || '']),
+    row(['Langue', param.langue || state.langue || 'FR'])
+  ].join('');
+
+  const paramRows = [
+    section('Configuration générale'),
+    row(['Champ','Valeur'], 'Header'),
+    row(["Nom de l'autodiagnostic", param.nom || getThemeTitle()]),
+    row(['Titre visible par les répondants', getCollaboratorTitle()]),
+    row(['Description interne', param.desc || '']),
+    row(['Entreprise / espace client', param.entreprise || getCompany()]),
+    row(['Pack choisi', pack]),
+    row(['Slug', getSlug()]),
+    row(['URL de passation prévue', url]),
+    row(['Introduction affichée avant autodiagnostic', param.intro || '']),
+    row(['Nombre de chapitres', chapters.length]),
+    row(['Nombre total de questions', chapters.reduce((a,c)=>a+(c.questions||[]).length,0)]),
+    row(['Nombre total de profils', chapters.reduce((a,c)=>a+(c.profiles||[]).length,0)])
+  ].join('');
+
+  const campagneRows = [
+    section('Données de campagne'),
+    row(['Champ','Valeur'], 'Header'),
+    row(['Date de lancement souhaitée', param.date_lancement || param.dateLancement || '']),
+    row(['Date de clôture', param.date_cloture || param.dateCloture || '']),
+    row(['Pack de passations', pack]),
+    row(['URL collaborateur prévue', url]),
+    row(['Template actif dans le kit', campagne.activeTemplate || '']),
+    row(['Checklist - dates', yesNo(checklist.dates)]),
+    row(['Checklist - messages', yesNo(checklist.messages)]),
+    row(['Checklist - canaux', yesNo(checklist.channels)]),
+    row(['Checklist - visuels', yesNo(checklist.visuals)]),
+    row(['Checklist - transmission', yesNo(checklist.transmit)]),
+    row(['Statut', state.status || state.transmission?.status || ''])
+  ].join('');
+
+  const contentHeader = row([
+    'Chapitre n°','Chapitre','Description chapitre','Question n°','Type question','Question',
+    'Réponse 1','Score 1','Réponse 2','Score 2','Réponse 3','Score 3','Réponse 4','Score 4'
+  ], 'Header');
+  let contentRows = contentHeader;
   chapters.forEach((ch, ci) => {
-    rows.push(['CHAPITRE', ci+1, ch.title, ch.description, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
-
-    ch.questions.forEach((q, qi) => {
+    (ch.questions || []).forEach((q, qi) => {
       const a = q.answers || [];
-      rows.push([
-        'QUESTION','','','',
-        qi+1, q.type, q.text,
+      contentRows += row([
+        ci+1, ch.title, ch.description, qi+1, q.type, q.text,
         a[0]?.text || '', a[0]?.score ?? '',
         a[1]?.text || '', a[1]?.score ?? '',
         a[2]?.text || '', a[2]?.score ?? '',
-        a[3]?.text || '', a[3]?.score ?? '',
-        '', '', '', '', '', ''
-      ]);
-    });
-
-    ch.profiles.forEach((p, pi) => {
-      rows.push([
-        'PROFIL','','','','','','','','','','','','','','',
-        pi+1, profileTitle(p), profilePhrase(p), profileDesc(p), profileMin(ch,p,pi), profileMax(ch,p,pi)
+        a[3]?.text || '', a[3]?.score ?? ''
       ]);
     });
   });
 
-  const css = `
-    table{border-collapse:collapse;font-family:Arial,sans-serif;font-size:11pt}
-    th{background:#18375d;color:#fff;font-weight:bold}
-    th,td{border:1px solid #cfd8e3;padding:6px;vertical-align:top}
-    td.num{text-align:center}
-  `;
-  const numCols = new Set([1,4,8,10,12,14,15,19,20]);
-  const htmlRows = rows.map((r, ri) => '<tr>' + r.map((v, ci) => {
-    const tag = ri === 0 ? 'th' : 'td';
-    const cls = numCols.has(ci) ? ' class="num"' : '';
-    return `<${tag}${cls}>${esc(v)}</${tag}>`;
-  }).join('') + '</tr>').join('');
+  const profileHeader = row([
+    'Chapitre n°','Chapitre','Profil n°','Titre profil','Phrase courte','Description','Score min','Score max'
+  ], 'Header');
+  let profileRows = profileHeader;
+  chapters.forEach((ch, ci) => {
+    (ch.profiles || []).forEach((p, pi) => {
+      profileRows += row([
+        ci+1, ch.title, pi+1, profileTitle(p), profilePhrase(p), profileDesc(p), profileMin(ch,p,pi), profileMax(ch,p,pi)
+      ]);
+    });
+  });
 
-  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${css}</style></head><body><table>${htmlRows}</table></body></html>`;
+  const socioHeader = row(['Question socio-démo n°','Intitulé','Options','Effectif minimum du plus petit groupe'], 'Header');
+  let socioRows = socioHeader;
+  sociodemo.forEach((s, i) => {
+    socioRows += row([i+1, s.q || s.question || '', (s.opts || s.options || []).join(' | '), s.min_groupe ?? '']);
+  });
+
+  const resourceHeader = row(['Ressource n°','Titre','URL'], 'Header');
+  let resourceRows = resourceHeader;
+  resources.forEach((r, i) => {
+    resourceRows += row([i+1, r.titre || r.title || '', r.url || '']);
+  });
+
+  const workbook = `<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal"><Alignment ss:Vertical="Top" ss:WrapText="1"/><Font ss:FontName="Arial" ss:Size="10"/></Style>
+  <Style ss:ID="Header"><Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/><Font ss:FontName="Arial" ss:Size="10" ss:Bold="1" ss:Color="#FFFFFF"/><Interior ss:Color="#18375D" ss:Pattern="Solid"/><Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/><Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/><Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/><Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/></Borders></Style>
+  <Style ss:ID="Section"><Alignment ss:Horizontal="Left" ss:Vertical="Center"/><Font ss:FontName="Arial" ss:Size="12" ss:Bold="1" ss:Color="#FFFFFF"/><Interior ss:Color="#007883" ss:Pattern="Solid"/></Style>
+ </Styles>
+ ${sheet('01_Récap client', generalRows)}
+ ${sheet('02_Paramétrage', paramRows)}
+ ${sheet('03_Campagne', campagneRows)}
+ ${sheet('04_Contenus AD', contentRows)}
+ ${sheet('05_Profils scoring', profileRows)}
+ ${sheet('06_Socio demo', socioRows)}
+ ${sheet('07_Ressources', resourceRows)}
+</Workbook>`;
+  return workbook;
 }
 
 function getClientInfo(){
@@ -539,7 +641,7 @@ async function transmit(){
     else localStorage.setItem('its_state', JSON.stringify(state));
   } catch(e) {}
 
-  const webhook = 'https://hook.eu1.make.com/cs7ho799lf6mzkfurl1dcp9ai2pn1led';
+  const webhook = window.ITS_TRANSMISSION_WEBHOOK || '';
   if (webhook) {
     try {
       await fetch(webhook, {
