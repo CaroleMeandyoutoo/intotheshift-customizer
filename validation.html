@@ -365,7 +365,6 @@ function buildExcelHtml(){
   const param = getParam();
   const client = getClientInfo();
   const campagne = state.campagne || state.campaign || {};
-  const checklist = campagne.checklist || {};
   const resources = Array.isArray(param.resources) ? param.resources : [];
   const sociodemo = Array.isArray(param.sociodemo) ? param.sociodemo : [];
   const submitted = new Date().toLocaleString('fr-FR');
@@ -379,53 +378,46 @@ function buildExcelHtml(){
       .replace(/>/g,'&gt;')
       .replace(/"/g,'&quot;');
   }
+  function isNumberLike(v){
+    return typeof v === 'number' && isFinite(v);
+  }
   function cell(v, style){
-    const isNum = typeof v === 'number' && isFinite(v);
-    const dataType = isNum ? 'Number' : 'String';
+    const dataType = isNumberLike(v) ? 'Number' : 'String';
     const ss = style ? ` ss:StyleID="${style}"` : ' ss:StyleID="Left"';
     return `<Cell${ss}><Data ss:Type="${dataType}">${x(v)}</Data></Cell>`;
   }
-  function row(values, style){
-    return `<Row ss:AutoFitHeight="1">${values.map(v => cell(v, style)).join('')}</Row>`;
+  function row(values, style, height){
+    const h = height ? ` ss:Height="${height}" ss:AutoFitHeight="0"` : '';
+    return `<Row${h}>${values.map(v => cell(v, style)).join('')}</Row>`;
+  }
+  function rowStyles(values, styles, height){
+    const h = height ? ` ss:Height="${height}" ss:AutoFitHeight="0"` : '';
+    return `<Row${h}>${values.map((v, i) => cell(v, styles[i] || 'Left')).join('')}</Row>`;
   }
   function section(title, mergeAcross = 5){
-    return `<Row ss:Height="22"><Cell ss:StyleID="Section" ss:MergeAcross="${mergeAcross}"><Data ss:Type="String">${x(title)}</Data></Cell></Row>`;
+    return `<Row><Cell ss:StyleID="Section" ss:MergeAcross="${mergeAcross}"><Data ss:Type="String">${x(title)}</Data></Cell></Row>`;
   }
-  function columnsForSheet(name){
-    if(name.indexOf('Récap') >= 0 || name.indexOf('Paramétrage') >= 0 || name.indexOf('Campagne') >= 0){
-      return `<Column ss:Width="220"/><Column ss:Width="560"/>`;
-    }
-    if(name.indexOf('Contenus') >= 0){
-      return `
-        <Column ss:Width="70"/><Column ss:Width="180"/><Column ss:Width="260"/><Column ss:Width="70"/>
-        <Column ss:Width="100"/><Column ss:Width="420"/>
-        <Column ss:Width="280"/><Column ss:Width="60"/><Column ss:Width="280"/><Column ss:Width="60"/>
-        <Column ss:Width="280"/><Column ss:Width="60"/><Column ss:Width="280"/><Column ss:Width="60"/>`;
-    }
-    if(name.indexOf('Profils') >= 0){
-      return `<Column ss:Width="70"/><Column ss:Width="180"/><Column ss:Width="70"/><Column ss:Width="220"/><Column ss:Width="280"/><Column ss:Width="520"/><Column ss:Width="70"/><Column ss:Width="70"/>`;
-    }
-    if(name.indexOf('Socio') >= 0){
-      return `<Column ss:Width="90"/><Column ss:Width="320"/><Column ss:Width="520"/><Column ss:Width="180"/>`;
-    }
-    if(name.indexOf('Ressources') >= 0){
-      return `<Column ss:Width="90"/><Column ss:Width="320"/><Column ss:Width="560"/>`;
-    }
-    return `<Column ss:Width="180"/><Column ss:Width="360"/>`;
+  function columns(widths){
+    return widths.map(w => `<Column ss:Width="${w}"/>`).join('');
   }
-  function sheet(name, rowsXml, freezeFirstRow = true){
+  function sheet(name, rowsXml, widths, freeze = true){
     return `<Worksheet ss:Name="${x(name).slice(0,31)}">
-      <Table>${columnsForSheet(name)}${rowsXml}</Table>
-      <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-        ${freezeFirstRow ? '<FreezePanes/><FrozenNoSplit/><SplitHorizontal>1</SplitHorizontal><TopRowBottomPane>1</TopRowBottomPane>' : ''}
-      </WorksheetOptions>
+      <Table>${columns(widths || [180,520])}${rowsXml}</Table>
+      ${freeze ? `<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel"><FreezePanes/><FrozenNoSplit/><SplitHorizontal>1</SplitHorizontal><TopRowBottomPane>1</TopRowBottomPane><ActivePane>2</ActivePane></WorksheetOptions>` : ''}
     </Worksheet>`;
   }
-  function yesNo(v){ return v ? 'Oui' : 'Non'; }
+  function cleanPackLabel(v){ return v === 'illimite' ? 'Illimité' : String(v || '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + (v && v !== 'illimite' ? ' passations' : ''); }
+  function chapStyle(ci){ return `Chap${(ci % 8) + 1}`; }
+  function chapNumStyle(ci){ return `Chap${(ci % 8) + 1}Num`; }
+
+  const totalQuestions = chapters.reduce((a,c)=>a+(c.questions||[]).length,0);
+  const totalProfils = chapters.reduce((a,c)=>a+(c.profiles||[]).length,0);
+  const clientId = slugify((client.entreprise || getCompany()) + '-' + getSlug() + '-' + new Date().getFullYear());
 
   const generalRows = [
-    section('Informations de transmission'),
+    section('Informations de transmission', 1),
     row(['Champ','Valeur'], 'Header'),
+    row(['ID projet proposé', clientId]),
     row(['Date de transmission', submitted]),
     row(['Entreprise déclarée', client.entreprise || getCompany()]),
     row(['Prénom', client.prenom]),
@@ -444,7 +436,7 @@ function buildExcelHtml(){
   ].join('');
 
   const paramRows = [
-    section('Configuration générale'),
+    section('Configuration générale', 1),
     row(['Champ','Valeur'], 'Header'),
     row(["Nom de l'autodiagnostic", param.nom || getThemeTitle()]),
     row(['Titre visible par les répondants', getCollaboratorTitle()]),
@@ -453,14 +445,14 @@ function buildExcelHtml(){
     row(['Pack choisi', pack]),
     row(['Slug', getSlug()]),
     row(['URL de passation prévue', url]),
-    row(['Introduction affichée avant autodiagnostic', param.intro || '']),
+    row(['Introduction affichée avant autodiagnostic', param.intro || ''], undefined, 90),
     row(['Nombre de chapitres', chapters.length]),
-    row(['Nombre total de questions', chapters.reduce((a,c)=>a+(c.questions||[]).length,0)]),
-    row(['Nombre total de profils', chapters.reduce((a,c)=>a+(c.profiles||[]).length,0)])
+    row(['Nombre total de questions', totalQuestions]),
+    row(['Nombre total de profils', totalProfils])
   ].join('');
 
   const campagneRows = [
-    section('Données de campagne'),
+    section('Données de campagne', 1),
     row(['Champ','Valeur'], 'Header'),
     row(['Date de lancement souhaitée', param.date_lancement || param.dateLancement || '']),
     row(['Date de clôture', param.date_cloture || param.dateCloture || '']),
@@ -478,13 +470,14 @@ function buildExcelHtml(){
   chapters.forEach((ch, ci) => {
     (ch.questions || []).forEach((q, qi) => {
       const a = q.answers || [];
-      contentRows += row([
+      const base = chapStyle(ci), num = chapNumStyle(ci);
+      contentRows += rowStyles([
         ci+1, ch.title, ch.description, qi+1, q.type, q.text,
         a[0]?.text || '', a[0]?.score ?? '',
         a[1]?.text || '', a[1]?.score ?? '',
         a[2]?.text || '', a[2]?.score ?? '',
         a[3]?.text || '', a[3]?.score ?? ''
-      ]);
+      ], [num, base, base, num, num, base, base, num, base, num, base, num, base, num], 62);
     });
   });
 
@@ -494,9 +487,10 @@ function buildExcelHtml(){
   let profileRows = profileHeader;
   chapters.forEach((ch, ci) => {
     (ch.profiles || []).forEach((p, pi) => {
-      profileRows += row([
+      const base = chapStyle(ci), num = chapNumStyle(ci);
+      profileRows += rowStyles([
         ci+1, ch.title, pi+1, profileTitle(p), profilePhrase(p), profileDesc(p), profileMin(ch,p,pi), profileMax(ch,p,pi)
-      ]);
+      ], [num, base, num, base, base, base, num, num], 62);
     });
   });
 
@@ -512,6 +506,11 @@ function buildExcelHtml(){
     resourceRows += row([i+1, r.titre || r.title || '', r.url || '']);
   });
 
+  const colors = ['#FFF2CC','#DDEBF7','#E2F0D9','#FCE4D6','#EADCF8','#D9EAD3','#DDEBF7','#F4CCCC'];
+  const chapterStyles = colors.map((color, i) => `
+  <Style ss:ID="Chap${i+1}"><Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/><Font ss:FontName="Arial" ss:Size="10"/><Interior ss:Color="${color}" ss:Pattern="Solid"/><Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FFFFFF"/><Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FFFFFF"/><Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FFFFFF"/><Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FFFFFF"/></Borders></Style>
+  <Style ss:ID="Chap${i+1}Num"><Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/><Font ss:FontName="Arial" ss:Size="10"/><Interior ss:Color="${color}" ss:Pattern="Solid"/><Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FFFFFF"/><Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FFFFFF"/><Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FFFFFF"/><Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FFFFFF"/></Borders></Style>`).join('');
+
   const workbook = `<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
@@ -522,19 +521,22 @@ function buildExcelHtml(){
  <Styles>
   <Style ss:ID="Default" ss:Name="Normal"><Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/><Font ss:FontName="Arial" ss:Size="10"/></Style>
   <Style ss:ID="Left"><Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/><Font ss:FontName="Arial" ss:Size="10"/></Style>
+  <Style ss:ID="Num"><Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/><Font ss:FontName="Arial" ss:Size="10"/></Style>
   <Style ss:ID="Header"><Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/><Font ss:FontName="Arial" ss:Size="10" ss:Bold="1" ss:Color="#FFFFFF"/><Interior ss:Color="#18375D" ss:Pattern="Solid"/><Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/><Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/><Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/><Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/></Borders></Style>
   <Style ss:ID="Section"><Alignment ss:Horizontal="Left" ss:Vertical="Center"/><Font ss:FontName="Arial" ss:Size="12" ss:Bold="1" ss:Color="#FFFFFF"/><Interior ss:Color="#007883" ss:Pattern="Solid"/></Style>
+  ${chapterStyles}
  </Styles>
- ${sheet('01_Récap client', generalRows)}
- ${sheet('02_Paramétrage', paramRows)}
- ${sheet('03_Campagne', campagneRows)}
- ${sheet('04_Contenus AD', contentRows)}
- ${sheet('05_Profils scoring', profileRows)}
- ${sheet('06_Socio demo', socioRows)}
- ${sheet('07_Ressources', resourceRows)}
+ ${sheet('01_Récap client', generalRows, [230,760])}
+ ${sheet('02_Paramétrage', paramRows, [230,760])}
+ ${sheet('03_Campagne', campagneRows, [230,760])}
+ ${sheet('04_Contenus AD', contentRows, [70,260,380,70,110,620,330,65,330,65,330,65,330,65])}
+ ${sheet('05_Profils scoring', profileRows, [70,260,70,300,360,650,80,80])}
+ ${sheet('06_Socio demo', socioRows, [140,360,650,180])}
+ ${sheet('07_Ressources', resourceRows, [100,360,650])}
 </Workbook>`;
   return workbook;
 }
+
 
 function getClientInfo(){
   const byId = id => document.getElementById(id)?.value?.trim() || '';
