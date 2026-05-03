@@ -381,7 +381,41 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
 
 <script>
 let state = (typeof itsLoad === 'function') ? itsLoad() : JSON.parse(localStorage.getItem('its_state') || '{}');
-if (!state || !state.chapters || !state.chapters.length) {
+const urlParams = new URLSearchParams(window.location.search);
+const isBlankMode = urlParams.get('mode') === 'blank' || state?.mode === 'blank';
+
+function makeBlankState(){
+  return {
+    mode: 'blank',
+    selectedTheme: null,
+    selectedPack: null,
+    title: '',
+    subject: '',
+    theme: '',
+    chapters: [
+      {
+        title: 'Chapitre 1',
+        description: 'Décrivez ici l’objectif de ce chapitre',
+        questions: [],
+        profiles: [
+          { level: 'En développement', title: '', summary: '', description: '' },
+          { level: 'En progression', title: '', summary: '', description: '' },
+          { level: 'Ancré', title: '', summary: '', description: '' }
+        ]
+      }
+    ],
+    resources: [],
+    campaign: {}
+  };
+}
+
+if (isBlankMode && (!state || !Array.isArray(state.chapters) || !state.chapters.length)) {
+  state = makeBlankState();
+  if (typeof itsSave === 'function') itsSave(state);
+  else localStorage.setItem('its_state', JSON.stringify(state));
+}
+
+if (!state || !Array.isArray(state.chapters) || !state.chapters.length) {
   window.location.href = 'index.html';
 }
 
