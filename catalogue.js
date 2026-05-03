@@ -5,10 +5,11 @@
   // ─────────────────────────────────────────────────────────────────────────
 
   const BADGES = {
-    IA:         "Base assistée par IA",
-    VALIDATION: "Validation obligatoire avant lancement",
-    TBF:        "Conçu par The Big Factory"
-  };
+  IA:      "Base assistée par IA",
+  REVIEW:  "Relecture obligatoire",
+  AIDE:    "Aide à la rédaction",
+  TBF:     "Conçu par The Big Factory"
+};
 
   // ─────────────────────────────────────────────────────────────────────────
   //  THÈMES CLASSIQUES — réponses génériques
@@ -342,7 +343,7 @@
   function makeQuestions(prefix, domain, chapterIndex, extraTags) {
     const bank   = questionBanks[domain] || questionBanks.management;
     const offset = makeVariantOffset(prefix);
-    const base   = extraTags || [BADGES.IA, BADGES.VALIDATION];
+    const base   = extraTags || [BADGES.IA, BADGES.AIDE, BADGES.REVIEW];
     const ctags  = chaptersTags(domain, chapterIndex);
 
     return Array.from({ length: 5 }, function (_, i) {
@@ -426,7 +427,7 @@
   //  ⚠ NE PAS MODIFIER — logique non générative, contenu validé
   // ═════════════════════════════════════════════════════════════════════════
 
-  const CT = [BADGES.IA, BADGES.VALIDATION];
+  const CT = [BADGES.IA, BADGES.AIDE, BADGES.REVIEW];
 
   function lq(id, text) {
     return {
@@ -889,7 +890,7 @@
     theme[3].forEach(function (ad) {
       const template      = ad[4];
       const specificBadge = ad[5];
-      const tags          = specificBadge ? [specificBadge] : [BADGES.IA, BADGES.VALIDATION];
+      const tags          = specificBadge ? [specificBadge] : [BADGES.IA, BADGES.AIDE, BADGES.REVIEW];
 
       const chapters = template.built
         ? template.built
