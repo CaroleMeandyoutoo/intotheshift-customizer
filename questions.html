@@ -131,6 +131,8 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;min-height:100vh}
 .tag-prov{display:inline-flex;align-items:center;gap:4px;background:#f0edff;border:1px solid #c4b5fd;border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700;color:#6d28d9;font-family:'Asap',sans-serif;white-space:nowrap;cursor:default}
 .tag-prov.expert{background:#fef3c7;border-color:#fcd34d;color:#92400e}
 .tag-prov.client{background:#f0fdf4;border-color:#86efac;color:#166534}
+.tag-prov.help{background:#eef6ff;border-color:#b7d4f3;color:#18375d}
+.tag-prov.review{background:#fff7e8;border-color:#ffc866;color:#8a5a00}
 
 /* Tags de contenu */
 .tag-pill{display:inline-flex;align-items:center;gap:3px;background:#edf1f7;border:1px solid #c5cfdc;border-radius:20px;padding:2px 8px;font-size:10px;font-weight:600;color:#18375d;font-family:'Asap',sans-serif}
@@ -424,6 +426,16 @@ function normalizeProv(tags){
   return 'AI';
 }
 
+function complianceBadgesHTML(prov){
+  if (prov === 'COMPANY') return '';
+  return `<span class="tag-prov help">Aide à la rédaction</span><span class="tag-prov review">Relecture obligatoire</span>`;
+}
+
+function complianceTagsForState(prov){
+  if (prov === 'COMPANY') return [];
+  return ['Aide à la rédaction', 'Relecture obligatoire'];
+}
+
 function normalizeTags(tags){
   return (tags || [])
     .filter(Boolean)
@@ -499,6 +511,7 @@ function syncToState(){
           : q.prov === 'COMPANY'
             ? 'Création entreprise'
             : 'Base assistée par IA',
+        ...complianceTagsForState(q.prov),
         ...(q.tags || []).map(t => t.t)
       ],
       answers: q.answers.map(a => ({text:a.l, score:Number(a.s)}))
@@ -800,7 +813,7 @@ function updateQuestionText(qid, value) {
 function renderCard(q, qi) {
   const open = openCards[q.id];
   const p = PROV[q.prov] || PROV.AI;
-  const provHTML = `<span class="tag-prov ${p.cls}">${p.ico} ${p.label}</span>`;
+  const provHTML = `<span class="tag-prov ${p.cls}">${p.ico} ${p.label}</span>` + complianceBadgesHTML(q.prov);
   const tagsHTML = (q.tags || []).map((t, ti) => `<span class="tag-pill ${t.ai ? 'ai-sug' : ''}">${t.ai ? '✦ ' : ''}${esc(t.t)}<span class="tag-x" onclick="removeTag('${q.id}',${ti});event.stopPropagation()">×</span></span>`).join('');
   const addBtn = (q.tags || []).length < 6 ? `<span class="tag-add" onclick="addTag('${q.id}');event.stopPropagation()">+ Tag</span>` : '';
   let bodyHTML = '';
