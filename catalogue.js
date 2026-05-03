@@ -890,7 +890,9 @@
     theme[3].forEach(function (ad) {
       const template      = ad[4];
       const specificBadge = ad[5];
-      const tags          = specificBadge ? [specificBadge] : [BADGES.IA, BADGES.AIDE, BADGES.REVIEW];
+      const tags = specificBadge
+  ? [specificBadge, BADGES.AIDE, BADGES.REVIEW]
+  : [BADGES.IA, BADGES.AIDE, BADGES.REVIEW];
 
       const chapters = template.built
         ? template.built
