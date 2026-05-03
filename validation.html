@@ -641,7 +641,7 @@ async function transmit(){
     else localStorage.setItem('its_state', JSON.stringify(state));
   } catch(e) {}
 
-  const webhook = window.ITS_TRANSMISSION_WEBHOOK || '';
+  const webhook = 'https://hook.eu1.make.com/cs7ho799lf6mzkfurl1dcp9ai2pn1led';
   if (webhook) {
     try {
       await fetch(webhook, {
