@@ -205,6 +205,11 @@
     "feedback-managerial":          5,
     "manager-engageant-tbf":       10,
     "pilotage-projet":             15,
+    "conduite-changement":         20,
+    "arbitrage-priorisation":      25,
+    "collaboration-interequipes":  31,
+    "responsabilisation-equipe":   40,
+    "transformation-digitale":     50,
     "sobriete-quotidien":           0,
     "dechets-ressources":           5,
     "achats-responsables":         10,
@@ -252,10 +257,10 @@
         ["Relais RH", "Alerte", "Soutien", "Retour d'absence", "Orientation"]
       ],
       management: [
-        ["Cadre",      "Clarté",         "Rôles"],
-        ["Incertitude","Coopération",    "Agilité"],
-        ["Feedback",   "Communication",  "Retour"],
-        ["Pratiques",  "Changement",     "Ancrage"]
+        ["Cadre", "Clarté", "Rôles", "Changement", "Transformation"],
+        ["Incertitude", "Coopération", "Agilité", "Résistance au changement", "Arbitrage"],
+        ["Feedback", "Communication", "Retour", "Responsabilisation", "Engagement"],
+        ["Pratiques", "Ancrage", "Autonomie", "Collaboration interéquipes", "Transformation digitale"]
       ],
       environnement: [
         ["Impact",      "Gestes quotidiens", "Empreinte"],
@@ -446,7 +451,47 @@
       "Une nouvelle méthode est lancée alors que l'ancienne n'est pas totalement stabilisée. Comment réagissez-vous ?",
       "Un contributeur dit oui à tout mais ne tient pas ses engagements. Que faites-vous ?",
       "Une tension apparaît entre qualité attendue et délai disponible. Quelle réaction adoptez-vous ?",
-      "Après plusieurs feedbacks, les mêmes difficultés reviennent. Que faites-vous ?"
+      "Après plusieurs feedbacks, les mêmes difficultés reviennent. Que faites-vous ?",
+      "Un nouveau process est déployé sans que les équipes n'aient été consultées. Comment réagissez-vous ?",
+      "Une réorganisation est annoncée mais les nouvelles responsabilités ne sont pas clarifiées. Que faites-vous ?",
+      "Vous constatez que les résistances au changement se manifestent par des retards répétés plutôt que par des refus explicites. Quelle réaction adoptez-vous ?",
+      "Un outil numérique est imposé mais il ne correspond pas aux usages réels de votre équipe. Que faites-vous ?",
+      "Une transformation importante est lancée alors que l'équipe est déjà en surcharge. Comment vous positionnez-vous ?",
+      "Une décision stratégique vous semble peu adaptée au terrain mais vous devez la relayer. Que faites-vous ?",
+      "Un projet de transformation avance mais une partie de l'équipe n'a pas encore compris ce qui va changer pour elle. Quelle réaction adoptez-vous ?",
+      "Vous percevez que certaines personnes feignent l'adhésion au changement sans vraiment y croire. Que faites-vous ?",
+      "Un changement de processus crée des erreurs en période de transition. Comment réagissez-vous ?",
+      "Une personne exprime publiquement son désaccord sur une décision déjà actée. Quelle réaction adoptez-vous ?",
+      "Deux équipes ont des pratiques différentes pour accomplir la même tâche, ce qui crée des frictions. Comment réagissez-vous ?",
+      "Une collaboration interéquipes échoue à produire un résultat parce que chacun attend que l'autre avance. Que faites-vous ?",
+      "Vous constatez qu'une équipe partenaire ne respecte pas les engagements pris conjointement. Quelle réaction adoptez-vous ?",
+      "Un projet implique plusieurs équipes mais personne ne semble coordonner l'ensemble. Que faites-vous ?",
+      "Une information importante n'est pas partagée entre équipes, ce qui crée des doublons ou des incohérences. Comment vous positionnez-vous ?",
+      "Une collaboration est bloquée par une rivalité tacite entre deux équipes. Que faites-vous ?",
+      "Vous devez travailler avec une personne d'une autre équipe dont les méthodes sont très différentes des vôtres. Quelle réaction adoptez-vous ?",
+      "Un partenaire interne ne tient pas ses délais mais il est dans une autre chaîne hiérarchique. Que faites-vous ?",
+      "Un projet interéquipes avance mais les décisions sont prises sans toujours associer les bonnes personnes. Comment réagissez-vous ?",
+      "Une personne vous demande systématiquement de valider ses décisions même mineures. Que faites-vous ?",
+      "Vous avez délégué une tâche importante mais la personne ne semble pas avancer. Comment réagissez-vous ?",
+      "Quelqu'un prend une initiative hors de son périmètre sans en avoir parlé. Quelle réaction adoptez-vous ?",
+      "Vous constatez qu'une personne compétente ne s'investit plus comme avant. Que faites-vous ?",
+      "Un collaborateur refuse une mission qu'il estime en dehors de son rôle. Comment vous positionnez-vous ?",
+      "Vous devez arbitrer entre deux projets urgents avec des ressources limitées. Que faites-vous ?",
+      "Une priorité définie collectivement est remise en question en cours de route par un membre de l'équipe. Quelle réaction adoptez-vous ?",
+      "Plusieurs demandes urgentes arrivent simultanément et vous ne pouvez pas tout traiter. Comment réagissez-vous ?",
+      "Un arbitrage difficile doit être rendu sans que toutes les informations soient disponibles. Que faites-vous ?",
+      "Vous vous rendez compte que vous avez accepté trop d'engagements simultanément. Quelle réaction adoptez-vous ?",
+      "Un collaborateur fait régulièrement des efforts supplémentaires sans les valoriser lui-même. Que faites-vous ?",
+      "Vous observez que l'engagement collectif dans votre équipe diminue progressivement. Comment réagissez-vous ?",
+      "Une personne semble très investie mais au détriment de sa propre santé. Quelle réaction adoptez-vous ?",
+      "Une décision que vous avez prise ne produit pas les effets attendus. Que faites-vous ?",
+      "Votre équipe fonctionne bien mais semble manquer d'élan ou d'ambition collective. Comment vous positionnez-vous ?",
+      "Un collaborateur développe une expertise que vous ne maîtrisez pas vous-même. Quelle réaction adoptez-vous ?",
+      "Vous constatez que certaines réunions d'équipe n'apportent plus rien de concret. Que faites-vous ?",
+      "Un retour d'expérience collectif révèle une erreur partiellement attribuable à une décision que vous avez prise. Comment réagissez-vous ?",
+      "Vous sentez que votre équipe attend de vous que vous preniez toutes les décisions à leur place. Quelle réaction adoptez-vous ?",
+      "Un collègue extérieur à votre équipe vous sollicite fréquemment pour des arbitrages qui devraient relever de son propre manager. Que faites-vous ?",
+      "Un outil adopté récemment est contourné par la majorité de l'équipe qui revient aux anciennes habitudes. Comment réagissez-vous ?"
     ],
     environnement: [
       "Une réunion courte est prévue en présentiel alors que plusieurs personnes doivent se déplacer loin. Que faites-vous ?",
@@ -641,6 +686,51 @@
         ["Coopérer dans l'incertitude",          "Avancer avec des informations incomplètes sans désorganiser le collectif."],
         ["Donner et recevoir du feedback utile", "Formuler et accueillir des retours concrets, recevables et orientés action."],
         ["Ancrer les nouvelles pratiques",       "Transformer les intentions en habitudes professionnelles observables."]
+      ]
+    },
+    mgmtChangement: {
+      domain: "management",
+      chapters: [
+        ["Comprendre les résistances au changement", "Distinguer l'opposition de fond du besoin d'information, et agir en conséquence sans forcer l'adhésion."],
+        ["Relayer et incarner la transformation",    "Transmettre un changement décidé sans l'avoir choisi tout en préservant sa crédibilité de proximité."],
+        ["Accompagner les transitions individuelles","Repérer les personnes qui décrochent et créer les conditions d'un soutien sans paternalisme ni contrôle."],
+        ["Ancrer les nouvelles pratiques dans la durée", "Empêcher que les anciennes habitudes reprennent le dessus une fois l'attention de la direction retombée."]
+      ]
+    },
+    mgmtResponsabilisation: {
+      domain: "management",
+      chapters: [
+        ["Déléguer sans abandonner",                "Confier une responsabilité réelle tout en restant disponible sans reprendre la main à la moindre difficulté."],
+        ["Développer l'autonomie de décision",      "Créer les conditions pour que les arbitrages se prennent au bon niveau, sans créer de dépendance."],
+        ["Valoriser l'initiative et l'engagement",  "Reconnaître ce qui mérite de l'être, de façon cohérente et sans créer de hiérarchies informelles."],
+        ["Gérer les erreurs sans bloquer la prise de risque", "Traiter une erreur de façon à préserver la confiance et l'envie d'agir sans remettre en cause la délégation."]
+      ]
+    },
+    mgmtCollaboration: {
+      domain: "management",
+      chapters: [
+        ["Coopérer avec d'autres équipes",           "Identifier les points de friction interéquipes et créer les conditions d'une vraie collaboration au quotidien."],
+        ["Gérer les dépendances et les attentes",    "Clarifier ce qu'on peut attendre des autres et ce qu'on s'engage à livrer soi-même, sans ambiguïté."],
+        ["Dépasser les logiques de silos",           "Agir pour que les intérêts d'équipe ne prennent pas le dessus sur la cohérence globale de l'organisation."],
+        ["Construire des pratiques communes",        "Aligner les méthodes de travail entre équipes sans imposer ni diluer ce qui fonctionne."]
+      ]
+    },
+    mgmtDigital: {
+      domain: "management",
+      chapters: [
+        ["Adopter un nouveau processus ou outil",    "Trouver sa posture face à une transformation qui change les habitudes sans effacer les compétences existantes."],
+        ["Accompagner les moins à l'aise",           "Soutenir les personnes en difficulté avec les outils numériques sans s'y substituer ni créer de dépendance."],
+        ["Questionner la pertinence des usages",     "Évaluer si les outils et processus numériques servent vraiment le travail ou créent de la complexité inutile."],
+        ["Gérer la transition entre ancien et nouveau", "Maintenir la continuité du travail pendant une période de changement d'outil ou de méthode."]
+      ]
+    },
+    mgmtArbitrage: {
+      domain: "management",
+      chapters: [
+        ["Hiérarchiser face à l'urgence",            "Décider quoi faire et quoi ne pas faire quand tout semble prioritaire en même temps."],
+        ["Gérer les injonctions contradictoires",    "Trouver une position cohérente et tenable quand les demandes reçues sont incompatibles entre elles."],
+        ["Expliquer et tenir ses arbitrages",        "Communiquer une décision d'arbitrage de façon à ne pas créer de frustration inutile ni fragiliser la confiance."],
+        ["Revoir ses priorités sans déstabiliser",   "Adapter le plan en cours de route sans perdre la confiance de l'équipe ni créer un sentiment d'instabilité."]
       ]
     },
     environnement: {
@@ -1108,10 +1198,15 @@
       ["manager-signaux-rps",    "Détecter et orienter sans psychologiser",                 "Managers / Encadrants", "Repérer les signaux faibles, intervenir sur le travail et orienter vers les bons relais sans se substituer aux spécialistes.", templates.qvtManagerSignaux]
     ]],
     ["management", "Transformation & management", "🔄", [
-      ["changement-reflexes",   "Changer sans se crisper",             "Tous publics",   "Comprendre ses réflexes face aux changements de méthode, d'outil ou d'organisation.",         templates.management],
-      ["feedback-managerial",   "Donner et recevoir du feedback utile", "Managers",       "Installer des échanges réguliers, factuels et mobilisables sans créer de posture défensive.", templates.management],
-      ["manager-engageant-tbf", "Êtes-vous un manager engageant ?",     "Managers",       "Questionner sa posture d'engagement, de responsabilisation et de soutien au collectif.",     templates.management, BADGES.TBF],
-      ["pilotage-projet",       "Contribuer efficacement à un projet",  "Collaborateurs", "Clarifier les rôles, gérer les imprévus et coopérer dans un cadre mouvant.",                  templates.management]
+      ["changement-reflexes",        "Changer sans se crisper",                             "Tous publics",          "Comprendre ses réflexes face aux changements de méthode, d'outil ou d'organisation.",                              templates.management],
+      ["feedback-managerial",        "Donner et recevoir du feedback utile",                "Managers",              "Installer des échanges réguliers, factuels et mobilisables sans créer de posture défensive.",                      templates.management],
+      ["manager-engageant-tbf",      "Êtes-vous un manager engageant ?",                   "Managers",              "Questionner sa posture d'engagement, de responsabilisation et de soutien au collectif.",                          templates.management, BADGES.TBF],
+      ["pilotage-projet",            "Contribuer efficacement à un projet",                "Collaborateurs",        "Clarifier les rôles, gérer les imprévus et coopérer dans un cadre mouvant.",                                      templates.management],
+      ["conduite-changement",        "Accompagner son équipe dans la transformation",       "Managers",              "Comprendre les résistances, relayer les décisions et ancrer les nouvelles pratiques dans la durée.",                templates.mgmtChangement],
+      ["responsabilisation-equipe",  "Responsabiliser sans contrôler",                     "Managers",              "Déléguer avec confiance, développer l'autonomie de décision et valoriser l'initiative sans créer de dépendance.",  templates.mgmtResponsabilisation],
+      ["collaboration-interequipes", "Coopérer avec les autres équipes",                   "Tous publics",          "Identifier les frictions interéquipes, gérer les dépendances et dépasser les logiques de silos.",                  templates.mgmtCollaboration],
+      ["transformation-digitale",    "S'adapter aux nouveaux outils et méthodes",          "Tous publics",          "Trouver sa posture face aux transformations numériques, accompagner les moins à l'aise et questionner les usages.", templates.mgmtDigital],
+      ["arbitrage-priorisation",     "Prioriser et arbitrer quand tout est urgent",         "Managers / Encadrants", "Hiérarchiser les demandes, gérer les injonctions contradictoires et tenir ses arbitrages dans la durée.",           templates.mgmtArbitrage]
     ]],
     ["environnement", "RSE — environnement", "🌍", [
       ["sobriete-quotidien",     "Sobriété environnementale au quotidien",         "Tous publics",    "Identifier ses arbitrages concrets sur l'énergie, les déplacements, les achats et les usages.", templates.environnement],
