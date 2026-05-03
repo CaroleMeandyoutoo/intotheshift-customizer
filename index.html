@@ -28,6 +28,9 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;color:#18375d}
 .filters-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
 @media(max-width:900px){.badges-grid{grid-template-columns:1fr 1fr}.library-hero{flex-direction:column}}
 @media(max-width:560px){.badges-grid{grid-template-columns:1fr}.badge-item{grid-template-columns:1fr}.badges-card .tag{width:max-content;min-width:118px}}
+.modal-panel{position:relative}
+.modal-close{position:absolute;top:12px;right:14px;width:32px;height:32px;border:1px solid #d8e0ea;border-radius:8px;background:#fff;font-size:18px;font-weight:700;color:#64748b;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5}
+.modal-close:hover{background:#f0f2f5;color:#18375d}
 </style>
 </head>
 <body>
@@ -77,7 +80,7 @@ body{font-family:'Asap',sans-serif;background:#f4f6f9;color:#18375d}
 
 <div class="modal-overlay" id="previewModal">
   <div class="modal-panel" style="background:#fff">
-    <button class="close-x" onclick="closePreview()">Fermer l’aperçu</button>
+    <button class="modal-close" onclick="closePreview()">×</button>
     <div style="padding:28px" id="previewContent"></div>
   </div>
 </div>
@@ -168,6 +171,10 @@ function useAd(id){
   itsStartFromCatalogue(id);
   window.location.href = "questions.html";
 }
+
+document.getElementById("previewModal").addEventListener("click", function(e){
+  if(e.target === this) closePreview();
+});
 
 renderFilters();
 renderCatalogue();
